@@ -1,4 +1,4 @@
-package BookStore.JPA;
+package com.bookstore.jpa.book;
 
 import org.springframework.data.repository.CrudRepository;
 
