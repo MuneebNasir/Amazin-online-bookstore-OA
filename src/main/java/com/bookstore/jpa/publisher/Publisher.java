@@ -1,7 +1,7 @@
-package BookStore.JPA;
+package com.bookstore.jpa.publisher;
 
 import javax.persistence.*;
-import java.util.Collection;
+
 
 @Entity
 public class Publisher {

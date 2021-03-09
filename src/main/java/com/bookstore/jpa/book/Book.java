@@ -1,4 +1,7 @@
-package BookStore.JPA;
+package com.bookstore.jpa.book;
+
+import com.bookstore.jpa.author.Author;
+import com.bookstore.jpa.publisher.Publisher;
 
 import javax.persistence.*;
 import java.util.Collection;
