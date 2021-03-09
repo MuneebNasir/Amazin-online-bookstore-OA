@@ -2,7 +2,6 @@ package com.bookstore.controller.publisher;
 import com.bookstore.jpa.book.BookRepository;
 import com.bookstore.jpa.publisher.Publisher;
 import com.bookstore.jpa.publisher.PublisherRepository;
-import BookStore.Utils.RequestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,8 +78,6 @@ public class PublisherController {
                                                      @PathVariable("id") long id) {
 
         Publisher tempPublisher = publisherRepo.findById(id);
-        System.out.println("======================");
-        System.out.println(tempPublisher.getName());
         if (tempPublisher == null){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
