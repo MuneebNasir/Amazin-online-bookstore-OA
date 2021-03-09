@@ -8,7 +8,7 @@ public class Publisher {
 
     @Id
     @GeneratedValue(generator = "publisher", strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String name;
     private String location;
@@ -20,6 +20,14 @@ public class Publisher {
     public Publisher(String name, String location) {
         this.name = name;
         this.location = location;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
