@@ -1,5 +1,4 @@
 package com.bookstore.controller.publisher;
-import com.bookstore.jpa.book.BookRepository;
 import com.bookstore.jpa.publisher.Publisher;
 import com.bookstore.jpa.publisher.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,6 @@ import java.util.Collection;
 public class PublisherController {
 
     @Autowired
-    private BookRepository repository;
-
-    @Autowired
     private PublisherRepository publisherRepo;
 
     /**
@@ -33,7 +29,7 @@ public class PublisherController {
      * @return Thymeleaf Page
      */
     @GetMapping(path = "/AmazinBookStore-publishers")
-    public String addressBookView(Model model) {
+    public String publishersView(Model model) {
 
         Collection<Publisher> publishers = publisherRepo.findAll();
         model.addAttribute("allPublishers", publishers);
@@ -55,7 +51,7 @@ public class PublisherController {
 
     @GetMapping(path = "/AmazinBookStore-AllIDs", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Collection> all() {
+    public ResponseEntity<Collection> retrieveAllPublisherIDs() {
         ArrayList publisherCollection = new ArrayList<>();
         for (Publisher pub: publisherRepo.findAll()){
             publisherCollection.add(pub.getId());
@@ -66,20 +62,20 @@ public class PublisherController {
 
     @GetMapping(path = "/AmazinBookStore-publishersViewAll", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Collection> addressBooksViewAll() {
+    public ResponseEntity<Collection> retrieveAllPublisherDetails() {
 
         Collection<Publisher> publishers = publisherRepo.findAll();
         return new ResponseEntity<>(publishers, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/AmazinBookStore-updatePublisher/{id}", consumes = "application/json")
+    @PutMapping(path = "/AmazinBookStore-updatePublisher/{id}", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<Publisher> updatePublisher(@RequestBody Publisher publisher,
                                                      @PathVariable("id") long id) {
 
         Publisher tempPublisher = publisherRepo.findById(id);
         if (tempPublisher == null){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         if (!publisher.getName().isEmpty() || !publisher.getLocation().isEmpty()){
 
@@ -104,7 +100,7 @@ public class PublisherController {
     ResponseEntity<HttpStatus> removePublisher(@RequestParam(name = "id") Long id) {
 
         publisherRepo.deleteById(id);
-        return new ResponseEntity<HttpStatus>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }

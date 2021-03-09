@@ -73,7 +73,7 @@ public class PublisherControllerTest {
         // Updating Existing Entry Location
         publisher.setLocation("NYC");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-updatePublisher/{id}",1)
+                .put("/AmazinBookStore-updatePublisher/{id}",1)
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -91,7 +91,7 @@ public class PublisherControllerTest {
         // Updating Existing Entry Name
         publisher.setName("Nasir");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-updatePublisher/{id}",1)
+                .put("/AmazinBookStore-updatePublisher/{id}",1)
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -109,7 +109,7 @@ public class PublisherControllerTest {
     }
 
     @Test
-    public void testDeleteAddressBookBuddy() throws Exception
+    public void testRemovePublisher() throws Exception
     {
         Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
