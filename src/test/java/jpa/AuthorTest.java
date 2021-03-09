@@ -1,4 +1,4 @@
-package JPA;
+package jpa;
 
 import com.bookstore.jpa.author.Author;
 import org.junit.jupiter.api.BeforeEach;
