@@ -48,14 +48,39 @@
 
 ## About
 
+Our project aims to deliver a functioning bookstore, AmazinBookStore! Similar to early versions of Amazon, AmazinBookStore will allow publishers to sell their books on our online platform. Users will be able to log into our online service, make purchases on books that they desire, and, will be recommed further books to purchase, based on their previous buying-experience. 
+
 ## Features
+
+It is our goal to ensure that AmazinBookStore is a modern web application, built with SaaS ideals in mind, and will feel responsive to the end-user. Using the concept of an SPA (Single-Page-Application), the end user will feel as if they are using a fully native application, while still being in their  browser!
+
+For the backend of our application, we will use Java Spring to deliver an enterprise-ready server, that will be responsive, modular, and upgradeable for the foreseeable future. For the front-end of our application, we are intending to use Facebook's solution to deal with Javascript and state, by using ReactJS to deliver our webpages. This will future-proof our frontend design, with a modern framework.  
 
 ## Project Backlog
 
+- Fully integrate ReactJS into our Java Spring backend 
+- Wireframe out our site-design
+- Fully test our backend capabilities, both in authentication of our users, and in the CRUD abilities that we offer in regards to publishing, and buying, books
+- Have full performance metrics between our server and our frontend, as well as front-facing user-responsiveness of the application
+- Implement a custom Jaccard-Distance algorithm, to ensure that we can accurately recommend book suggestions to our end-users, increasing the sales that we can make through our online platform 
+- Complete a customer cart, complete with purchasing options, for our customers 
+
 ### Future Plan
 
+Our future plan is broken up into sections of core functionality: 
+  1. Backend capabilities 
+  2. Frontend capabilities
+  3. User functionality
+  4. Full backend testing
+
 ### Kanban
-Use GitHub Projects (“Projects” tab in your GitHub repo) to create a “Kanban” style view of your Issues, with columns dedicated to “backlog”, “in progress”, “completed”. The README.md file onGithub should summarize the current state of the project as per the Kanban, and include a plan for the next sprint.
+ | Titles        | Description   | 
+| ------------- |:-------------:| 
+| Backlog      | Issues or bugs that have not been assigned or worked on | 
+| In Progress     | The issue or bug is being worked on      |  
+| Review In Progress | The assignee is requesting contributors to review their work     | 
+| Review Approved | The issue or bug has been approved and the assignee needs to merge their branch to the master branch     | 
+| Completed | The issue or bug task is fully complete, reviewed and merged to the master.    | 
 
 ### Database Schema
 It should also include the up-to-date schema of the database2
