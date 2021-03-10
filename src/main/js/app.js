@@ -8,7 +8,6 @@ const ReactDOM = require('react-dom');
 const axios = require('axios');
 
 class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {books: []};
