@@ -8,9 +8,6 @@ We welcome contributors! Any contributors working on Amazin will be easy-going a
 - Maintaining the environment of the system
 - much more...
 
-## Using Consistent Coding Style
-
-
 ## License and Contribution
 Any submissions towards this project are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/).
 

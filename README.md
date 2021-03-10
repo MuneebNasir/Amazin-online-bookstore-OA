@@ -74,22 +74,22 @@ Our future plan is broken up into sections of core functionality:
   4. Full backend testing
 
 ### Kanban
+In our Kanban, we have few columns representing our stages for completing backlog tasks for Amazin, the columns are the following;
+
  | Titles        | Description   | 
 | ------------- |:-------------:| 
 | Backlog      | Issues or bugs that have not been assigned or worked on | 
-| In Progress     | The issue or bug is being worked on      |  
+| In Progress     | The issue or bug is assigned to a contributer and is being worked on      |  
 | Review In Progress | The assignee is requesting contributors to review their work     | 
-| Review Approved | The issue or bug has been approved and the assignee needs to merge their branch to the master branch     | 
+| Review Approved | The issue or bug has been approved and the assignee can merge their branch to the master branch     | 
 | Completed | The issue or bug task is fully complete, reviewed and merged to the master.    | 
 
-### Database Schema
-It should also include the up-to-date schema of the database2
 
-## Contributing
 
-### Wiki
+#### Wiki
+Please visit our [Wiki](https://github.com/MuneebNasir/Amazin-online-bookstore-OA/wiki) for more information about the project and how to contribute.
 
-### License
-
+#### License
+This project is under the [MIT License](https://github.com/MuneebNasir/Amazin-online-bookstore-OA/blob/master/LICENSE).
 
 
