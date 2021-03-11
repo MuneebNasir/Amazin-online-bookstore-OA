@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Muneeb Nasir
  * @version 4806.1
  */
+@TestPropertySource(locations = "classpath:test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class PublisherControllerTest {
@@ -28,61 +30,98 @@ public class PublisherControllerTest {
     public void testGetPublisherByID() throws Exception
     {
         publisherController.perform( MockMvcRequestBuilders
-                .get("/AmazinBookStore-publisher/{id}", 1)
+                .get("/api/publisher/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetAllPublisherByID() throws Exception
+    {
+        Publisher publisher = new Publisher("Jay", "Ottawa");
+        publisherController.perform(MockMvcRequestBuilders
+                .post("/api/addNewPublisher")
+                .content(asJsonString(publisher))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        Publisher publisher2 = new Publisher("Trump", "NYC");
+        publisherController.perform(MockMvcRequestBuilders
+                .post("/api/addNewPublisher")
+                .content(asJsonString(publisher2))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        Publisher publisher3 = new Publisher("Muneeb", "LA");
+        publisherController.perform(MockMvcRequestBuilders
+                .post("/api/addNewPublisher")
+                .content(asJsonString(publisher3))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        publisherController.perform( MockMvcRequestBuilders
+                .get("/api/retrieveAllPublisherIDs")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
     }
 
     @Test
     public void testEmptyNewPublisher() throws Exception {
         Publisher publisher = new Publisher();
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
     }
 
     @Test
     public void testAddingNewPublisher() throws Exception {
         Publisher publisher = new Publisher("Jay", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
     }
 
 
     @Test
-    public void testUpdatePublisherInfo() throws Exception
+    public void testUpdateModifyPublisherInfo() throws Exception
     {
         Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
 
         // Updating Existing Entry Location
         publisher.setLocation("NYC");
         publisherController.perform(MockMvcRequestBuilders
-                .put("/AmazinBookStore-updatePublisher/{id}",1)
+                .put("/api/updatePublisher/{id}",1)
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         // Confirming the Location Change Has Been Updated
         publisherController.perform( MockMvcRequestBuilders
-                .get("/AmazinBookStore-publisher/{id}", 1)
+                .get("/api/publisher/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location").value("NYC"))
@@ -91,16 +130,16 @@ public class PublisherControllerTest {
         // Updating Existing Entry Name
         publisher.setName("Nasir");
         publisherController.perform(MockMvcRequestBuilders
-                .put("/AmazinBookStore-updatePublisher/{id}",1)
+                .put("/api/updatePublisher/{id}",1)
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         // Confirming the Location Change Has Been Updated
         publisherController.perform( MockMvcRequestBuilders
-                .get("/AmazinBookStore-publisher/{id}", 1)
+                .get("/api/publisher/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location").value("NYC"))
@@ -113,68 +152,63 @@ public class PublisherControllerTest {
     {
         Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
 
         Publisher publisher2 = new Publisher("Ahmed", "Toronto");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
 
         publisherController.perform(
-                MockMvcRequestBuilders.delete("/AmazinBookStore-removePublisher")
+                MockMvcRequestBuilders.delete("/api/removePublisher")
                         .param("id", "2"))
                 .andExpect(status().isAccepted());
 
         // GET REQUEST to ensure the specified friend is deleted
         publisherController.perform( MockMvcRequestBuilders
-                .get("/AmazinBookStore-publisher/{id}", 2)
+                .get("/api/publisher/{id}", 2)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist());
     }
 
     @Test
-    public void testGetAllPublishers() throws Exception
+    public void testGetAllPublishersDetails() throws Exception
     {
         //Adding new publishers
         Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
 
         Publisher publisher2 = new Publisher("Ahmed", "Toronto");
         publisherController.perform(MockMvcRequestBuilders
-                .post("/AmazinBookStore-addNewPublisher")
+                .post("/api/addNewPublisher")
                 .content(asJsonString(publisher2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
 
         publisherController.perform( MockMvcRequestBuilders
-                .get("/AmazinBookStore-AllIDs")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
-
-        publisherController.perform( MockMvcRequestBuilders
-                .get("/AmazinBookStore-publishersViewAll")
+                .get("/api/publishersViewAll")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[*].name").exists());
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*].name").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*].location").exists());
     }
 
     public static String asJsonString(final Object obj) {

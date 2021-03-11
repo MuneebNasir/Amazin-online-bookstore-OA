@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -25,10 +24,10 @@ public class PublisherController {
 
     /**
      * Getter for all publishers in the Database
-     * @param model
+     * @param model, Model Attribute
      * @return Thymeleaf Page
      */
-    @GetMapping(path = "/AmazinBookStore-publishers")
+    @GetMapping(path = "/api/publishers")
     public String publishersView(Model model) {
 
         Collection<Publisher> publishers = publisherRepo.findAll();
@@ -36,20 +35,26 @@ public class PublisherController {
 
         // Empty Publisher Object - namespace
         model.addAttribute("newPublisher", new Publisher());
-        return "AmazinBookStore-publishers";
+        return "publishers";
     }
 
-    @PostMapping(path = "/AmazinBookStore-addNewPublisher", consumes = "application/json")
+    /**
+     * Adding new publisher entity
+     */
+    @PostMapping(path = "/api/addNewPublisher", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<HttpStatus> addNewPublisher(@RequestBody Publisher publisher) {
 
         Publisher newPublisher = new Publisher(publisher.getName(), publisher.getLocation());
         publisherRepo.save(newPublisher);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping(path = "/AmazinBookStore-AllIDs", produces = "application/json")
+    /**
+     * Getter for Publisher IDs
+     */
+    @GetMapping(path = "/api/retrieveAllPublisherIDs", produces = "application/json")
     @ResponseBody
     public ResponseEntity<Collection> retrieveAllPublisherIDs() {
         ArrayList publisherCollection = new ArrayList<>();
@@ -60,7 +65,10 @@ public class PublisherController {
         return new ResponseEntity<>(publisherCollection, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/AmazinBookStore-publishersViewAll", produces = "application/json")
+    /**
+     * Getter for Publishers
+     */
+    @GetMapping(path = "/api/publishersViewAll", produces = "application/json")
     @ResponseBody
     public ResponseEntity<Collection> retrieveAllPublisherDetails() {
 
@@ -68,7 +76,10 @@ public class PublisherController {
         return new ResponseEntity<>(publishers, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/AmazinBookStore-updatePublisher/{id}", consumes = "application/json")
+    /**
+     * Post for updating publisher entities
+     */
+    @PutMapping(path = "/api/updatePublisher/{id}", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<Publisher> updatePublisher(@RequestBody Publisher publisher,
                                                      @PathVariable("id") long id) {
@@ -85,17 +96,23 @@ public class PublisherController {
         }
         publisherRepo.save(tempPublisher);
 
-        return new ResponseEntity<>(tempPublisher, HttpStatus.OK);
+        return new ResponseEntity<>(tempPublisher, HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/AmazinBookStore-publisher/{id}")
+    /**
+     * Getter for Publisher with specified ID
+     */
+    @GetMapping(path = "/api/publisher/{id}")
     @ResponseBody
     ResponseEntity<Publisher> getById(@PathVariable("id") long id) {
 
         return new ResponseEntity<>(publisherRepo.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/AmazinBookStore-removePublisher")
+    /**
+     * Removing publisher entity
+     */
+    @DeleteMapping(path = "/api/removePublisher")
     @ResponseBody
     ResponseEntity<HttpStatus> removePublisher(@RequestParam(name = "id") Long id) {
 
