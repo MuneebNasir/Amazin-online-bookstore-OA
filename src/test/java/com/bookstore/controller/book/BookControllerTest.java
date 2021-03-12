@@ -21,229 +21,222 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-@Ignore
 public class BookControllerTest {
 
-//    @Autowired
-//    private MockMvc bookController;
-//
-//    @Test
-//    public void testGetBookByID() throws Exception
-//    {
-//        bookController.perform( MockMvcRequestBuilders
-//                .get("/api/book/{id}", 1)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void testEmptyNewBook() throws Exception {
-//        try{
-//            Book book = new Book();
-//            bookController.perform(MockMvcRequestBuilders
-//                    .post("/api/addNewBook")
-//                    .content(asJsonString(book))
-//                    .contentType(MediaType.APPLICATION_JSON)
-//                    .accept(MediaType.APPLICATION_JSON))
-//                    .andDo(print())
-//                    .andExpect(status().isAccepted());
-//        }catch (Exception e){
-//            Assert.assertTrue("Exception Accepted",e instanceof RuntimeException);
-//        }
-//
-//    }
-//
-//    @Test
-//    public void testAddingNewBook() throws Exception {
-//        Book book = new Book(
-//                "Lord of the Rings",
-//                "Bretty Gud",
-//                "/shiggydiggy/",
-//                1992,
-//                "ABC",
-//                Format.PAPERBACK,
-//                420.69,
-//                12,
-//                8008.5);
-//        bookController.perform(MockMvcRequestBuilders
-//                .post("/api/addNewBook")
-//                .content(asJsonString(book))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isAccepted());
-//    }
-//
-//
-//    @Test
-//    public void testUpdateBookInfo() throws Exception
-//    {
-//        Book book = new Book(
-//                "Lord of the Rings",
-//                "Bretty Gud",
-//                "/shiggydiggy/",
-//                1992,
-//                "ABC",
-//                Format.PAPERBACK,
-//                420.69,
-//                12,
-//                8008.5);
-//        bookController.perform(MockMvcRequestBuilders
-//                .post("/api/addNewBook")
-//                .content(asJsonString(book))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isAccepted());
-//
-//        // Updating Existing Book Description
-//        book.setDescription("This is a deadly book");
-//        bookController.perform(MockMvcRequestBuilders
-//                .put("/api/updateBook/{id}",1)
-//                .content(asJsonString(book))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isCreated());
-//
-//        // Confirming the Description Has Been Updated
-//        bookController.perform( MockMvcRequestBuilders
-//                .get("/api/book/{id}", 1)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("This is a deadly book"))
-//                .andExpect(status().isOk());
-//
-//        // Updating Existing Title
-//        book.setTitle("Some Body");
-//        bookController.perform(MockMvcRequestBuilders
-//                .put("/api/updateBook/{id}",1)
-//                .content(asJsonString(book))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isCreated());
-//
-//        // Confirming the Title Has Been Updated
-//        bookController.perform( MockMvcRequestBuilders
-//                .get("/api/book/{id}", 1)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("This is a deadly book"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Some Body"))
-//                .andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void testRemoveBook() throws Exception
-//    {
-//        Book book = new Book(
-//                "Lord of the Rings",
-//                "Bretty Gud",
-//                "/shiggydiggy/",
-//                1992,
-//                "ABC",
-//                Format.PAPERBACK,
-//                420.69,
-//                12,
-//                8008.5);
-//        bookController.perform(MockMvcRequestBuilders
-//                .post("/api/addNewBook")
-//                .content(asJsonString(book))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isAccepted());
-//
-//        Book book2 = new Book(
-//                "My Fair Lady",
-//                "Bretty Bad",
-//                "/shiggydiggy/",
-//                132,
-//                "ABC",
-//                Format.PAPERBACK,
-//                420.69,
-//                12,
-//                8008.5);
-//        bookController.perform(MockMvcRequestBuilders
-//                .post("/api/addNewBook")
-//                .content(asJsonString(book2))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isAccepted());
-//
-//        bookController.perform(
-//                MockMvcRequestBuilders.delete("/api/removeBook")
-//                        .param("id", "2"))
-//                .andExpect(status().isAccepted());
-//
-//        // GET REQUEST to ensure the specified book is deleted
-//        bookController.perform( MockMvcRequestBuilders
-//                .get("/api/book/{id}", 2)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist());
-//    }
-//
-//    @Test
-//    public void testGetAllBooks() throws Exception
-//    {
-//        //Adding new books
-//        Book book = new Book(
-//                "Lord of the Rings",
-//                "Bretty Gud",
-//                "/shiggydiggy/",
-//                1992,
-//                "ABC",
-//                Format.PAPERBACK,
-//                420.69,
-//                12,
-//                8008.5);
-//        bookController.perform(MockMvcRequestBuilders
-//                .post("/api/addNewBook")
-//                .content(asJsonString(book))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isAccepted());
-//
-//        Book book2 = new Book(
-//                "My Fair Lady",
-//                "Bretty Bad",
-//                "/shiggydiggy/",
-//                132,
-//                "ABC",
-//                Format.PAPERBACK,
-//                420.69,
-//                12,
-//                8008.5);
-//        bookController.perform(MockMvcRequestBuilders
-//                .post("/api/addNewBook")
-//                .content(asJsonString(book2))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isAccepted());
-//
-//        bookController.perform( MockMvcRequestBuilders
-//                .get("/api/allBookIDs")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
-//
-//        bookController.perform( MockMvcRequestBuilders
-//                .get("/api/booksViewAll")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[*].id").exists())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[*].title").exists());
-//    }
-//
-//    public static String asJsonString(final Object obj) {
-//        try {
-//            return new ObjectMapper().writeValueAsString(obj);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @Autowired
+    private MockMvc bookController;
+
+    @Test
+    public void testGetBookByID() throws Exception
+    {
+        bookController.perform( MockMvcRequestBuilders
+                .get("/api/book/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testEmptyNewBook() throws Exception {
+        try{
+            Book book = new Book();
+            bookController.perform(MockMvcRequestBuilders
+                    .post("/api/addNewBook")
+                    .content(asJsonString(book))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andDo(print())
+                    .andExpect(status().isAccepted());
+        }catch (Exception e){
+            Assert.assertTrue("Exception Accepted",e instanceof RuntimeException);
+        }
+
+    }
+
+    @Test
+    public void testAddingNewBook() throws Exception {
+        Book book = new Book(
+                "Lord of the Rings",
+                "Bretty Gud",
+                "/shiggydiggy/",
+                1992,
+                "ABC",
+                420.69,
+                12,
+                8008.5);
+        bookController.perform(MockMvcRequestBuilders
+                .post("/api/addNewBook")
+                .content(asJsonString(book))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+    }
+
+
+    @Test
+    public void testUpdateBookInfo() throws Exception
+    {
+        Book book = new Book(
+                "Lord of the Rings",
+                "Bretty Gud",
+                "/shiggydiggy/",
+                1992,
+                "ABC",
+                420.69,
+                12,
+                8008.5);
+        bookController.perform(MockMvcRequestBuilders
+                .post("/api/addNewBook")
+                .content(asJsonString(book))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        // Updating Existing Book Description
+        book.setDescription("This is a deadly book");
+        bookController.perform(MockMvcRequestBuilders
+                .put("/api/updateBook/{id}",1)
+                .content(asJsonString(book))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated());
+
+        // Confirming the Description Has Been Updated
+        bookController.perform( MockMvcRequestBuilders
+                .get("/api/book/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("This is a deadly book"))
+                .andExpect(status().isOk());
+
+        // Updating Existing Title
+        book.setTitle("Some Body");
+        bookController.perform(MockMvcRequestBuilders
+                .put("/api/updateBook/{id}",1)
+                .content(asJsonString(book))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated());
+
+        // Confirming the Title Has Been Updated
+        bookController.perform( MockMvcRequestBuilders
+                .get("/api/book/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("This is a deadly book"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Some Body"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testRemoveBook() throws Exception
+    {
+        Book book = new Book(
+                "Lord of the Rings",
+                "Bretty Gud",
+                "/shiggydiggy/",
+                1992,
+                "ABC",
+                420.69,
+                12,
+                8008.5);
+        bookController.perform(MockMvcRequestBuilders
+                .post("/api/addNewBook")
+                .content(asJsonString(book))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        Book book2 = new Book(
+                "My Fair Lady",
+                "Bretty Bad",
+                "/shiggydiggy/",
+                132,
+                "ABC",
+                420.69,
+                12,
+                8008.5);
+        bookController.perform(MockMvcRequestBuilders
+                .post("/api/addNewBook")
+                .content(asJsonString(book2))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        bookController.perform(
+                MockMvcRequestBuilders.delete("/api/removeBook")
+                        .param("id", "2"))
+                .andExpect(status().isAccepted());
+
+        // GET REQUEST to ensure the specified book is deleted
+        bookController.perform( MockMvcRequestBuilders
+                .get("/api/book/{id}", 2)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist());
+    }
+
+    @Test
+    public void testGetAllBooks() throws Exception
+    {
+        //Adding new books
+        Book book = new Book(
+                "Lord of the Rings",
+                "Bretty Gud",
+                "/shiggydiggy/",
+                1992,
+                "ABC",
+                420.69,
+                12,
+                8008.5);
+        bookController.perform(MockMvcRequestBuilders
+                .post("/api/addNewBook")
+                .content(asJsonString(book))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        Book book2 = new Book(
+                "My Fair Lady",
+                "Bretty Bad",
+                "/shiggydiggy/",
+                132,
+                "ABC",
+                420.69,
+                12,
+                8008.5);
+        bookController.perform(MockMvcRequestBuilders
+                .post("/api/addNewBook")
+                .content(asJsonString(book2))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+
+        bookController.perform( MockMvcRequestBuilders
+                .get("/api/allBookIDs")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
+
+        bookController.perform( MockMvcRequestBuilders
+                .get("/api/booksViewAll")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*].id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*].title").exists());
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
