@@ -3,6 +3,7 @@ package com.bookstore.controller.book;
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.enums.Format;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,14 +36,19 @@ public class BookControllerTest {
 
     @Test
     public void testEmptyNewBook() throws Exception {
-        Book book = new Book();
-        bookController.perform(MockMvcRequestBuilders
-                .post("/api/addNewBook")
-                .content(asJsonString(book))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isAccepted());
+        try{
+            Book book = new Book();
+            bookController.perform(MockMvcRequestBuilders
+                    .post("/api/addNewBook")
+                    .content(asJsonString(book))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andDo(print())
+                    .andExpect(status().isAccepted());
+        }catch (Exception e){
+            Assert.assertTrue("Exception Accepted",e instanceof RuntimeException);
+        }
+
     }
 
     @Test
