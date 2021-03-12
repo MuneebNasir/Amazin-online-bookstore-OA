@@ -86,11 +86,11 @@ In our Kanban, we have few columns representing our stages for completing backlo
 
 ### Class Diagram 
 
-[Image of Class Diagram](https://github.com/MuneebNasir/Amazin-online-bookstore-OA/blob/c72e1b433adef34a49e49a962f03d9d13299a3f3/doc/ClassDiagram/UML-Diagram.png?raw=true)
+[Image of Class Diagram](https://raw.githubusercontent.com/MuneebNasir/Amazin-online-bookstore-OA/c72e1b433adef34a49e49a962f03d9d13299a3f3/doc/ClassDiagram/UML-Diagram.png)
 
 ### Database Schema
 
-[Image of Class Diagram](https://github.com/MuneebNasir/Amazin-online-bookstore-OA/blob/c72e1b433adef34a49e49a962f03d9d13299a3f3/doc/DB/BookStore.png?raw=true)
+[Image of Class Diagram](https://raw.githubusercontent.com/MuneebNasir/Amazin-online-bookstore-OA/c72e1b433adef34a49e49a962f03d9d13299a3f3/doc/DB/BookStore.png)
 
 #### Wiki
 Please visit our [Wiki](https://github.com/MuneebNasir/Amazin-online-bookstore-OA/wiki) for more information about the project and how to contribute.
