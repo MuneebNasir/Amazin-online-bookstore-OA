@@ -4,6 +4,7 @@ import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.enums.Format;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -59,7 +60,6 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -82,7 +82,6 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -141,7 +140,6 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -159,7 +157,6 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 132,
                 "ABC",
-                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -193,7 +190,6 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -211,7 +207,6 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 132,
                 "ABC",
-                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);

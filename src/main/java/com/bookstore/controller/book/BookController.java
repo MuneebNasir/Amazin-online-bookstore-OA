@@ -66,7 +66,7 @@ public class BookController {
                 book.getImageURL(),
                 book.getPublicationYear(),
                 book.getISBN(),
-                Format.valueOf(book.getFormat()),
+               // Format.valueOf(book.getFormat()),
                 book.getPrice(),
                 book.getStockCount(),
                 book.getRating()
@@ -93,7 +93,7 @@ public class BookController {
                 !book.getImageURL().isEmpty() ||
                 !book.getPublicationYear().toString().isEmpty() ||
                 !book.getISBN().isEmpty() ||
-                !book.getFormat().isEmpty() ||
+                //!book.getFormat().isEmpty() ||
                 !book.getPrice().toString().isEmpty() ||
                 !book.getStockCount().toString().isEmpty() ||
                 !book.getRating().toString().isEmpty()
@@ -104,7 +104,7 @@ public class BookController {
             tempBook.setImageURL(book.getImageURL());
             tempBook.setPublicationYear(book.getPublicationYear());
             tempBook.setISBN(book.getISBN());
-            tempBook.setFormat(Format.valueOf(book.getFormat()));
+           // tempBook.setFormat(Format.valueOf(book.getFormat()));
             tempBook.setPrice(book.getPrice());
             tempBook.setStockCount(book.getStockCount());
             tempBook.setRating(book.getRating());

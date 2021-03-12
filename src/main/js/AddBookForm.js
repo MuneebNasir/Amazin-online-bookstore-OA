@@ -37,28 +37,28 @@ let LayoutTextFields = () => {
 
     let handleAddBookClick = event => {
         let book = {
-            title: title,
-            description: description,
-            imageUrl: imageUrl,
-            publicationYear: publicationYear,
-            format: format,
-            price: price,
-            stockCount: stockCount,
-            rating: rating,
-            isbn: isbn,
+            "title": title,
+            "description": description,
+            "imageURL": imageUrl,
+            "publicationYear": publicationYear,
+            "format": format,
+            "price": price,
+            "stockCount": stockCount,
+            "rating": rating,
+            "isbn": isbn,
         }
 
-        console.log("======================")
-        console.log("Book to add:")
-        console.log(book);
-        console.log("======================")
-
-        axios
-            .post(`/api/AmazinBookStore-addNewBook`)
-            .then(res => {
-                console.log(res);
-            })
+        axios({
+            method: "post",
+            contentType: "application/json",
+            url: "/api/addNewBook",
+            data:  JSON.stringify(book),
+            headers: { "Content-Type": "application/json" },
+        }).then(res => {
+            console.log(res);
+        })
     }
+
 
     return (
         <div className={classes.root}>
@@ -71,7 +71,6 @@ let LayoutTextFields = () => {
                 <CardContent>
                     <TextField
                         id="standard-full-width"
-                        label="Title of book to add"
                         style={{ margin: 8 }}
                         placeholder="Book Title"
                         helperText="Title of book to add"

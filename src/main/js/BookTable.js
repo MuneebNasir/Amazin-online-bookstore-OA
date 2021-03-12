@@ -32,6 +32,7 @@ let BookTable = (props) => {
             <Table className={classes.table} aria-label="simple book table">
                 <TableHead>
                     <TableRow>
+                        <TableCell align="left">Book ID</TableCell>
                         <TableCell>Book Title</TableCell>
                         <TableCell align="right">Description</TableCell>
                         <TableCell align="right">Image URL</TableCell>
@@ -46,6 +47,7 @@ let BookTable = (props) => {
                 <TableBody>
                     {props.books.map((row) => (
                         <TableRow key={row.title}>
+                            <TableCell align="left">{row.id}</TableCell>
                             <TableCell component="th" scope="row">
                                 {row.title}
                             </TableCell>

@@ -1,7 +1,6 @@
 package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
-import com.bookstore.jpa.enums.Format;
 import com.bookstore.jpa.publisher.Publisher;
 
 import javax.persistence.*;
@@ -31,11 +30,6 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
 
-    @Enumerated(EnumType.STRING)
-    private Format format;
-
-//    private Long genreID;
-
     public Book() {
 
     }
@@ -45,13 +39,14 @@ public class Book {
         this.description = description;
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Format format, Double price, Integer stockCount, Double rating) {
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
-        this.format = format;
+        // DON'T MAKE THIS AN ENUM WITHOUT UPDATING THE FRONTEND WITH A DROPDOWN
+        //this.format = format;
         this.price = price;
         this.stockCount = stockCount;
         this.rating = rating;
@@ -95,14 +90,6 @@ public class Book {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
-    }
-
-    public String getFormat() {
-        return format.toString();
-    }
-
-    public void setFormat(Format format) {
-        this.format = format;
     }
 
     public Double getPrice() {
