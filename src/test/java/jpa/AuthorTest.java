@@ -21,38 +21,38 @@ public class AuthorTest {
 
     @Test
     public void getters() {
-        assertEquals("Matt", a1.getfName());
-        assertEquals("Sheer", a1.getlName());
-        assertEquals("James", a2.getfName());
-        assertEquals("Dean", a2.getlName());
+        assertEquals("Matt", a1.getFirstName());
+        assertEquals("Sheer", a1.getLastName());
+        assertEquals("James", a2.getFirstName());
+        assertEquals("Dean", a2.getLastName());
 
-        assertNotEquals("Matt", a1.getlName());
-        assertNotEquals("Dean", a1.getlName());
-        assertNotEquals("James", a2.getlName());
-        assertNotEquals("Sheer", a2.getlName());
+        assertNotEquals("Matt", a1.getLastName());
+        assertNotEquals("Dean", a1.getLastName());
+        assertNotEquals("James", a2.getLastName());
+        assertNotEquals("Sheer", a2.getLastName());
 
-        assertNotEquals("Matt", a1.getlName());
-        assertNotEquals("Dean", a1.getlName());
-        assertNotEquals("James", a2.getlName());
-        assertNotEquals("Sheer", a2.getlName());
+        assertNotEquals("Matt", a1.getLastName());
+        assertNotEquals("Dean", a1.getLastName());
+        assertNotEquals("James", a2.getLastName());
+        assertNotEquals("Sheer", a2.getLastName());
     }
 
     @Test
     public void setters() {
-        a1.setfName("Mike");
-        assertEquals("Mike", a1.getfName());
-        assertNotEquals("Matt", a1.getfName());
+        a1.setFirstName("Mike");
+        assertEquals("Mike", a1.getFirstName());
+        assertNotEquals("Matt", a1.getFirstName());
 
-        a2.setlName("Dawn");
-        assertEquals("Dawn", a2.getlName());
-        assertNotEquals("Dean", a2.getlName());
+        a2.setLastName("Dawn");
+        assertEquals("Dawn", a2.getLastName());
+        assertNotEquals("Dean", a2.getLastName());
 
-        a3.setfName("Bart");
-        assertEquals("Bart", a3.getfName());
-        assertNotEquals(null, a3.getfName());
+        a3.setFirstName("Bart");
+        assertEquals("Bart", a3.getFirstName());
+        assertNotEquals(null, a3.getFirstName());
 
-        a3.setlName("Kernel");
-        assertEquals("Kernel", a3.getlName());
-        assertNotEquals(null, a3.getlName());
+        a3.setLastName("Kernel");
+        assertEquals("Kernel", a3.getLastName());
+        assertNotEquals(null, a3.getLastName());
     }
 }

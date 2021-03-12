@@ -34,7 +34,7 @@ public class Book {
 
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating) {
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Format format, Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
