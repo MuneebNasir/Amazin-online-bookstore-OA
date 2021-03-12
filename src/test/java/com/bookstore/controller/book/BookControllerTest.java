@@ -1,6 +1,7 @@
 package com.bookstore.controller.book;
 
 import com.bookstore.jpa.book.Book;
+import com.bookstore.jpa.enums.Format;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -75,7 +76,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -134,7 +135,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -152,7 +153,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 132,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -186,7 +187,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -204,7 +205,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 132,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);

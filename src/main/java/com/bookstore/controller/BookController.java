@@ -3,6 +3,7 @@ package com.bookstore.controller;
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.book.BookRepository;
 
+import com.bookstore.jpa.enums.Format;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +66,7 @@ public class BookController {
                 book.getImageURL(),
                 book.getPublicationYear(),
                 book.getISBN(),
-                book.getFormat(),
+                Format.valueOf(book.getFormat()),
                 book.getPrice(),
                 book.getStockCount(),
                 book.getRating()
@@ -103,7 +104,7 @@ public class BookController {
             tempBook.setImageURL(book.getImageURL());
             tempBook.setPublicationYear(book.getPublicationYear());
             tempBook.setISBN(book.getISBN());
-            tempBook.setFormat(book.getFormat());
+            tempBook.setFormat(Format.valueOf(book.getFormat()));
             tempBook.setPrice(book.getPrice());
             tempBook.setStockCount(book.getStockCount());
             tempBook.setRating(book.getRating());
