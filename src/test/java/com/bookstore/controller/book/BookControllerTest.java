@@ -45,7 +45,7 @@ public class BookControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
                     .andDo(print())
-                    .andExpect(status().isAccepted());
+                    .andExpect(status().isCreated());
         }catch (Exception e){
             Assert.assertTrue("Exception Accepted",e instanceof RuntimeException);
         }

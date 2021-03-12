@@ -1,16 +1,12 @@
 package com.bookstore.controller.book;
-
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.book.BookRepository;
-
-import com.bookstore.jpa.enums.Format;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
