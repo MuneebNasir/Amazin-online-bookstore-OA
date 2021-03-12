@@ -39,11 +39,19 @@ public class AuthorControllerTest {
         Book b = new Book("Harry Potter", "You are a wizard harry");
         Author a = new Author("Ahmed", "Romih", b);
 
-        Book b2 = new Book("Ahmed Romih", "You are a wizard ahmed");
+        Book b2 = new Book("Some random book", "You are a wizard ahmed");
         Author a2 = new Author("Cool", "Bro", b2);
+
+        Book b3 = new Book("Naruto Shounen Jump", "Ninja stuff");
+        Author a3 = new Author("Uzumaki", "Naruto", b3);
+
+        Book b4 = new Book("Death Note", "Detective stuff");
+        Author a4 = new Author("Yagami", "Light", b4);
 
         repo.save(a);
         repo.save(a2);
+        repo.save(a3);
+        repo.save(a4);
     }
 
     @Test
@@ -52,7 +60,8 @@ public class AuthorControllerTest {
                 .get("/api/authors")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName").value("Ahmed"));
     }
 
     @Test
@@ -62,7 +71,8 @@ public class AuthorControllerTest {
                 .param("id", "2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Cool"));;
     }
 
     @Test
@@ -88,20 +98,21 @@ public class AuthorControllerTest {
 
         mvc.perform(MockMvcRequestBuilders
                 .put("/api/update-author")
-                .param("id", "2")
+                .param("id", "3")
                 .content(ObjectMapper.asJsonString(updateAuthor))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Updated First Name"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Updated First Name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Updated Last Name"));
     }
 
     @Test
     public void testDeleteAuthor() throws Exception {
                mvc.perform(MockMvcRequestBuilders
                 .delete("/api/remove-author")
-                .param("id", "1")
+                .param("id", "4")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
