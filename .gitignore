@@ -1,3 +1,5 @@
+node_modules*
+src/main/resources/static/built*
 *#
 *.iml
 *.ipr
@@ -70,6 +72,8 @@ buildSrc/build
 /integration-tests/build
 /src/asciidoc/build
 target/
+node_modules
+src/main/resources/static/built
 
 # Eclipse artifacts, including WTP generated manifests
 .classpath

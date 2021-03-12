@@ -1,6 +1,7 @@
 package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
+import com.bookstore.jpa.enums.Format;
 import com.bookstore.jpa.publisher.Publisher;
 
 import javax.persistence.*;
@@ -9,16 +10,16 @@ import java.util.Collection;
 @Entity
 public class Book {
 
+
     @Id
     @GeneratedValue(generator = "book", strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String title;
     private String description;
     private String imageURL;
     private Integer publicationYear;
     private String ISBN;
-    private String format;
     private Double price;
     private Integer stockCount;
     private Double rating;
@@ -30,13 +31,21 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
 
+    @Enumerated(EnumType.STRING)
+    private Format format;
+
 //    private Long genreID;
 
     public Book() {
 
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, String format, Double price, Integer stockCount, Double rating) {
+    public Book(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Format format, Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
@@ -89,10 +98,10 @@ public class Book {
     }
 
     public String getFormat() {
-        return format;
+        return format.toString();
     }
 
-    public void setFormat(String format) {
+    public void setFormat(Format format) {
         this.format = format;
     }
 
@@ -135,4 +144,13 @@ public class Book {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }
