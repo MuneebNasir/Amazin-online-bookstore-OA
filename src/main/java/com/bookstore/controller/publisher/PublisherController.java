@@ -48,7 +48,7 @@ public class PublisherController {
         Publisher newPublisher = new Publisher(publisher.getName(), publisher.getLocation());
         publisherRepo.save(newPublisher);
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -96,7 +96,7 @@ public class PublisherController {
         }
         publisherRepo.save(tempPublisher);
 
-        return new ResponseEntity<>(tempPublisher, HttpStatus.CREATED);
+        return new ResponseEntity<>(tempPublisher, HttpStatus.OK);
     }
 
     /**
@@ -117,7 +117,7 @@ public class PublisherController {
     ResponseEntity<HttpStatus> removePublisher(@RequestParam(name = "id") Long id) {
 
         publisherRepo.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

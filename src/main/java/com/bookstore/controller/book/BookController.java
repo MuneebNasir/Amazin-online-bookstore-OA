@@ -1,4 +1,4 @@
-package com.bookstore.controller;
+package com.bookstore.controller.book;
 
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.book.BookRepository;
@@ -72,7 +72,7 @@ public class BookController {
         );
         bookRepository.save(newBook);
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
@@ -111,14 +111,14 @@ public class BookController {
         }
         bookRepository.save(tempBook);
 
-        return new ResponseEntity<>(tempBook, HttpStatus.CREATED);
+        return new ResponseEntity<>(tempBook, HttpStatus.OK);
     }
 
     @ResponseBody
     @DeleteMapping(path = "/api/removeBook")
     ResponseEntity<HttpStatus> removeBook(@RequestParam(name = "id") Long id) {
         bookRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

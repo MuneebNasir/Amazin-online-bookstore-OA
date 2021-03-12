@@ -47,7 +47,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         Publisher publisher2 = new Publisher("Trump", "NYC");
         publisherController.perform(MockMvcRequestBuilders
@@ -56,7 +56,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         Publisher publisher3 = new Publisher("Muneeb", "LA");
         publisherController.perform(MockMvcRequestBuilders
@@ -65,7 +65,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         publisherController.perform( MockMvcRequestBuilders
                 .get("/api/retrieveAllPublisherIDs")
@@ -84,7 +84,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
     }
 
 
@@ -110,7 +110,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         // Updating Existing Entry Location
         publisher.setLocation("NYC");
@@ -120,7 +120,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         // Confirming the Location Change Has Been Updated
         publisherController.perform( MockMvcRequestBuilders
@@ -138,7 +138,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         // Confirming the Location Change Has Been Updated
         publisherController.perform( MockMvcRequestBuilders
@@ -160,7 +160,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         Publisher publisher2 = new Publisher("Ahmed", "Toronto");
         publisherController.perform(MockMvcRequestBuilders
@@ -169,12 +169,12 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         publisherController.perform(
                 MockMvcRequestBuilders.delete("/api/removePublisher")
                         .param("id", "2"))
-                .andExpect(status().isAccepted());
+                .andExpect(status().isOk());
 
         // GET REQUEST to ensure the specified friend is deleted
         publisherController.perform( MockMvcRequestBuilders
@@ -194,7 +194,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         Publisher publisher2 = new Publisher("Ahmed", "Toronto");
         publisherController.perform(MockMvcRequestBuilders
@@ -203,7 +203,7 @@ public class PublisherControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         publisherController.perform( MockMvcRequestBuilders
                 .get("/api/publishersViewAll")
