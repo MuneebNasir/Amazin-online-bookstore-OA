@@ -9,9 +9,10 @@ import java.util.Collection;
 @Entity
 public class Book {
 
+
     @Id
     @GeneratedValue(generator = "book", strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String title;
     private String description;
@@ -135,4 +136,13 @@ public class Book {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }
