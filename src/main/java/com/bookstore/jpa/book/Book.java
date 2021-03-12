@@ -36,6 +36,11 @@ public class Book {
 
     }
 
+    public Book(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
     public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, String format, Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
