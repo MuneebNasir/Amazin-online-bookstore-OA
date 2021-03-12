@@ -17,6 +17,8 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SearchBar from "./searchBar";
 import BookTable from "./BookTable";
 import {Card, Grid, Paper} from "@material-ui/core";
+import RemoveBookForm from "./RemoveBookForm";
+import AddBookForm from "./AddBookForm";
 
 const drawerWidth = 240;
 
@@ -81,11 +83,37 @@ const useStyles = makeStyles((theme) => ({
                 </List>
             </Drawer>
 
-            <Card>
-                <Typography variant={"h3"}>AmazinBookStore - Find Your Books Here</Typography>
-                <SearchBar/>
-                <BookTable books={props.books}/>
-            </Card>
+            <Grid container className={classes.root} spacing={3}>
+                <Grid item xs={12}>
+                    <Card>
+                        <Typography variant={"h3"} align={"center"}>AmazinBookStore - Find Your Books Here</Typography>
+                    </Card>
+                </Grid>
+                <Grid item xs={6}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Card>
+                                <SearchBar/>
+                            </Card>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Card>
+                                <BookTable books={props.books}/>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={3}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <AddBookForm/>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <RemoveBookForm/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
 
         </div>
 
