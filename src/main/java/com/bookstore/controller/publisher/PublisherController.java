@@ -1,6 +1,8 @@
 package com.bookstore.controller.publisher;
+import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.publisher.Publisher;
 import com.bookstore.jpa.publisher.PublisherRepository;
+import com.bookstore.utils.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,20 +86,21 @@ public class PublisherController {
     public ResponseEntity<Publisher> updatePublisher(@RequestBody Publisher publisher,
                                                      @PathVariable("id") long id) {
 
-        Publisher tempPublisher = publisherRepo.findById(id);
-        if (tempPublisher == null) {
+        Publisher publisherToUpdate = publisherRepo.findById(id);
+        if (publisherToUpdate == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
 
-        if (!publisher.getName().isEmpty() && !publisher.getLocation().isEmpty()){
-
-            tempPublisher.setName(publisher.getName());
-            tempPublisher.setLocation(publisher.getLocation());
-
+        if (!StringUtility.isBlank(publisher.getName())) {
+            publisherToUpdate.setName(publisher.getName());
         }
-        publisherRepo.save(tempPublisher);
+        if (!StringUtility.isBlank(publisher.getLocation())) {
+            publisherToUpdate.setLocation(publisher.getLocation());
+        }
 
-        return new ResponseEntity<>(tempPublisher, HttpStatus.OK);
+        publisherRepo.save(publisherToUpdate);
+
+        return new ResponseEntity<>(publisherToUpdate, HttpStatus.OK);
     }
 
     /**
