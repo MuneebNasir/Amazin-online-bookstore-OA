@@ -24,7 +24,7 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
-    @GetMapping(path = "/api/AmazinBookStore-books")
+    @GetMapping(path = "/api/books")
     public String booksView(Model model) {
         Collection<Book> books = bookRepository.findAll();
         model.addAttribute("allBooks", books);
@@ -33,7 +33,7 @@ public class BookController {
     }
 
     @ResponseBody
-    @GetMapping(path = "/api/AmazinBookStore-AllBookIDs", produces = "application/json")
+    @GetMapping(path = "/api/allBookIDs", produces = "application/json")
     public ResponseEntity<Collection> retrieveAllBookIDs() {
         Collection bookCollection = new ArrayList<>();
         for (Book book: bookRepository.findAll()){
@@ -44,19 +44,19 @@ public class BookController {
     }
 
     @ResponseBody
-    @GetMapping(path = "/api/AmazinBookStore-booksViewAll", produces = "application/json")
+    @GetMapping(path = "/api/booksViewAll", produces = "application/json")
     public ResponseEntity<Collection> retrieveAllBookDetails() {
         return new ResponseEntity<>(bookRepository.findAll(), HttpStatus.OK);
     }
 
     @ResponseBody
-    @GetMapping(path = "/api/AmazinBookStore-book/{id}")
+    @GetMapping(path = "/api/book/{id}")
     ResponseEntity<Book> getById(@PathVariable("id") long id) {
         return new ResponseEntity<>(bookRepository.findById(id), HttpStatus.OK);
     }
 
     @ResponseBody
-    @PostMapping(path = "/api/AmazinBookStore-addNewBook", consumes = "application/json")
+    @PostMapping(path = "/api/addNewBook", consumes = "application/json")
     public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book) {
 
         Book newBook = new Book(
@@ -78,7 +78,7 @@ public class BookController {
 
 
     @ResponseBody
-    @PutMapping(path = "/api/AmazinBookStore-updateBook/{id}", consumes = "application/json")
+    @PutMapping(path = "/api/updateBook/{id}", consumes = "application/json")
     public ResponseEntity<Book> updateBook(@RequestBody Book book,
                                                      @PathVariable("id") long id) {
 
@@ -115,7 +115,7 @@ public class BookController {
     }
 
     @ResponseBody
-    @DeleteMapping(path = "/api/AmazinBookStore-removeBook")
+    @DeleteMapping(path = "/api/removeBook")
     ResponseEntity<HttpStatus> removeBook(@RequestParam(name = "id") Long id) {
         bookRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

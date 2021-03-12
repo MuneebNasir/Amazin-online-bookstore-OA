@@ -27,7 +27,7 @@ public class BookControllerTest {
     public void testGetBookByID() throws Exception
     {
         bookController.perform( MockMvcRequestBuilders
-                .get("/api/AmazinBookStore-book/{id}", 1)
+                .get("/api/book/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -36,7 +36,7 @@ public class BookControllerTest {
     public void testEmptyNewBook() throws Exception {
         Book book = new Book();
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -57,7 +57,7 @@ public class BookControllerTest {
                 12,
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -80,7 +80,7 @@ public class BookControllerTest {
                 12,
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -90,7 +90,7 @@ public class BookControllerTest {
         // Updating Existing Book Description
         book.setDescription("This is a deadly book");
         bookController.perform(MockMvcRequestBuilders
-                .put("/api/AmazinBookStore-updateBook/{id}",1)
+                .put("/api/updateBook/{id}",1)
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -99,7 +99,7 @@ public class BookControllerTest {
 
         // Confirming the Description Has Been Updated
         bookController.perform( MockMvcRequestBuilders
-                .get("/api/AmazinBookStore-book/{id}", 1)
+                .get("/api/book/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("This is a deadly book"))
@@ -108,7 +108,7 @@ public class BookControllerTest {
         // Updating Existing Title
         book.setTitle("Some Body");
         bookController.perform(MockMvcRequestBuilders
-                .put("/api/AmazinBookStore-updateBook/{id}",1)
+                .put("/api/updateBook/{id}",1)
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -117,7 +117,7 @@ public class BookControllerTest {
 
         // Confirming the Title Has Been Updated
         bookController.perform( MockMvcRequestBuilders
-                .get("/api/AmazinBookStore-book/{id}", 1)
+                .get("/api/book/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("This is a deadly book"))
@@ -139,7 +139,7 @@ public class BookControllerTest {
                 12,
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -157,7 +157,7 @@ public class BookControllerTest {
                 12,
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -165,13 +165,13 @@ public class BookControllerTest {
                 .andExpect(status().isAccepted());
 
         bookController.perform(
-                MockMvcRequestBuilders.delete("/api/AmazinBookStore-removeBook")
+                MockMvcRequestBuilders.delete("/api/removeBook")
                         .param("id", "2"))
                 .andExpect(status().isAccepted());
 
         // GET REQUEST to ensure the specified book is deleted
         bookController.perform( MockMvcRequestBuilders
-                .get("/api/AmazinBookStore-book/{id}", 2)
+                .get("/api/book/{id}", 2)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist());
     }
@@ -191,7 +191,7 @@ public class BookControllerTest {
                 12,
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -209,7 +209,7 @@ public class BookControllerTest {
                 12,
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
-                .post("/api/AmazinBookStore-addNewBook")
+                .post("/api/addNewBook")
                 .content(asJsonString(book2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -217,13 +217,13 @@ public class BookControllerTest {
                 .andExpect(status().isAccepted());
 
         bookController.perform( MockMvcRequestBuilders
-                .get("/api/AmazinBookStore-AllBookIDs")
+                .get("/api/allBookIDs")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
 
         bookController.perform( MockMvcRequestBuilders
-                .get("/api/AmazinBookStore-booksViewAll")
+                .get("/api/booksViewAll")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].id").exists())
