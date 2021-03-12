@@ -69,7 +69,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
     }
 
 
@@ -92,7 +92,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         // Updating Existing Book Description
         book.setDescription("This is a deadly book");
@@ -102,7 +102,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         // Confirming the Description Has Been Updated
         bookController.perform( MockMvcRequestBuilders
@@ -120,7 +120,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         // Confirming the Title Has Been Updated
         bookController.perform( MockMvcRequestBuilders
@@ -151,7 +151,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         Book book2 = new Book(
                 "My Fair Lady",
@@ -169,12 +169,12 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         bookController.perform(
                 MockMvcRequestBuilders.delete("/api/removeBook")
                         .param("id", "2"))
-                .andExpect(status().isAccepted());
+                .andExpect(status().isOk());
 
         // GET REQUEST to ensure the specified book is deleted
         bookController.perform( MockMvcRequestBuilders
@@ -203,7 +203,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         Book book2 = new Book(
                 "My Fair Lady",
@@ -221,7 +221,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isAccepted());
+                .andExpect(status().isCreated());
 
         bookController.perform( MockMvcRequestBuilders
                 .get("/api/allBookIDs")

@@ -85,10 +85,11 @@ public class PublisherController {
                                                      @PathVariable("id") long id) {
 
         Publisher tempPublisher = publisherRepo.findById(id);
-        if (tempPublisher == null){
+        if (tempPublisher == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
-        if (!publisher.getName().isEmpty() || !publisher.getLocation().isEmpty()){
+
+        if (!publisher.getName().isEmpty() && !publisher.getLocation().isEmpty()){
 
             tempPublisher.setName(publisher.getName());
             tempPublisher.setLocation(publisher.getLocation());
