@@ -1,7 +1,6 @@
 package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
-import com.bookstore.jpa.enums.Format;
 import com.bookstore.jpa.publisher.Publisher;
 
 import javax.persistence.*;
@@ -41,6 +40,7 @@ public class Book {
         this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
+        // DON'T MAKE THIS AN ENUM WITHOUT UPDATING THE FRONTEND WITH A DROPDOWN
         //this.format = format;
         this.price = price;
         this.stockCount = stockCount;

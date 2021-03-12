@@ -48,11 +48,6 @@ let LayoutTextFields = () => {
             "isbn": isbn,
         }
 
-        console.log("======================")
-        console.log("Book to add:")
-        console.log(book);
-        console.log("======================")
-
         axios({
             method: "post",
             contentType: "application/json",
@@ -76,7 +71,6 @@ let LayoutTextFields = () => {
                 <CardContent>
                     <TextField
                         id="standard-full-width"
-                        label="Title of book to add"
                         style={{ margin: 8 }}
                         placeholder="Book Title"
                         helperText="Title of book to add"
