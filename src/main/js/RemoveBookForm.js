@@ -19,24 +19,16 @@ const useStyles = makeStyles((theme) => ({
 let LayoutTextFields = () => {
     const classes = useStyles();
 
-    let [title, setTitle] = useState(null);
+    let [id, setId] = useState(null);
 
     let handleRemoveBookClick = () => {
-        let book = {
-            title: title,
-        }
-
-        console.log("======================")
-        console.log("Book to remove:")
-        console.log(book);
-        console.log("======================")
-
-        axios
-            .post(`/api/AmazinBookStore-removeBook`)
-            .then(res => {
-                console.log(res);
-            })
-        }
+        axios({
+            method: "delete",
+            url: `/api/removeBook?id=${id}`,
+        }).then(res => {
+            console.log(res);
+        })
+    }
 
     return (
         <div className={classes.root}>
@@ -50,14 +42,14 @@ let LayoutTextFields = () => {
                     <TextField
                         id="standard-full-width"
                         style={{ margin: 8 }}
-                        placeholder="Enter the book title to remove!"
-                        helperText="Title of book to remove"
+                        placeholder="Enter the ID of the book to remove!"
+                        helperText="ID of book to remove"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        onChange = {(e) => setTitle(e.target.value)}
+                        onChange = {(e) => setId(e.target.value)}
                     />
                 </CardContent>
                 <CardActions>
