@@ -31,8 +31,8 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
 
-    @Enumerated(EnumType.STRING)
-    private Format format;
+//    @Enumerated(EnumType.STRING)
+//    private Format format;
 
 //    private Long genreID;
 
@@ -40,13 +40,13 @@ public class Book {
 
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Format format, Double price, Integer stockCount, Double rating) {
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
-        this.format = format;
+        //this.format = format;
         this.price = price;
         this.stockCount = stockCount;
         this.rating = rating;
@@ -92,13 +92,13 @@ public class Book {
         this.ISBN = ISBN;
     }
 
-    public String getFormat() {
-        return format.toString();
-    }
+//    public String getFormat() {
+//        return format.toString();
+//    }
 
-    public void setFormat(Format format) {
-        this.format = format;
-    }
+//    public void setFormat(Format format) {
+//        this.format = format;
+//    }
 
     public Double getPrice() {
         return price;

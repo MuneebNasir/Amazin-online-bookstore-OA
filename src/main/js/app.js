@@ -15,9 +15,9 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`api/books`)
+        axios.get(`api/booksViewAll`)
             .then(res => {
-                const books = res.data._embedded.books;
+                const books = res.data;
                 this.setState({ books });
             })
     }
