@@ -9,44 +9,59 @@ public class Author {
 
     @Id
     @GeneratedValue(generator = "author", strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    private String fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Book aBook;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Book book;
 
     public Author() {
 
     }
 
-    public Author(String fName, String lName) {
-        this.fName = fName;
-        this.lName = lName;
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public String getfName() {
-        return fName;
+    public Author(String firstName, String lastName, Book book) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.book = book;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+
+    public long getId() {
+        return id;
     }
 
-    public String getlName() {
-        return lName;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Book getaBook() {
-        return aBook;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setaBook(Book aBook) {
-        this.aBook = aBook;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
