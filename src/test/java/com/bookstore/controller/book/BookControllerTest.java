@@ -1,7 +1,9 @@
 package com.bookstore.controller.book;
 
 import com.bookstore.jpa.book.Book;
+import com.bookstore.jpa.enums.Format;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,14 +36,19 @@ public class BookControllerTest {
 
     @Test
     public void testEmptyNewBook() throws Exception {
-        Book book = new Book();
-        bookController.perform(MockMvcRequestBuilders
-                .post("/api/addNewBook")
-                .content(asJsonString(book))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated());
+        try{
+            Book book = new Book();
+            bookController.perform(MockMvcRequestBuilders
+                    .post("/api/addNewBook")
+                    .content(asJsonString(book))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andDo(print())
+                    .andExpect(status().isAccepted());
+        }catch (Exception e){
+            Assert.assertTrue("Exception Accepted",e instanceof RuntimeException);
+        }
+
     }
 
     @Test
@@ -52,7 +59,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -62,7 +69,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
     }
 
 
@@ -75,7 +82,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -85,7 +92,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
 
         // Updating Existing Book Description
         book.setDescription("This is a deadly book");
@@ -95,7 +102,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         // Confirming the Description Has Been Updated
         bookController.perform( MockMvcRequestBuilders
@@ -113,7 +120,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         // Confirming the Title Has Been Updated
         bookController.perform( MockMvcRequestBuilders
@@ -134,7 +141,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -144,7 +151,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
 
         Book book2 = new Book(
                 "My Fair Lady",
@@ -152,7 +159,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 132,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -162,12 +169,12 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
 
         bookController.perform(
                 MockMvcRequestBuilders.delete("/api/removeBook")
                         .param("id", "2"))
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
 
         // GET REQUEST to ensure the specified book is deleted
         bookController.perform( MockMvcRequestBuilders
@@ -186,7 +193,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 1992,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -196,7 +203,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
 
         Book book2 = new Book(
                 "My Fair Lady",
@@ -204,7 +211,7 @@ public class BookControllerTest {
                 "/shiggydiggy/",
                 132,
                 "ABC",
-                "Paperback",
+                Format.PAPERBACK,
                 420.69,
                 12,
                 8008.5);
@@ -214,7 +221,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
 
         bookController.perform( MockMvcRequestBuilders
                 .get("/api/allBookIDs")
