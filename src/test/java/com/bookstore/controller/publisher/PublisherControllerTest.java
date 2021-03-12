@@ -2,6 +2,7 @@ package com.bookstore.controller.publisher;
 import com.bookstore.jpa.publisher.Publisher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Muneeb Nasir
  * @version 4806.1
  */
+
+@SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class PublisherControllerTest {
 
@@ -69,6 +71,7 @@ public class PublisherControllerTest {
                 .get("/api/retrieveAllPublisherIDs")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
     }
 
@@ -206,6 +209,7 @@ public class PublisherControllerTest {
                 .get("/api/publishersViewAll")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].name").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].location").exists());
