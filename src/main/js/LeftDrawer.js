@@ -14,11 +14,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import PublisherIcon from '@material-ui/icons/Person';
 import SearchBar from "./searchBar";
 import BookTable from "./BookTable";
-import {Card, Grid, Paper} from "@material-ui/core";
+import {Card, Grid, Link, Paper} from "@material-ui/core";
 import RemoveBookForm from "./RemoveBookForm";
 import AddBookForm from "./AddBookForm";
+import PublishersForm from "./Publishers";
 
 const drawerWidth = 240;
 
@@ -64,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
+                    <Router>
+                    </Router>
                         <ListItem button>
                             <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
                             <ListItemText>{'Home'}</ListItemText>
@@ -79,6 +83,10 @@ const useStyles = makeStyles((theme) => ({
                         <ListItem button>
                             <ListItemIcon>{<MenuBookIcon/>}</ListItemIcon>
                             <ListItemText>{'My Recommendations'}</ListItemText>
+                        </ListItem>
+                        <ListItem button component={Link} to="./Publishers">
+                            <ListItemIcon>{<PublisherIcon/>}</ListItemIcon>
+                            <ListItemText>{'Publishers'}</ListItemText>
                         </ListItem>
                 </List>
             </Drawer>
