@@ -67,7 +67,7 @@ let PublisherInfoFields = () => {
                         id="standard-full-width"
                         style={{ margin: 8 }}
                         placeholder="Publisher Name"
-                        helperText="TName"
+                        helperText="Name"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
