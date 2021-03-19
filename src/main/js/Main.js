@@ -1,24 +1,18 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router,
+    Switch,
+    Route,
+    Link } from "react-router-dom";
+import clsx from "clsx";
 
-import PageHeader from './components/PageHeader';
-import Home from "./Home";
-import index from "./index"
-import App from "./pages/App"
-import About from "./pages/About";
-import Publishers from "./pages/PublisherInterface/Publishers";
-import ParticlesBg from 'particles-bg'
-import {AppBar, MenuItem, MenuList} from "@material-ui/core";
+import {AppBar} from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import clsx from "clsx";
-
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -26,17 +20,15 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
-import {LibraryAdd} from "@material-ui/icons";
-import {NavLink} from "react-router-dom";
-import LeftDrawer from "./pages/BookInterface/LeftDrawer";
-import SearchBar from "./pages/BookInterface/searchBar";
+
+import Home from "./pages/Home"
+import About from "./pages/About";
 
 
 const drawerWidth = 250;
@@ -132,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-let Main = (props) => {
+let Main = () => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -146,7 +138,7 @@ let Main = (props) => {
     };
 
     return (
-        <BrowserRouter>
+        <Router>
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
@@ -201,12 +193,6 @@ let Main = (props) => {
                         </ListItem>
                         <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <SearchIcon color="primary" />
-                            </ListItemIcon>
-                            <ListItemText primary="Search" />
-                        </ListItem>
-                        <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
-                            <ListItemIcon>
                                 <ShoppingCartIcon color="primary" />
                             </ListItemIcon>
                             <ListItemText primary="My Cart" />
@@ -216,6 +202,12 @@ let Main = (props) => {
                                 <MenuBookIcon color="primary" />
                             </ListItemIcon>
                             <ListItemText primary="Recommendations" />
+                        </ListItem>
+                        <ListItem button component={Link} to="/about" onClick={handleDrawerClose}>
+                            <ListItemIcon>
+                                <InfoIcon color="primary" />
+                            </ListItemIcon>
+                            <ListItemText primary="About" />
                         </ListItem>
                     </List>
                     <Divider />
@@ -239,42 +231,21 @@ let Main = (props) => {
                             <ListItemText primary="Books" />
                         </ListItem>
                     </List>
-                    <Divider/>
-                    <List>
-                        <ListItem button component={Link} to="/old" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <MenuIcon color="primary" />
-                            </ListItemIcon>
-                            <ListItemText primary="Old" />
-                        </ListItem>
-                        <ListItem button component={Link} to="/about" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <MenuIcon color="primary" />
-                            </ListItemIcon>
-                            <ListItemText primary="About" />
-                        </ListItem>
-                    </List>
                 </Drawer>
 
 
                 <div className="container mt-2" style={{ marginTop: 40 }}>
                     <Switch>
-                        <Route exact path="/old">
-                            <LeftDrawer books={props.books} />
+                        <Route exact path="/">
+                            <Home />
                         </Route>
                         <Route path="/about">
                             <About />
                         </Route>
-                        <Route path="/Publishers">
-                            <Publishers/>
-                        </Route>
-                        <Route path={"/"}>
-                            <App books={props.books}/>
-                        </Route>
                     </Switch>
                 </div>
             </div>
-        </BrowserRouter>
+        </Router>
 
     );
 }
