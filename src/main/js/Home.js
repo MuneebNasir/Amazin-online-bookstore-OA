@@ -1,5 +1,5 @@
 import BookTable from "./pages/BookInterface/BookTable";
-import App from "./pages/App";
+import Main from "./Main";
 import SearchBar from "./pages/BookInterface/searchBar";
 import {Card} from "@material-ui/core";
 
@@ -25,11 +25,10 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <App books={this.state.books}/>
+                <Main books={this.state.books}/>
             </div>
         )
     }
-
 
 }
 
