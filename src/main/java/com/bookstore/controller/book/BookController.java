@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Book API Controller
@@ -118,4 +119,9 @@ public class BookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ResponseBody
+    @GetMapping(path = "/api/searchByTitle")
+    ResponseEntity<Collection> searchByTitle(@RequestParam(name = "title") String title) {
+        return new ResponseEntity<>(bookRepository.findByTitleContaining(title), HttpStatus.OK);
+    }
 }

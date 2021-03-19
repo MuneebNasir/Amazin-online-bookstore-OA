@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Home from "./Home";
+import Main from "./Main";
 
 ReactDOM.render(
-    <Home />,
+    <Main />,
     document.getElementById("root")
 );

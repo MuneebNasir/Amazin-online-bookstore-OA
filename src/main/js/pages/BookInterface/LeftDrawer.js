@@ -14,7 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import BookTable from "./BookTable";
 import {Card, Grid, Paper} from "@material-ui/core";
 import RemoveBookForm from "./RemoveBookForm";

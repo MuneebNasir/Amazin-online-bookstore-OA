@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid, Padding, Paper} from "@material-ui/core";
+import SearchBar from "./BookInterface/SearchBar";
+import {Grid, Paper} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,33 +10,34 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         margin: 'auto',
+        maxWidth: 500,
     },
     headLine: {
         textAlign: "center"
     }
 }));
 
-let About = () => {
+let Home = () => {
     const classes = useStyles();
 
-    return(
+    return (
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs>
-                    <h1 className={classes.headLine}>This is the About Page</h1>
+                    <h1 className={classes.headLine} >
+                        Welcome To Amazing Book Store
+                    </h1>
                 </Grid>
             </Grid>
             <Grid container spacing={3}>
                 <Grid item xs>
                     <Paper className={classes.paper}>
-                        <p>
-                            Amazing Book Store
-                        </p>
+                        <SearchBar />
                     </Paper>
                 </Grid>
             </Grid>
         </div>
-    )
-};
+    );
+}
 
-export default About;
+export default Home;
