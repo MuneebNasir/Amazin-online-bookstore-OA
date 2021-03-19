@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ParticlesBg  from "particles-bg";
 import {NavLink} from "react-router-dom";
 
 class Header extends Component {
@@ -7,7 +6,6 @@ class Header extends Component {
 
         return (
             <header id="home">
-                <ParticlesBg type="circle" bg={true} />
                 <nav id="nav-wrap">
                     <ul className="nav-options active">
                         <NavLink
