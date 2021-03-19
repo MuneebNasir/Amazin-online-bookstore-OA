@@ -1,6 +1,6 @@
-import BookTable from "./BookInterface/BookTable";
-import LeftDrawer from "./BookInterface/LeftDrawer";
-import SearchBar from "./BookInterface/searchBar";
+import BookTable from "./pages/BookInterface/BookTable";
+import App from "./pages/App";
+import SearchBar from "./pages/BookInterface/searchBar";
 import {Card} from "@material-ui/core";
 
 const React = require('react');
@@ -25,7 +25,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <LeftDrawer books={this.state.books}/>
+                <App books={this.state.books}/>
             </div>
         )
     }
