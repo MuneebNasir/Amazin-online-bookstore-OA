@@ -1,38 +1,43 @@
-import BookTable from "./BookInterface/BookTable";
-import LeftDrawer from "./BookInterface/LeftDrawer";
-import SearchBar from "./BookInterface/searchBar";
-import {Card} from "@material-ui/core";
+import React from "react";
+import SearchBar from "./BookInterface/SearchBar";
+import {Grid, Paper} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const axios = require('axios');
-
-class Home extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {books: []};
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 500,
+    },
+    headLine: {
+        textAlign: "center"
     }
+}));
 
-    componentDidMount() {
-        axios.get(`api/booksViewAll`)
-            .then(res => {
-                const books = res.data;
-                this.setState({ books });
-            })
-    }
+let Home = () => {
+    const classes = useStyles();
 
-    render() {
-        return (
-            <div>
-                <LeftDrawer books={this.state.books}/>
-            </div>
-        )
-    }
-
-
+    return (
+        <div className={classes.root}>
+            <Grid container spacing={3}>
+                <Grid item xs>
+                    <h1 className={classes.headLine} >
+                        Welcome To Amazing Book Store
+                    </h1>
+                </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+                <Grid item xs>
+                    <Paper className={classes.paper}>
+                        <SearchBar />
+                    </Paper>
+                </Grid>
+            </Grid>
+        </div>
+    );
 }
-
-
 
 export default Home;

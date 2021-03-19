@@ -14,7 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import BookTable from "./BookTable";
 import {Card, Grid, Paper} from "@material-ui/core";
 import RemoveBookForm from "./RemoveBookForm";
@@ -53,36 +53,6 @@ let LeftDrawer = (props) => {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Drawer
-                className={classes.drawer}
-                variant="permanent"
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                anchor="left"
-            >
-                <div className={classes.toolbar} />
-                <Divider />
-                <List>
-                    <ListItem button>
-                        <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
-                        <ListItemText>{'Home'}</ListItemText>
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>{<SearchIcon/>}</ListItemIcon>
-                        <ListItemText>{'Search'}</ListItemText>
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
-                        <ListItemText>{'My Cart'}</ListItemText>
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>{<MenuBookIcon/>}</ListItemIcon>
-                        <ListItemText>{'My Recommendations'}</ListItemText>
-                    </ListItem>
-                </List>
-            </Drawer>
-
             <Grid container className={classes.root} spacing={3}>
                 <Grid item xs={12}>
                     <Card>
@@ -93,7 +63,7 @@ let LeftDrawer = (props) => {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Card>
-                                <SearchBar/>
+                                <SearchBar books={props.books}/>
                             </Card>
                         </Grid>
                         <Grid item xs={12}>
