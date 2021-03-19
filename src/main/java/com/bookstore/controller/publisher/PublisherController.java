@@ -14,7 +14,7 @@ import java.util.Collection;
 
 
 /**
- * The Publisher Rest API Controller
+ * The Publishers Rest API Controller
  * @author Muneeb Nasir
  * @version 4806.1
  */
@@ -35,7 +35,7 @@ public class PublisherController {
         Collection<Publisher> publishers = publisherRepo.findAll();
         model.addAttribute("allPublishers", publishers);
 
-        // Empty Publisher Object - namespace
+        // Empty Publishers Object - namespace
         model.addAttribute("newPublisher", new Publisher());
         return "publishers";
     }
@@ -54,7 +54,7 @@ public class PublisherController {
     }
 
     /**
-     * Getter for Publisher IDs
+     * Getter for Publishers IDs
      */
     @GetMapping(path = "/api/retrieveAllPublisherIDs", produces = "application/json")
     @ResponseBody
@@ -104,7 +104,7 @@ public class PublisherController {
     }
 
     /**
-     * Getter for Publisher with specified ID
+     * Getter for Publishers with specified ID
      */
     @GetMapping(path = "/api/publisher/{id}")
     @ResponseBody

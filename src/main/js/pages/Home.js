@@ -1,16 +1,38 @@
+import BookTable from "./BookInterface/BookTable";
+import LeftDrawer from "./BookInterface/LeftDrawer";
+import SearchBar from "./BookInterface/searchBar";
+import {Card} from "@material-ui/core";
 
-import React from "react";
+const React = require('react');
+const ReactDOM = require('react-dom');
+const axios = require('axios');
 
-const Home = () => (
-    <div>
-        <h1 className="title is-1">This is the Home Page</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida,
-            risus at dapibus aliquet, elit quam scelerisque tortor, nec accumsan eros
-            nulla interdum justo. Pellentesque dignissim, sapien et congue rutrum,
-            lorem tortor dapibus turpis, sit amet vestibulum eros mi et odio.
-        </p>
-    </div>
-);
+class Home extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {books: []};
+    }
+
+    componentDidMount() {
+        axios.get(`api/booksViewAll`)
+            .then(res => {
+                const books = res.data;
+                this.setState({ books });
+            })
+    }
+
+    render() {
+        return (
+            <div>
+                <LeftDrawer books={this.state.books}/>
+            </div>
+        )
+    }
+
+
+}
+
+
 
 export default Home;

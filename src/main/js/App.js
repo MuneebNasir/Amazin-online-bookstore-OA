@@ -1,30 +1,41 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-
+import Header from './Components/Header';
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Publisher from "./pages/Publisher";
+import Publishers from "./pages/PublisherInterface/Publishers";
+import ParticlesBg from 'particles-bg'
+
 
 function App() {
     return (
-        <BrowserRouter>
-            <Navbar />
-            <div className="container mt-2" style={{ marginTop: 40 }}>
-                <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="/about">
-                        <About />
-                    </Route>
-                    <Route path="/Publisher">
-                        <Publisher/>
-                    </Route>
-                </Switch>
+        <>
+            <div className="App">
+                <BrowserRouter>
+                    <Header />
+                    <div className="banner-text">
+                        <h1 className="headline" style={{fontSize : '70px'}}>
+                            Welcome To Amazin Book Store
+                        </h1>
+                    </div>
+                    <div className="container mt-2" style={{ marginTop: 40 }}>
+                        <Switch>
+                            <Route exact path="/home">
+                                <Home />
+                            </Route>
+                            <Route path="/about">
+                                <About />
+                            </Route>
+                            <Route path="/Publishers">
+                                <Publishers/>
+                            </Route>
+                        </Switch>
+                    </div>
+                </BrowserRouter>
             </div>
-        </BrowserRouter>
+            <ParticlesBg id="background" type="cobweb" bg={true} />
+        </>
     );
 }
 

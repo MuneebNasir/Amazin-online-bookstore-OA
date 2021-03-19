@@ -14,13 +14,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import PublisherIcon from '@material-ui/icons/Person';
 import SearchBar from "./searchBar";
 import BookTable from "./BookTable";
-import {Card, Grid, Link, Paper} from "@material-ui/core";
+import {Card, Grid, Paper} from "@material-ui/core";
 import RemoveBookForm from "./RemoveBookForm";
 import AddBookForm from "./AddBookForm";
-import PublishersForm from "./Publishers";
 
 const drawerWidth = 240;
 
@@ -49,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
- let LeftDrawer = (props) => {
+let LeftDrawer = (props) => {
     const classes = useStyles();
 
     return (
@@ -66,28 +64,22 @@ const useStyles = makeStyles((theme) => ({
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
-                    <Router>
-                    </Router>
-                        <ListItem button>
-                            <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
-                            <ListItemText>{'Home'}</ListItemText>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>{<SearchIcon/>}</ListItemIcon>
-                            <ListItemText>{'Search'}</ListItemText>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
-                            <ListItemText>{'My Cart'}</ListItemText>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>{<MenuBookIcon/>}</ListItemIcon>
-                            <ListItemText>{'My Recommendations'}</ListItemText>
-                        </ListItem>
-                        <ListItem button component={Link} to="./Publishers">
-                            <ListItemIcon>{<PublisherIcon/>}</ListItemIcon>
-                            <ListItemText>{'Publishers'}</ListItemText>
-                        </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
+                        <ListItemText>{'Home'}</ListItemText>
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>{<SearchIcon/>}</ListItemIcon>
+                        <ListItemText>{'Search'}</ListItemText>
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
+                        <ListItemText>{'My Cart'}</ListItemText>
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>{<MenuBookIcon/>}</ListItemIcon>
+                        <ListItemText>{'My Recommendations'}</ListItemText>
+                    </ListItem>
                 </List>
             </Drawer>
 
