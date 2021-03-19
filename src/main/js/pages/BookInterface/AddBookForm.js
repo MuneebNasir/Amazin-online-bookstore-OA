@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
 import axios from "axios";
-import { useAlert } from 'react-alert'
-import AlertMessageBox from "../../components/AlertMessageBox";
+import { NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 let LayoutTextFields = () => {
     const classes = useStyles();
-    let [showSuccessAlert, setShowSuccessAlert] = useState(null);
-    let [responseMsg, setResponseMsg] = useState(null);
     let [title, setTitle] = useState(null);
     let [description, setDescription] = useState(null);
     let [imageUrl, setImageUrl] = useState(null);
@@ -60,12 +58,10 @@ let LayoutTextFields = () => {
         }).then(res => {
             console.log(res);
             if (res.status === 201) {
-                setShowSuccessAlert(true);
-                setResponseMsg('Book Added Successfully');
+                NotificationManager.success('You have added a new Publisher!', 'Successful!', 500);
 
             }else {
-                setShowSuccessAlert(false);
-                setResponseMsg('Unable To Add Book');
+                NotificationManager.error('Error while Creating new Publisher Entry!', 'Error!');
             }
         })
     }
@@ -154,12 +150,6 @@ let LayoutTextFields = () => {
                     </Button>
                 </CardActions>
             </Card>
-            <div>
-                { showSuccessAlert && <AlertMessageBox type={"success"} data={responseMsg} /> }
-
-                { showSuccessAlert && <AlertMessageBox type={"error"} data={responseMsg} /> }
-
-            </div>
         </div>
     );
 
