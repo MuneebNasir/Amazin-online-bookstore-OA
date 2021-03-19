@@ -58,10 +58,10 @@ let LayoutTextFields = () => {
         }).then(res => {
             console.log(res);
             if (res.status === 201) {
-                NotificationManager.success('You have added a new Publisher!', 'Successful!', 500);
+                NotificationManager.success('You have added a new Book Entry!', 'Successful!', 500);
 
             }else {
-                NotificationManager.error('Error while Creating new Publisher Entry!', 'Error!');
+                NotificationManager.error('Error while Creating new Book Entry!', 'Error!');
             }
         })
     }

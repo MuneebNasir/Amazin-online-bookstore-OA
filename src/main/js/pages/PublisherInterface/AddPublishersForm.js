@@ -9,7 +9,8 @@ import { NotificationManager } from 'react-notifications';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexWrap: 'wrap',
-        width: `calc(50%px)`,
+        width: '50%',
+        margin: '0 auto'
     },
     textField: {
         marginLeft: theme.spacing(1),

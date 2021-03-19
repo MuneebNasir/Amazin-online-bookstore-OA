@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
 import axios from "axios";
+import {NotificationManager} from "react-notifications";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +28,12 @@ let LayoutTextFields = () => {
             url: `/api/removeBook?id=${id}`,
         }).then(res => {
             console.log(res);
+            if (res.status === 200) {
+                NotificationManager.success('Removal of Book Entry Successful', 'Success!', 500);
+
+            }else {
+                NotificationManager.error('Error while Removing Book Entry!', 'Error!');
+            }
         })
     }
 
