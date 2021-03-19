@@ -26,9 +26,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
-
+// React Notification
+// import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 import Home from "./pages/Home"
 import About from "./pages/About";
+import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
 
 
 const drawerWidth = 250;
@@ -242,9 +245,13 @@ let Main = () => {
                         <Route path="/about">
                             <About />
                         </Route>
+                        <Route path="/Publishers">
+                            <PublishersMenu />
+                        </Route>
                     </Switch>
                 </div>
             </div>
+            <NotificationContainer />
         </Router>
 
     );
