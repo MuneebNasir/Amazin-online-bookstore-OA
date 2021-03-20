@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
 import axios from "axios";
+import { NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 let LayoutTextFields = () => {
     const classes = useStyles();
-
     let [title, setTitle] = useState(null);
     let [description, setDescription] = useState(null);
     let [imageUrl, setImageUrl] = useState(null);
@@ -56,11 +57,17 @@ let LayoutTextFields = () => {
             headers: { "Content-Type": "application/json" },
         }).then(res => {
             console.log(res);
+            if (res.status === 201) {
+                NotificationManager.success('You have added a new Publisher!', 'Successful!', 500);
+
+            }else {
+                NotificationManager.error('Error while Creating new Publisher Entry!', 'Error!');
+            }
         })
     }
 
-
     return (
+
         <div className={classes.root}>
             <Card variant="outlined">
                 <CardContent>
@@ -145,6 +152,7 @@ let LayoutTextFields = () => {
             </Card>
         </div>
     );
+
 }
 
 export default LayoutTextFields;

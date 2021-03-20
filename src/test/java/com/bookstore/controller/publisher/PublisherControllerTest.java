@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * The Publisher Controller Tests
+ * The Publishers Controller Tests
  * @author Muneeb Nasir
  * @version 4806.1
  */
