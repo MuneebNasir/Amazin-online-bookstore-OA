@@ -16,16 +16,19 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SearchBar from "./SearchBar";
 import BookTable from "./BookTable";
-import {Card, Grid, Paper} from "@material-ui/core";
+import BooksTable from "./BooksTable";
+
 import RemoveBookForm from "./RemoveBookForm";
 import AddBookForm from "./AddBookForm";
-
+import {Card, Grid, Paper} from "@material-ui/core";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexGrow: 1,
+        // alignItems: 'center',
+        // alignContent:'center'
     },
     appBar: {
         // width: `calc(100%px)`,
@@ -45,49 +48,47 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
     },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 530,
+    },
+
+
 }));
 
-let LeftDrawer = (props) => {
+let BookGrid = (props) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Grid container className={classes.root} spacing={3}>
-                <Grid item xs={12}>
+            <Grid container spacing={1} alignItems={"center"} direction={"column"}>
+                <Grid item >
+                    <Paper className={classes.paper}>
+                        <SearchBar />
+                    </Paper >
+                </Grid>
+                <Grid item>
                     <Card>
-                        <Typography variant={"h3"} align={"center"}>AmazinBookStore - Find Your Books Here</Typography>
+                        <BooksTable />
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Card>
-                                <SearchBar books={props.books}/>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Card>
-                                <BookTable books={props.books}/>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item xs={3}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <AddBookForm/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <RemoveBookForm/>
-                        </Grid>
-                    </Grid>
-                </Grid>
             </Grid>
+            <Grid container spacing={1} alignItems={"center"} direction={"column"} >
+                <Grid>
+                    <Grid item xs={7}>
+                        <AddBookForm/>
+                    </Grid>
+                    <Grid item xs={7}>
+                        <RemoveBookForm/>
+                    </Grid>
+                </Grid>
 
+            </Grid>
         </div>
 
     );
 }
 
-export default LeftDrawer;
+export default BookGrid;

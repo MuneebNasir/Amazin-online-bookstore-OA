@@ -7,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import BookInformation from "./BookInformation";
+import {Button} from "@material-ui/core";
 
 const useStyles = makeStyles({
     table: {
@@ -22,6 +24,12 @@ const rows = [
     createData('Lord of the Rings', "A Really long story", '/yeetinc/', 1964, "Paperback", 69.420, 124, 44, 'ABC123'),
 ];
 
+function getToBook(id){
+    return(
+        <BookInformation id={id}/>
+    );
+}
+
 let BookTable = (props) => {
     const classes = useStyles();
 
@@ -29,7 +37,7 @@ let BookTable = (props) => {
 
     return (
         <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple book table">
+            <Table className={classes.table} aria-label="simple book table" onCellClick>
                 <TableHead>
                     <TableRow>
                         <TableCell align="left">Book ID</TableCell>
@@ -46,8 +54,8 @@ let BookTable = (props) => {
                 </TableHead>
                 <TableBody>
                     {props.books.map((row) => (
-                        <TableRow key={row.title}>
-                            <TableCell align="left">{row.id}</TableCell>
+                        <TableRow key={row.id} selected={true} hover={true} onClick={console.log("Clicked on ", row.id)} >
+                            <TableCell align="left" >{row.id}</TableCell>
                             <TableCell component="th" scope="row">
                                 {row.title}
                             </TableCell>

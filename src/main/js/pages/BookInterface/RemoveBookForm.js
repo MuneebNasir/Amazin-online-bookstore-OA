@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
         width: '25ch',
     },
+    card: {
+        width: `calc(50%px)`,
+    }
 }));
 
 let LayoutTextFields = () => {
@@ -42,7 +45,7 @@ let LayoutTextFields = () => {
                     <TextField
                         id="standard-full-width"
                         style={{ margin: 8 }}
-                        placeholder="Enter the ID of the book to remove!"
+                        placeholder="ID"
                         helperText="ID of book to remove"
                         fullWidth
                         margin="normal"
@@ -53,7 +56,7 @@ let LayoutTextFields = () => {
                     />
                 </CardContent>
                 <CardActions>
-                    <Button size="medium" variant={"outlined"} onClick={handleRemoveBookClick}>
+                    <Button size="medium" variant={"outlined"} onClick={handleRemoveBookClick} style={{float: 'right'}}>
                         Remove Book
                     </Button>
                 </CardActions>
