@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
 import axios from "axios";
-import LayoutTextFields from "./RemoveBookForm";
 
 const useStyles = makeStyles((theme) => ({
     root: {

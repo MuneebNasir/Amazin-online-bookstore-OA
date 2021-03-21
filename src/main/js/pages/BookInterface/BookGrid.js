@@ -15,10 +15,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SearchBar from "./SearchBar";
-import BookTable from "./BookTable";
 import BooksTable from "./BooksTable";
 
-import RemoveBookForm from "./RemoveBookForm";
 import AddBookForm from "./AddBookForm";
 import {Card, Grid, Paper} from "@material-ui/core";
 const drawerWidth = 240;
@@ -27,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexGrow: 1,
-        // alignItems: 'center',
-        // alignContent:'center'
+        alignItems: 'center',
+        alignContent:'center'
     },
     appBar: {
-        // width: `calc(100%px)`,
-        // marginRight: drawerWidth,
+        width: `calc(100%px)`,
+        marginRight: drawerWidth,
     },
     drawer: {
         width: drawerWidth,
@@ -79,9 +77,6 @@ let BookGrid = (props) => {
                 <Grid>
                     <Grid item xs={7}>
                         <AddBookForm/>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <RemoveBookForm/>
                     </Grid>
                 </Grid>
 

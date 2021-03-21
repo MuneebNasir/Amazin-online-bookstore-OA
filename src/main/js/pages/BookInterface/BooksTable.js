@@ -16,14 +16,8 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import axios from "axios";
-import PublishersTable from "../PublisherInterface/PublishersTable";
-import Publishers from "../PublisherInterface/Publishers";
-
 class BooksTable extends React.Component {
 
     constructor(props) {
@@ -48,35 +42,6 @@ class BooksTable extends React.Component {
     }
 }
 export default BooksTable;
-
-// function createData(title, publicationYear, price, stockCount, rating) {
-//     return { title, publicationYear, price, stockCount, rating };
-// }
-//
-// const rows = [
-//     axios({
-//         method: "get",
-//         url: `/api/booksViewAll`,
-//     }).then(res => {
-//         //createData(res.data.title, res.data.publicationYear, res.data.price, res.data.stockCount, res.data.rating)
-//         console.log(res);
-//     }),
-//
-//     // createData('Cupcake', 305, 3.7, 67, 4.3),
-//     // createData('Donut', 452, 25.0, 51, 4.9),
-//     // createData('Eclair', 262, 16.0, 24, 6.0),
-//     // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     // createData('Gingerbread', 356, 16.0, 49, 3.9),
-//     // createData('Honeycomb', 408, 3.2, 87, 6.5),
-//     // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     // createData('Jelly Bean', 375, 0.0, 94, 0.0),
-//     // createData('KitKat', 518, 26.0, 65, 7.0),
-//     // createData('Lollipop', 392, 0.2, 98, 0.0),
-//     // createData('Marshmallow', 318, 0, 81, 2.0),
-//     // createData('Nougat', 360, 19.0, 9, 37.0),
-//     // createData('Oreo', 437, 18.0, 63, 4.0),
-// ];
-
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -192,7 +157,7 @@ const EnhancedTableToolbar = (props) => {
     const handleRemoveBookClick = () => {
         axios({
             method: "delete",
-            url: `/api/removeBook?id=${numSelected}`,
+            url: `/api/removeBook?id=${books[numSelected].id}`,
         }).then(res => {
             console.log(res);
         })
@@ -261,7 +226,6 @@ function EnhancedTable(props) {
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const length = props.books.length
-    // const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
 
     const handleRequestSort = (event, property) => {
@@ -308,10 +272,6 @@ function EnhancedTable(props) {
         setPage(0);
     };
 
-    // const handleChangeDense = (event) => {
-    //     setDense(event.target.checked);
-    // };
-
     const isSelected = (name) => selected.indexOf(name) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.length - page * rowsPerPage);
@@ -319,12 +279,11 @@ function EnhancedTable(props) {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar numSelected={selected.length} props={props} />
+                <EnhancedTableToolbar numSelected={selected.length} books={props.books}/>
                 <TableContainer>
                     <Table
                         className={classes.table}
                         aria-labelledby="tableTitle"
-                        // size={dense ? 'small' : 'medium'}
                         aria-label="enhanced table"
                     >
                         <EnhancedTableHead
@@ -378,19 +337,15 @@ function EnhancedTable(props) {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    // rowsPerPageOptions={[5, 10, 25]}
+                    rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={props.length}
+                    count={props.books.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </Paper>
-            {/*<FormControlLabel*/}
-            {/*    control={<Switch checked={dense} onChange={handleChangeDense} />}*/}
-            {/*    label="Dense padding"*/}
-            {/*/>*/}
         </div>
     );
 }
