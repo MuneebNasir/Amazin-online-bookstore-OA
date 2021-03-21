@@ -27,7 +27,6 @@ let LayoutTextFields = () => {
             method: "delete",
             url: `/api/removeBook?id=${id}`,
         }).then(res => {
-            console.log(res);
             if (res.status === 200) {
                 NotificationManager.success('Removal of Book Entry Successful', 'Success!', 500);
 

@@ -56,7 +56,6 @@ let LayoutTextFields = () => {
             data:  JSON.stringify(book),
             headers: { "Content-Type": "application/json" },
         }).then(res => {
-            console.log(res);
             if (res.status === 201) {
                 NotificationManager.success('You have added a new Book Entry!', 'Successful!', 500);
 

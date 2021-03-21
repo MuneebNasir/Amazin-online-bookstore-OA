@@ -43,7 +43,6 @@ let PublisherInfoFields = () => {
             data:  JSON.stringify(publisher),
             headers: { "Content-Type": "application/json" },
         }).then(res => {
-            console.log(res);
             if (res.status === 201) {
                 NotificationManager.success('You have added a new Publisher!', 'Successful!', 500);
 
