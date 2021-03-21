@@ -25,12 +25,20 @@ class BooksTable extends React.Component {
         this.state = {books: []};
     }
 
-    componentDidMount() {
+    setBooks() {
         axios.get(`/api/booksViewAll`)
             .then(res => {
                 const books = res.data;
                 this.setState({ books });
             })
+    }
+
+    componentDidMount() {
+        this.setBooks();
+    }
+
+    componentDidUpdate() {
+        this.setBooks();
     }
 
     render() {
@@ -71,9 +79,9 @@ function stableSort(array, comparator) {
 
 const headCells = [
     { id: 'title', numeric: false, disablePadding: true, label: 'Title' },
-    { id: 'publication', numeric: true, disablePadding: false, label: 'Publication Year' },
+    { id: 'publicationYear', numeric: true, disablePadding: false, label: 'Publication Year' },
     { id: 'price', numeric: true, disablePadding: false, label: 'Price ($)' },
-    { id: 'stock', numeric: true, disablePadding: false, label: 'Stock Count' },
+    { id: 'stockCount', numeric: true, disablePadding: false, label: 'Stock Count' },
     { id: 'rating', numeric: true, disablePadding: false, label: 'Rating' },
 ];
 
