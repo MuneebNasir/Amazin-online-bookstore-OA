@@ -1,4 +1,4 @@
-package com.bookstore.book;
+package com.bookstore.controller.author;
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;

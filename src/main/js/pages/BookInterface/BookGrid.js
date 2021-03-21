@@ -15,21 +15,22 @@ import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SearchBar from "./SearchBar";
-import BookTable from "./BookTable";
-import {Card, Grid, Paper} from "@material-ui/core";
-import RemoveBookForm from "./RemoveBookForm";
-import AddBookForm from "./AddBookForm";
+import BooksTable from "./BooksTable";
 
+import AddBookForm from "./AddBookForm";
+import {Card, Grid, Paper} from "@material-ui/core";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexGrow: 1,
+        alignItems: 'center',
+        alignContent:'center'
     },
     appBar: {
-        // width: `calc(100%px)`,
-        // marginRight: drawerWidth,
+        width: `calc(100%px)`,
+        marginRight: drawerWidth,
     },
     drawer: {
         width: drawerWidth,
@@ -45,42 +46,39 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
     },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 530,
+    },
+
+
 }));
 
-let LeftDrawer = (props) => {
+let BookGrid = (props) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Grid container className={classes.root} spacing={3}>
-                <Grid item xs={12}>
-                    <Card>
-                        <Typography variant={"h3"} align={"center"}>AmazinBookStore - Find Your Books Here</Typography>
-                    </Card>
-                </Grid>
-                <Grid item xs={6}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Card>
-                                <SearchBar books={props.books}/>
-                            </Card>
+            <Grid container spacing={2} direction={"row"} alignItems={"center"} justify={"center"}>
+                <Grid item xs={8}>
+                    <Grid container spacing={2} alignItems={"center"} direction={"column"}>
+                        <Grid>
+                            <Paper className={classes.paper}>
+                                <SearchBar />
+                            </Paper >
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid>
                             <Card>
-                                <BookTable books={props.books}/>
+                                <BooksTable />
                             </Card>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <AddBookForm/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <RemoveBookForm/>
-                        </Grid>
+                <Grid item xs={4}>
+                    <Grid container alignItems={"center"} direction={"column"} style={{maxWidth: 450}}>
+                        <AddBookForm/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -90,4 +88,4 @@ let LeftDrawer = (props) => {
     );
 }
 
-export default LeftDrawer;
+export default BookGrid;
