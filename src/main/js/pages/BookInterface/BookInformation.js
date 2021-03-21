@@ -30,7 +30,6 @@ let BookInformation = (props) => {
             method: "get",
             url: `/api/book/{id}=${props}`,
         }).then(res => {
-            console.log(res);
         })
     }
 

@@ -167,7 +167,6 @@ const EnhancedTableToolbar = (props) => {
             method: "delete",
             url: `/api/removeBook?id=${books[numSelected].id}`,
         }).then(res => {
-            console.log(res);
         })
     }
 
