@@ -32,6 +32,10 @@ import { NotificationContainer } from 'react-notifications';
 import Home from "./pages/Home"
 import About from "./pages/About";
 import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
+import BookGrid from "./pages/BookInterface/BookGrid";
+import Books from "./pages/BookInterface/Books";
+import {Book} from "@material-ui/icons";
+import BookInformation from "./pages/BookInterface/BookInformation";
 
 
 const drawerWidth = 250;
@@ -227,11 +231,11 @@ let Main = () => {
                             </ListItemIcon>
                             <ListItemText primary="Publishers" />
                         </ListItem>
-                        <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
+                        <ListItem button component={Link} to="/Books" onClick={handleDrawerClose}>
                             <ListItemIcon>
                                 <MenuBookIcon color="primary" />
                             </ListItemIcon>
-                            <ListItemText primary="Books" />
+                            <ListItemText primary="Book" />
                         </ListItem>
                     </List>
                 </Drawer>
@@ -247,6 +251,12 @@ let Main = () => {
                         </Route>
                         <Route path="/Publishers">
                             <PublishersMenu />
+                        </Route>
+                        <Route path="/Books">
+                            <Books/>
+                        </Route>
+                        <Route path="/BookInformation">
+                            <BookInformation/>
                         </Route>
                     </Switch>
                 </div>
