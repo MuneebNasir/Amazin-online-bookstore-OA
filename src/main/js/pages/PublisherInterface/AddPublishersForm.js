@@ -9,7 +9,8 @@ import { NotificationManager } from 'react-notifications';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexWrap: 'wrap',
-        width: `calc(50%px)`,
+        width: '50%',
+        margin: '0 auto'
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -42,7 +43,6 @@ let PublisherInfoFields = () => {
             data:  JSON.stringify(publisher),
             headers: { "Content-Type": "application/json" },
         }).then(res => {
-            console.log(res);
             if (res.status === 201) {
                 NotificationManager.success('You have added a new Publisher!', 'Successful!', 500);
 
@@ -66,7 +66,7 @@ let PublisherInfoFields = () => {
                         id="standard-full-width"
                         style={{ margin: 8 }}
                         placeholder="Publisher Name"
-                        helperText="TName"
+                        helperText="Name"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{

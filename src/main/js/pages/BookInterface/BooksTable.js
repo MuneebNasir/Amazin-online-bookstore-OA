@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from "axios";
+import {NotificationManager} from "react-notifications";
 class BooksTable extends React.Component {
 
     constructor(props) {
@@ -167,6 +168,12 @@ const EnhancedTableToolbar = (props) => {
             method: "delete",
             url: `/api/removeBook?id=${books[numSelected].id}`,
         }).then(res => {
+            if (res.status === 200) {
+                NotificationManager.success('Removal of Book Entry Successful', 'Success!', 500);
+
+            }else {
+                NotificationManager.error('Error while Removing Book Entry!', 'Error!');
+            }
         })
     }
 

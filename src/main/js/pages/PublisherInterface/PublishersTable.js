@@ -17,8 +17,6 @@ const useStyles = makeStyles({
 let PublishersTable = (props) => {
     const classes = useStyles();
 
-    console.log(props)
-
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="Publishers Table">
