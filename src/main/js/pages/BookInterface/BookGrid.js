@@ -61,26 +61,28 @@ let BookGrid = (props) => {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Grid container spacing={1} alignItems={"center"} direction={"column"}>
-                <Grid item >
-                    <Paper className={classes.paper}>
-                        <SearchBar />
-                    </Paper >
+            <Grid container spacing={2} direction={"row"} alignItems={"center"} justify={"center"}>
+                <Grid item xs={8}>
+                    <Grid container spacing={2} alignItems={"center"} direction={"column"}>
+                        <Grid>
+                            <Paper className={classes.paper}>
+                                <SearchBar />
+                            </Paper >
+                        </Grid>
+                        <Grid>
+                            <Card>
+                                <BooksTable />
+                            </Card>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <Card>
-                        <BooksTable />
-                    </Card>
-                </Grid>
-            </Grid>
-            <Grid container spacing={1} alignItems={"center"} direction={"column"} >
-                <Grid>
-                    <Grid item xs={7}>
+                <Grid item xs={4}>
+                    <Grid container alignItems={"center"} direction={"column"} style={{maxWidth: 450}}>
                         <AddBookForm/>
                     </Grid>
                 </Grid>
-
             </Grid>
+
         </div>
 
     );
