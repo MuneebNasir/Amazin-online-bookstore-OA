@@ -166,7 +166,7 @@ const EnhancedTableToolbar = (props) => {
     const handleRemoveBookClick = () => {
         axios({
             method: "delete",
-            url: `/api/removeBook?id=${books[actualSelectedBookIndex].id}`,
+            url: `/api/removeBook?id=${books[numSelected].id}`,
         }).then(res => {
             if (res.status === 200) {
                 NotificationManager.success('Removal of Book Entry Successful', 'Success!', 500);
