@@ -19,6 +19,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -176,7 +177,9 @@ let Main = () => {
                             />
                         </div>
                         <div>
-                            <button onClick={handleSignOut}>Sign Out </button>
+                            <IconButton variant="contained" onClick={handleSignOut} aria-label="signOut">
+                                <ExitToAppIcon />
+                            </IconButton>
                         </div>
                     </Toolbar>
                 </AppBar>
