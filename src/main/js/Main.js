@@ -1,8 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router,
+import {
+    BrowserRouter as Router,
     Switch,
     Route,
-    Link } from "react-router-dom";
+    Link
+} from "react-router-dom";
 import clsx from "clsx";
 
 import {AppBar} from "@material-ui/core";
@@ -10,7 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
+import {fade, makeStyles, useTheme} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -26,16 +28,13 @@ import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
-// React Notification
-// import 'react-notifications/lib/notifications.css';
-import { NotificationContainer } from 'react-notifications';
+import {NotificationContainer} from 'react-notifications';
 import Home from "./pages/Home"
 import About from "./pages/About";
 import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
-import BookGrid from "./pages/BookInterface/BookGrid";
 import Books from "./pages/BookInterface/Books";
-import {Book} from "@material-ui/icons";
 import BookInformation from "./pages/BookInterface/BookInformation";
+import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 
 
 const drawerWidth = 250;
@@ -130,7 +129,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 let Main = () => {
     const classes = useStyles();
     const theme = useTheme();
@@ -156,14 +154,14 @@ let Main = () => {
                             color="inherit"
                             aria-label="open drawer"
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                         <Typography className={classes.title} variant="h6" noWrap>
                             Amazin Book Store
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                                <SearchIcon />
+                                <SearchIcon/>
                             </div>
                             <InputBase
                                 placeholder="Search…"
@@ -171,7 +169,7 @@ let Main = () => {
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
-                                inputProps={{ 'aria-label': 'search' }}
+                                inputProps={{'aria-label': 'search'}}
                             />
                         </div>
                     </Toolbar>
@@ -187,70 +185,73 @@ let Main = () => {
                 >
                     <div className={classes.drawerHeader}>
                         <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                            {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                         </IconButton>
                     </div>
-                    <Divider />
+                    <Divider/>
                     <List>
                         <ListItem button component={Link} to={"/"} onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <HomeIcon color="primary" />
+                                <HomeIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="Home" />
+                            <ListItemText primary="Home"/>
                         </ListItem>
                         <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <ShoppingCartIcon color="primary" />
+                                <ShoppingCartIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="My Cart" />
+                            <ListItemText primary="My Cart"/>
                         </ListItem>
                         <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <MenuBookIcon color="primary" />
+                                <MenuBookIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="Recommendations" />
+                            <ListItemText primary="Recommendations"/>
                         </ListItem>
                         <ListItem button component={Link} to="/about" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <InfoIcon color="primary" />
+                                <InfoIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="About" />
+                            <ListItemText primary="About"/>
                         </ListItem>
                     </List>
-                    <Divider />
+                    <Divider/>
                     <List>
-                        <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
+                        <ListItem button component={Link} to="/Authors" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <PersonIcon color="primary" />
+                                <PersonIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="Authors" />
+                            <ListItemText primary="Authors"/>
                         </ListItem>
                         <ListItem button component={Link} to="/Publishers" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <ShoppingCartIcon color="primary" />
+                                <ShoppingCartIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="Publishers" />
+                            <ListItemText primary="Publishers"/>
                         </ListItem>
                         <ListItem button component={Link} to="/Books" onClick={handleDrawerClose}>
                             <ListItemIcon>
-                                <MenuBookIcon color="primary" />
+                                <MenuBookIcon color="primary"/>
                             </ListItemIcon>
-                            <ListItemText primary="Book" />
+                            <ListItemText primary="Book"/>
                         </ListItem>
                     </List>
                 </Drawer>
 
 
-                <div className="container mt-2" style={{ marginTop: 40 }}>
+                <div className="container mt-2" style={{marginTop: 40}}>
                     <Switch>
                         <Route exact path="/">
-                            <Home />
+                            <Home/>
                         </Route>
                         <Route path="/about">
-                            <About />
+                            <About/>
+                        </Route>
+                        <Route path="/Authors">
+                            <AuthorGrid/>
                         </Route>
                         <Route path="/Publishers">
-                            <PublishersMenu />
+                            <PublishersMenu/>
                         </Route>
                         <Route path="/Books">
                             <Books/>
@@ -261,7 +262,7 @@ let Main = () => {
                     </Switch>
                 </div>
             </div>
-            <NotificationContainer />
+            <NotificationContainer/>
         </Router>
 
     );
