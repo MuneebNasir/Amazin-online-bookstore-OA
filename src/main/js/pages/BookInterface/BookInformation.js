@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
 import axios from "axios";
+import { DataGrid } from '@material-ui/data-grid';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,8 +35,8 @@ let BookInformation = (props) => {
     }
 
     return (
-        <div className={classes.root}>
-            res
+        <div style={{ height: 400, width: '100%' }}>
+
         </div>
     );
 

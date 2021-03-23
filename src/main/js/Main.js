@@ -4,7 +4,6 @@ import { BrowserRouter as Router,
     Route,
     Link } from "react-router-dom";
 import clsx from "clsx";
-
 import {AppBar} from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,17 +25,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
-// React Notification
-// import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import Home from "./pages/Home"
 import About from "./pages/About";
 import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
-import BookGrid from "./pages/BookInterface/BookGrid";
 import Books from "./pages/BookInterface/Books";
-import {Book} from "@material-ui/icons";
 import BookInformation from "./pages/BookInterface/BookInformation";
-
 
 const drawerWidth = 250;
 

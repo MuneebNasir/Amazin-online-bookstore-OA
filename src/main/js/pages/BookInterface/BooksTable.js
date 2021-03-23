@@ -19,6 +19,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from "axios";
 import {NotificationManager} from "react-notifications";
+import BookInformation from "./BookInformation";
+import {Link, Route, Switch, BrowserRouter as Router} from "react-router-dom";
+import ListItem from "@material-ui/core/ListItem";
 class BooksTable extends React.Component {
 
     constructor(props) {
@@ -258,101 +261,116 @@ function EnhancedTable(props) {
                 })
     }
 
+    const bookInformation = () => {
+        console.log("Clicked")
+        return (
+            <Switch>
+                <Route path="/BookInformation">
+                    <BookInformation/>
+                </Route>
+            </Switch>
+        );
+    }
+
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.length - page * rowsPerPage);
 
     return (
-        <div className={classes.root}>
-            <Paper className={classes.paper}>
-                <Toolbar
-                    className={clsx(toolbar.root, {
-                        [classes.highlight]: selected.length > 0,
-                    })}
-                >
-                    {selected.length > 0 ? (
-                        <Typography className={toolbar.title} color="inherit" variant="subtitle1" component="div">
-                            {selected.length} selected
-                        </Typography>
-                    ) : (
-                        <Typography className={toolbar.title} variant="h6" id="tableTitle" component="div">
-                            Title
-                        </Typography>
-                    )}
-                    {selected.length > 0 ? (
-                        <Tooltip title="Delete">
-                            <IconButton aria-label="delete" onClick={function () {
-                                handleRemoveBookClick(selected.length);
-                                setSelected([]);
-                            }}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    ) : null
-                    }
-                </Toolbar>
-                <TableContainer>
-                    <Table
-                        className={classes.table}
-                        aria-labelledby="tableTitle"
-                        aria-label="enhanced table"
+            <div className={classes.root}>
+                <Paper className={classes.paper}>
+                    <Toolbar
+                        className={clsx(toolbar.root, {
+                            [classes.highlight]: selected.length > 0,
+                        })}
                     >
-                        <EnhancedTableHead
-                            classes={classes}
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
-                            rowCount={length}
-                        />
-                        <TableBody>
-                            {stableSort(props.books, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    const isItemSelected = isSelected(row.title);
-                                    const labelId = `enhanced-table-checkbox-${index}`;
-                                    return (
-                                        <TableRow
-                                            hover
-                                            onClick={(event) => handleClick(event, row.title)}
-                                            role="checkbox"
-                                            aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={row.id}
-                                            selected={isItemSelected}
-                                        >
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    checked={isItemSelected}
-                                                    inputProps={{ 'aria-labelledby': labelId }}
-                                                />
-                                            </TableCell>
-                                            <TableCell component="th" id={labelId} scope="row" padding="none">
-                                                {row.title}
-                                            </TableCell>
-                                            <TableCell align="right">{row.publicationYear}</TableCell>
-                                            <TableCell align="right">{row.price}</TableCell>
-                                            <TableCell align="right">{row.stockCount}</TableCell>
-                                            <TableCell align="right">{row.rating}</TableCell>
-                                        </TableRow>
-                                    );
-                                })}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[15, 25, 50, 100]}
-                    component="div"
-                    count={props.books.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-            </Paper>
-        </div>
+                        {selected.length > 0 ? (
+                            <Typography className={toolbar.title} color="inherit" variant="subtitle1" component="div">
+                                {selected.length} selected
+                            </Typography>
+                        ) : (
+                            <Typography className={toolbar.title} variant="h6" id="tableTitle" component="div">
+                                Title
+                            </Typography>
+                        )}
+                        {selected.length > 0 ? (
+                            <Tooltip title="Delete">
+                                <IconButton aria-label="delete" onClick={function () {
+                                    handleRemoveBookClick(selected.length);
+                                    setSelected([]);
+                                }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        ) : null
+                        }
+                    </Toolbar>
+                    <TableContainer>
+                        <Table
+                            className={classes.table}
+                            aria-labelledby="tableTitle"
+                            aria-label="enhanced table"
+                        >
+                            <EnhancedTableHead
+                                classes={classes}
+                                numSelected={selected.length}
+                                order={order}
+                                orderBy={orderBy}
+                                onRequestSort={handleRequestSort}
+                                rowCount={length}
+                            />
+                            <TableBody>
+                                {stableSort(props.books, getComparator(order, orderBy))
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row, index) => {
+                                        const isItemSelected = isSelected(row.title);
+                                        const labelId = `enhanced-table-checkbox-${index}`;
+                                        return (
+                                            <TableRow
+                                                button
+                                                component={Link}
+                                                to="/BookInformation"
+                                                onClick={(event) => handleClick(event, row.title)}
+                                                // role="checkbox"
+                                                aria-checked={isItemSelected}
+                                                tabIndex={-1}
+                                                key={row.id}
+                                                selected={isItemSelected}
+                                            >
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox
+                                                        checked={isItemSelected}
+                                                        onClick={(event) => handleClick(event, row.title)}
+                                                        inputProps={{ 'aria-labelledby': labelId }}
+                                                    />
+                                                </TableCell>
+                                                <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                    {row.title}
+                                                </TableCell>
+                                                <TableCell align="right">{row.publicationYear}</TableCell>
+                                                <TableCell align="right">{row.price}</TableCell>
+                                                <TableCell align="right">{row.stockCount}</TableCell>
+                                                <TableCell align="right">{row.rating}</TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: 53 * emptyRows }}>
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[15, 25, 50, 100]}
+                        component="div"
+                        count={props.books.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                </Paper>
+            </div>
+
     );
 }
