@@ -27,8 +27,11 @@ class BooksTable extends React.Component {
     }
 
     setBooks() {
-        axios.get(`/api/booksViewAll`)
-            .then(res => {
+        axios({
+            method: "get",
+            timeout: 8000,
+            url: `/api/booksViewAll`,
+        }).then(res => {
                 const books = res.data;
                 this.setState({ books });
             })
@@ -87,7 +90,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(value) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = value;
+    const { classes, order, orderBy, onRequestSort } = value;
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
@@ -96,12 +99,6 @@ function EnhancedTableHead(value) {
         <TableHead>
             <TableRow>
                 <TableCell padding="checkbox">
-                    <Checkbox
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{ 'aria-label': 'select all desserts' }}
-                    />
                 </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
@@ -133,7 +130,6 @@ EnhancedTableHead.propTypes = {
     classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
@@ -159,56 +155,6 @@ const useToolbarStyles = makeStyles((theme) => ({
     },
 }));
 
-const EnhancedTableToolbar = (props) => {
-    const classes = useToolbarStyles();
-    const { numSelected, books } = props;
-
-    const handleRemoveBookClick = () => {
-        axios({
-            method: "delete",
-            url: `/api/removeBook?id=${books[numSelected].id}`,
-        }).then(res => {
-            if (res.status === 200) {
-                NotificationManager.success('Removal of Book Entry Successful', 'Success!', 500);
-
-            }else {
-                NotificationManager.error('Error while Removing Book Entry!', 'Error!');
-            }
-        })
-    }
-
-    return (
-        <Toolbar
-            className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
-            })}
-        >
-            {numSelected > 0 ? (
-                <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-                    {numSelected} selected
-                </Typography>
-            ) : (
-                <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                    Title
-                </Typography>
-            )}
-
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton aria-label="delete" onClick={handleRemoveBookClick}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-                ) : null
-            }
-        </Toolbar>
-    );
-};
-
-EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-};
-
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -233,7 +179,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+let selectedBook;
+function setSelectedBook(selected){
+    selectedBook = selected;
+}
+function getSelectedBook(){
+    return selectedBook;
+}
+
 function EnhancedTable(props) {
+    const toolbar = useToolbarStyles();
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('title');
@@ -241,20 +196,12 @@ function EnhancedTable(props) {
     const [page, setPage] = React.useState(0);
     const length = props.books.length
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    let deletingBook;
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
-    };
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = props.map((n) => n.title);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
     };
 
     const handleClick = (event, name) => {
@@ -273,8 +220,7 @@ function EnhancedTable(props) {
                 selected.slice(selectedIndex + 1),
             );
         }
-
-        setSelected(newSelected);
+            setSelected(newSelected);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -286,14 +232,63 @@ function EnhancedTable(props) {
         setPage(0);
     };
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
+    const isSelected = (name) => {
+        if(selected.indexOf(name) !== -1)
+            setSelectedBook(name);
+    };
+
+    const handleRemoveBookClick = (numSelected) => {
+        if (numSelected > 1){
+            NotificationManager.error('Please select only one book to delete.', 'Error!');
+        } else
+            axios.get(`/api/searchByTitle?title=${getSelectedBook()}`)
+                .then(res => {
+                    deletingBook = res.data[0].id;
+                    axios({
+                        method: "delete",
+                        timeout: "8000",
+                        url: `/api/removeBook?id=${deletingBook}`,
+                    }).then(res => {
+                        if (res.status === 200) {
+                            NotificationManager.success('Removal of Book Entry Successful', 'Success!');
+                        } else {
+                            NotificationManager.error('Error while Removing Book Entry!', 'Error!');
+                        }
+                    })
+                })
+    }
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.length - page * rowsPerPage);
 
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar numSelected={selected.length} books={props.books}/>
+                <Toolbar
+                    className={clsx(toolbar.root, {
+                        [classes.highlight]: selected.length > 0,
+                    })}
+                >
+                    {selected.length > 0 ? (
+                        <Typography className={toolbar.title} color="inherit" variant="subtitle1" component="div">
+                            {selected.length} selected
+                        </Typography>
+                    ) : (
+                        <Typography className={toolbar.title} variant="h6" id="tableTitle" component="div">
+                            Title
+                        </Typography>
+                    )}
+                    {selected.length > 0 ? (
+                        <Tooltip title="Delete">
+                            <IconButton aria-label="delete" onClick={function () {
+                                handleRemoveBookClick(selected.length);
+                                setSelected([]);
+                            }}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                    ) : null
+                    }
+                </Toolbar>
                 <TableContainer>
                     <Table
                         className={classes.table}
@@ -305,7 +300,6 @@ function EnhancedTable(props) {
                             numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={length}
                         />
@@ -315,7 +309,6 @@ function EnhancedTable(props) {
                                 .map((row, index) => {
                                     const isItemSelected = isSelected(row.title);
                                     const labelId = `enhanced-table-checkbox-${index}`;
-
                                     return (
                                         <TableRow
                                             hover
@@ -351,7 +344,7 @@ function EnhancedTable(props) {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
+                    rowsPerPageOptions={[15, 25, 50, 100]}
                     component="div"
                     count={props.books.length}
                     rowsPerPage={rowsPerPage}
