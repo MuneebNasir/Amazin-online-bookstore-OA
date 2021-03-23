@@ -147,7 +147,7 @@ let Main = () => {
     };
 
     return (
-        <Router history={browserHistory}>
+        <Router>
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
