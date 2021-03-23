@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router,
     Switch,
     Route,
+    browserHistory,
     Link } from "react-router-dom";
 import clsx from "clsx";
 
@@ -36,6 +37,7 @@ import BookGrid from "./pages/BookInterface/BookGrid";
 import Books from "./pages/BookInterface/Books";
 import {Book} from "@material-ui/icons";
 import BookInformation from "./pages/BookInterface/BookInformation";
+import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 
 
 const drawerWidth = 250;
@@ -145,7 +147,7 @@ let Main = () => {
     };
 
     return (
-        <Router>
+        <Router history={browserHistory}>
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
@@ -219,7 +221,7 @@ let Main = () => {
                     </List>
                     <Divider />
                     <List>
-                        <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
+                        <ListItem button component={Link} to="/Authors" onClick={handleDrawerClose}>
                             <ListItemIcon>
                                 <PersonIcon color="primary" />
                             </ListItemIcon>
@@ -248,6 +250,9 @@ let Main = () => {
                         </Route>
                         <Route path="/about">
                             <About />
+                        </Route>
+                        <Route path="/Authors">
+                            <AuthorGrid />
                         </Route>
                         <Route path="/Publishers">
                             <PublishersMenu />
