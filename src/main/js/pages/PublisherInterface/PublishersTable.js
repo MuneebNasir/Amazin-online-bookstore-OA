@@ -7,11 +7,44 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import axios from "axios";
+
+class PublisherComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {publishers: []};
+    }
+
+    setPublishers() {
+        axios.get(`/api/publishersViewAll`)
+            .then(res => {
+                const publishers = res.data;
+                this.setState({publishers});
+            })
+    }
+
+    componentDidMount() {
+        this.setPublishers();
+    }
+
+    componentDidUpdate() {
+        this.setPublishers();
+    }
+
+    render() {
+        return (
+            <div>
+                <PublishersTable publishers={this.state.publishers}/>
+            </div>
+        )
+    }
+}
 
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
-    },
+    }
 });
 
 let PublishersTable = (props) => {
@@ -43,4 +76,4 @@ let PublishersTable = (props) => {
     );
 }
 
-export default PublishersTable;
+export default PublisherComponent;

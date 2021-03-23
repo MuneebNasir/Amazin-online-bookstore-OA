@@ -1,15 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import {Card, Grid, Paper} from "@material-ui/core";
-import PublishersTable from "./PublishersTable";
 import AddPublishersForm from "./AddPublishersForm"
 import Publishers from "./Publishers";
+import PublisherSearchBar from "./PublisherSearchBar";
 
 const drawerWidth = 240;
 
@@ -18,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexGrow: 1,
     },
-    appBar: {
-        // width: `calc(100%px)`,
-        // marginRight: drawerWidth,
-    },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -29,12 +21,18 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
         width: drawerWidth,
     },
-    // necessary for content to be below app bar
+
     toolbar: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        align: 'center',
+        maxWidth: 530,
     },
 }));
 
@@ -44,19 +42,19 @@ let PublishersMenu = (props) => {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Grid container className={classes.root} spacing={3}>
+            <Grid container spacing={2} direction={"row"} alignItems={"center"} justify={"center"}>
                 <Grid item xs={12}>
                     <Card>
-                        <Typography variant={"h3"} align={"center"}>AmazinBookStore - Registered Publishers</Typography>
+                        <Typography variant={"h3"} align={"center"}>Amazin Book Store - Registered Publishers</Typography>
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
                     <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            {/*<Card>*/}
-                            {/*    <SearchBar publishers={props.publishers}/>*/}
-                            {/*</Card>*/}
-                        </Grid>
+                        {/*<Grid>*/}
+                        {/*    <Paper className={classes.paper}>*/}
+                        {/*        <PublisherSearchBar />*/}
+                        {/*    </Paper >*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12}>
                             <Card>
                                 <Publishers/>
