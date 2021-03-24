@@ -1,9 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router,
+import {
+    BrowserRouter as Router,
     Switch,
     Route,
     Link,
     Redirect} from "react-router-dom";
+
 import clsx from "clsx";
 
 import {AppBar} from "@material-ui/core";
@@ -11,7 +13,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
+import {fade, makeStyles, useTheme} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -33,6 +35,7 @@ import About from "./pages/About";
 import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
 import Books from "./pages/BookInterface/Books";
 import BookInformation from "./pages/BookInterface/BookInformation";
+import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 
 
 const drawerWidth = 250;
@@ -125,7 +128,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 0,
     },
 }));
-
 
 
 let Main = () => {
