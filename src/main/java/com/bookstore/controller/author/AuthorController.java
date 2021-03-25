@@ -40,8 +40,8 @@ public class AuthorController {
     }
 
     /**
-     * Retrieve all authors
-     *
+     * Retrieve all authors with given first name
+     * @param firstName
      * @return ResponseEntity
      */
     @GetMapping(path = "/api/authorsByFirstName")
@@ -51,8 +51,8 @@ public class AuthorController {
     }
 
     /**
-     * Retrieve all authors
-     *
+     * Retrieve all authors with given last name
+     * @param lastName
      * @return ResponseEntity
      */
     @GetMapping(path = "/api/authorsByLastName")
@@ -62,8 +62,9 @@ public class AuthorController {
     }
 
     /**
-     * Retrieve all authors
-     *
+     * Retrieve all authors with given first and last names
+     * @param firstName
+     * @param lastName
      * @return ResponseEntity
      */
     @GetMapping(path = "/api/authorsByFirstAndLastName")
