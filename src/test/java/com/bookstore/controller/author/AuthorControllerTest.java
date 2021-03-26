@@ -1,4 +1,5 @@
 package com.bookstore.controller.author;
+
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
@@ -35,7 +36,7 @@ public class AuthorControllerTest {
     AuthorRepository repo;
 
     @Before
-    public void setup(){
+    public void setup() {
         Book b = new Book("Harry Potter", "You are a wizard harry");
         Author a = new Author("Ahmed", "Romih", b);
 
@@ -72,7 +73,8 @@ public class AuthorControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Cool"));;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Cool"));
+        ;
     }
 
     @Test
@@ -110,13 +112,49 @@ public class AuthorControllerTest {
 
     @Test
     public void testDeleteAuthor() throws Exception {
-               mvc.perform(MockMvcRequestBuilders
+        mvc.perform(MockMvcRequestBuilders
                 .delete("/api/remove-author")
                 .param("id", "4")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
+
     }
 
+    @Test
+    public void testGetAuthorsByFirstName() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .get("/api/authorsByFirstName")
+                .param("firstName", "Ahmed")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName").value("Ahmed"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName").value("Romih"));
+    }
 
+    @Test
+    public void testGetAuthorsByLastName() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .get("/api/authorsByLastName")
+                .param("lastName", "Romih")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName").value("Ahmed"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName").value("Romih"));
+    }
+
+    @Test
+    public void testGetAuthorsByFirstAndLastName() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .get("/api/authorsByFirstAndLastName")
+                .param("firstName", "Cool")
+                .param("lastName", "Bro")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName").value("Cool"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName").value("Bro"));
+    }
 }
