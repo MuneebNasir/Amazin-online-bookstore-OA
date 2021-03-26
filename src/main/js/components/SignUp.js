@@ -3,6 +3,7 @@ import {firebaseAuth} from "../services/provider/AuthProvider";
 import {withRouter} from 'react-router-dom';
 import {Button, FormControl, Grid, Input, InputLabel} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import { NotificationManager } from 'react-notifications';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,7 +69,7 @@ const SignUp = (props) => {
                         <Button variant="contained" type="submit" color="primary">Sign Up</Button>
                     </Grid>
                 </Grid>
-                {errors.length > 0 ? errors.map(error => <p style={{color: 'red'}}>{error}</p> ) : null}
+                {errors.length > 0 ? errors.map(error => {NotificationManager.error(error, 'Error!');} ) : null}
             </form>
         </div>
     );
