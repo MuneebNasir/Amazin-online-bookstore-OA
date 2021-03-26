@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import {Card, Grid, Paper} from "@material-ui/core";
 import AddPublishersForm from "./AddPublishersForm"
 import Publishers from "./Publishers";
-import PublisherSearchBar from "./PublisherSearchBar";
 
 const drawerWidth = 240;
 
