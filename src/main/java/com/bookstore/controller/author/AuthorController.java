@@ -40,6 +40,40 @@ public class AuthorController {
     }
 
     /**
+     * Retrieve all authors with given first name
+     * @param firstName
+     * @return ResponseEntity
+     */
+    @GetMapping(path = "/api/authorsByFirstName")
+    ResponseEntity<List<Author>> getAuthorsByFirstName(@RequestParam(name = "firstName") String firstName) {
+        List<Author> authors = authorRepository.findAuthorsByFirstName(firstName);
+        return new ResponseEntity<>(authors, HttpStatus.OK);
+    }
+
+    /**
+     * Retrieve all authors with given last name
+     * @param lastName
+     * @return ResponseEntity
+     */
+    @GetMapping(path = "/api/authorsByLastName")
+    ResponseEntity<List<Author>> getAuthorsByLastName(@RequestParam(name = "lastName") String lastName) {
+        List<Author> authors = authorRepository.findAuthorsByLastName(lastName);
+        return new ResponseEntity<>(authors, HttpStatus.OK);
+    }
+
+    /**
+     * Retrieve all authors with given first and last names
+     * @param firstName
+     * @param lastName
+     * @return ResponseEntity
+     */
+    @GetMapping(path = "/api/authorsByFirstAndLastName")
+    ResponseEntity<List<Author>> getAuthorsByFirstAndLastName(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "lastName") String lastName) {
+        List<Author> authors = authorRepository.findAuthorsByFirstNameAndLastName(firstName, lastName);
+        return new ResponseEntity<>(authors, HttpStatus.OK);
+    }
+
+    /**
      * Update author information
      *
      * @param author
@@ -81,6 +115,7 @@ public class AuthorController {
 
     /**
      * Remove the author by the given id
+     *
      * @param id
      */
     @DeleteMapping(path = "/api/remove-author")
