@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,6 +20,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -29,14 +30,16 @@ import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
-import { NotificationContainer } from 'react-notifications';
+import {NotificationContainer} from 'react-notifications';
+import {firebaseAuth} from "./services/provider/AuthProvider";
 import Home from "./pages/Home"
 import About from "./pages/About";
 import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
 import Books from "./pages/BookInterface/Books";
 import BookInformation from "./pages/BookInterface/BookInformation";
 import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
-
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 const drawerWidth = 250;
 
@@ -134,6 +137,7 @@ let Main = () => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const {handleSignOut,} = useContext(firebaseAuth)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -171,6 +175,11 @@ let Main = () => {
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
+                    </div>
+                    <div>
+                        <IconButton variant="contained" onClick={handleSignOut} aria-label="signOut">
+                            <ExitToAppIcon />
+                        </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>
@@ -236,6 +245,21 @@ let Main = () => {
                         <ListItemText primary="Book" />
                     </ListItem>
                 </List>
+                <Divider/>
+                <List>
+                    <ListItem button component={Link} to="/signup" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <PersonIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Sign Up"/>
+                    </ListItem>
+                    <ListItem button component={Link} to="/signin" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <PersonIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Sign In"/>
+                    </ListItem>
+                </List>
             </Drawer>
 
 
@@ -258,6 +282,12 @@ let Main = () => {
                     </Route>
                     <Route path="/BookInformation">
                         <BookInformation/>
+                    </Route>
+                    <Route path="/signup">
+                        <SignUp/>
+                    </Route>
+                    <Route path="/signin">
+                        <SignIn/>
                     </Route>
                     <Redirect to={"/"} />
                 </Switch>
