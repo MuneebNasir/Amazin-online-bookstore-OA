@@ -124,4 +124,10 @@ public class BookController {
     ResponseEntity<Collection> searchByTitle(@RequestParam(name = "title") String title) {
         return new ResponseEntity<>(bookRepository.findByTitleContaining(title), HttpStatus.OK);
     }
+
+    @ResponseBody
+    @GetMapping(path = "/api/findByIds")
+    ResponseEntity<Collection> searchByIds(@RequestParam(name = "ids") List<Long> ids) {
+        return new ResponseEntity<>(bookRepository.findByIdIn(ids), HttpStatus.OK);
+    }
 }
