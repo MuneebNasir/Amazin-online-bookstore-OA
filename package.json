@@ -14,7 +14,6 @@
     "react"
   ],
   "author": "Greg L. Turnquist",
-  "proxy": "http://localhost:8080",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/spring-guides/tut-react-and-spring-data-rest/issues"
