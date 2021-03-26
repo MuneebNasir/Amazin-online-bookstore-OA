@@ -3,8 +3,9 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
-} from "react-router-dom";
+    Link,
+    Redirect} from "react-router-dom";
+
 import clsx from "clsx";
 
 import {AppBar} from "@material-ui/core";
@@ -28,7 +29,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
-import {NotificationContainer} from 'react-notifications';
+import { NotificationContainer } from 'react-notifications';
 import Home from "./pages/Home"
 import About from "./pages/About";
 import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
@@ -143,128 +144,126 @@ let Main = () => {
     };
 
     return (
-        <Router>
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton
-                            edge="start"
-                            onClick={handleDrawerOpen}
-                            className={clsx(classes.menuButton, open && classes.hide)}
-                            color="inherit"
-                            aria-label="open drawer"
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography className={classes.title} variant="h6" noWrap>
-                            Amazin Book Store
-                        </Typography>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon/>
-                            </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{'aria-label': 'search'}}
-                            />
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        edge="start"
+                        onClick={handleDrawerOpen}
+                        className={clsx(classes.menuButton, open && classes.hide)}
+                        color="inherit"
+                        aria-label="open drawer"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography className={classes.title} variant="h6" noWrap>
+                        Amazin Book Store
+                    </Typography>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
                         </div>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    className={classes.drawer}
-                    variant="persistent"
-                    anchor="left"
-                    open={open}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <div className={classes.drawerHeader}>
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                        </IconButton>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
                     </div>
-                    <Divider/>
-                    <List>
-                        <ListItem button component={Link} to={"/"} onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <HomeIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Home"/>
-                        </ListItem>
-                        <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <ShoppingCartIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="My Cart"/>
-                        </ListItem>
-                        <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <MenuBookIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Recommendations"/>
-                        </ListItem>
-                        <ListItem button component={Link} to="/about" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <InfoIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="About"/>
-                        </ListItem>
-                    </List>
-                    <Divider/>
-                    <List>
-                        <ListItem button component={Link} to="/Authors" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <PersonIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Authors"/>
-                        </ListItem>
-                        <ListItem button component={Link} to="/Publishers" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <ShoppingCartIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Publishers"/>
-                        </ListItem>
-                        <ListItem button component={Link} to="/Books" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <MenuBookIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Book"/>
-                        </ListItem>
-                    </List>
-                </Drawer>
-
-
-                <div className="container mt-2" style={{marginTop: 40}}>
-                    <Switch>
-                        <Route exact path="/">
-                            <Home/>
-                        </Route>
-                        <Route path="/about">
-                            <About/>
-                        </Route>
-                        <Route path="/Authors">
-                            <AuthorGrid/>
-                        </Route>
-                        <Route path="/Publishers">
-                            <PublishersMenu/>
-                        </Route>
-                        <Route path="/Books">
-                            <Books/>
-                        </Route>
-                        <Route path="/BookInformation">
-                            <BookInformation/>
-                        </Route>
-                    </Switch>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="left"
+                open={open}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    </IconButton>
                 </div>
-            </div>
-            <NotificationContainer/>
-        </Router>
+                <Divider />
+                <List>
+                    <ListItem button component={Link} to={"/"} onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <HomeIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Home" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <ShoppingCartIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="My Cart" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <MenuBookIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Recommendations" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/about" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <InfoIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="About" />
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+                    <ListItem button component={Link} to="/Authors" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <PersonIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Authors" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/Publishers" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <ShoppingCartIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Publishers" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/Books" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <MenuBookIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Book" />
+                    </ListItem>
+                </List>
+            </Drawer>
 
+
+            <div className="container mt-2" style={{ marginTop: 40 }}>
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route path="/about">
+                        <About />
+                    </Route>
+                    <Route path="/Authors">
+                        <AuthorGrid/>
+                    </Route>
+                    <Route path="/Publishers">
+                        <PublishersMenu />
+                    </Route>
+                    <Route path="/Books">
+                        <Books/>
+                    </Route>
+                    <Route path="/BookInformation">
+                        <BookInformation/>
+                    </Route>
+                    <Redirect to={"/"} />
+                </Switch>
+            </div>
+            <NotificationContainer />
+        </div>
     );
 }
 
