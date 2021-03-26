@@ -10,7 +10,7 @@ const AuthProvider = (props) => {
     const [token, setToken] = useState(null)
 
     const handleSignUp = () => {
-        authMethods.signUp(inputs.email, inputs.password,setErrors ,setToken )
+        authMethods.signUp(inputs.email, inputs.password, setErrors ,setToken)
         console.log(errors, token)
     }
 

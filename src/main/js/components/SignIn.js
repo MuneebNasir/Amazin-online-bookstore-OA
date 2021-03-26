@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import {firebaseAuth} from "../services/provider/AuthProvider";
 import {Grid, Paper, FormControl, InputLabel, Input, Button} from "@material-ui/core";
-import SearchBar from "../pages/BookInterface/SearchBar";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,10 +26,10 @@ const SignIn = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         handleSignIn()
-
     }
     const handleChange = e => {
         const {name, value} = e.target
+        console.log(inputs)
         setInputs(prev => ({...prev, [name]: value}))
     }
 
@@ -62,9 +61,10 @@ const SignIn = () => {
                                 value={inputs.password}
                                 onChange={handleChange}
                                 name="password"
+                                type="password"
                             />
                         </FormControl>
-                        <Button variant="contained" color="primary">Sign In</Button>
+                        <Button variant="contained" type="submit" color="primary">Sign In</Button>
                     </Grid>
                 </Grid>
                 {errors.length > 0 ? errors.map(error => <p style={{color: 'red'}}>{error}</p> ) : null}

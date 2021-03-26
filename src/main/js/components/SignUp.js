@@ -62,9 +62,10 @@ const SignUp = (props) => {
                                 value={inputs.password}
                                 onChange={handleChange}
                                 name="password"
+                                type="password"
                             />
                         </FormControl>
-                        <Button variant="contained" color="primary">Sign Up</Button>
+                        <Button variant="contained" type="submit" color="primary">Sign Up</Button>
                     </Grid>
                 </Grid>
                 {errors.length > 0 ? errors.map(error => <p style={{color: 'red'}}>{error}</p> ) : null}
