@@ -108,7 +108,7 @@ public class PublisherController {
      */
     @GetMapping(path = "/api/publisher/{id}")
     @ResponseBody
-    ResponseEntity<Publisher> getById(@PathVariable("id") long id) {
+    ResponseEntity<Publisher> getPublisherById(@PathVariable("id") long id) {
 
         return new ResponseEntity<>(publisherRepo.findById(id), HttpStatus.OK);
     }
@@ -122,6 +122,12 @@ public class PublisherController {
 
         publisherRepo.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping(path = "/api/searchPublisherByName")
+    ResponseEntity<Collection> searchByTitle(@RequestParam(name = "name") String name) {
+        return new ResponseEntity<>(publisherRepo.findByNameContaining(name), HttpStatus.OK);
     }
 
 }
