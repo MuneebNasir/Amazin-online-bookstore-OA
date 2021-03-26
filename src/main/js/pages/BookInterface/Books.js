@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, CardContent, CardHeader, Grid, Typography} from "@material-ui/core";
 import axios from "axios";
+import {NotificationManager} from "react-notifications";
+
 import BooksTable from "./BooksTable";
 import AddBookForm from "./AddBookForm";
 import BookCart from "./BookCart";
@@ -48,6 +50,11 @@ let Books = () => {
             timeout: 8000,
             url: `/api/removeBook?id=${id}`,
         }).then(res => {
+            if (res.status === 200) {
+                NotificationManager.success('Removal of Book Entry Successful', 'Success!');
+            } else {
+                NotificationManager.error('Error while Removing Book Entry!', 'Error!');
+            }
             setToggleRemove(!toggleRemove);
         })
     }
