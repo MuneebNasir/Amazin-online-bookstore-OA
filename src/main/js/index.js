@@ -6,11 +6,9 @@ import AuthProvider from "./services/provider/AuthProvider";
 
 ReactDOM.render(
     <HashRouter>
-        <BrowserRouter>
-            <AuthProvider>
-                <Main />
-            </AuthProvider>
-        </BrowserRouter>
+        <AuthProvider>
+            <Main />
+        </AuthProvider>
     </HashRouter>,
     document.getElementById("root")
 );
