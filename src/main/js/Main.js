@@ -217,7 +217,7 @@ let Main = () => {
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
+                    <ListItem button component={Link} to="/Authors" onClick={handleDrawerClose}>
                         <ListItemIcon>
                             <PersonIcon color="primary" />
                         </ListItemIcon>
@@ -246,6 +246,9 @@ let Main = () => {
                     </Route>
                     <Route path="/about">
                         <About />
+                    </Route>
+                    <Route path="/Authors">
+                        <AuthorGrid/>
                     </Route>
                     <Route path="/Publishers">
                         <PublishersMenu />
