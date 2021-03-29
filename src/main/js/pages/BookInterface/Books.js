@@ -13,7 +13,7 @@ let Books = () => {
     let [books, setBooks] = useState([]);
     let [cartBooks, setCartBooks] = useState([]);
     let [search, setSearch] = useState('');
-    let [toggleRemove, setToggleRemove] = useState(false);
+    let [toggleBooks, setToggleBooks] = useState(false);
 
     let handleAddToCart = (book) => {
         let currentCartBookIds = [];
@@ -55,8 +55,12 @@ let Books = () => {
             } else {
                 NotificationManager.error('Error while Removing Book Entry!', 'Error!');
             }
-            setToggleRemove(!toggleRemove);
+            refreshBookList();
         })
+    }
+
+    let refreshBookList = () => {
+        setToggleBooks(!toggleBooks);
     }
 
     useEffect(() => {
@@ -76,7 +80,7 @@ let Books = () => {
                 setBooks(res.data)
             })
         }
-    }, [search, toggleRemove])
+    }, [search, toggleBooks])
 
     return (
         <Grid container spacing={2}>
@@ -109,14 +113,13 @@ let Books = () => {
                                     Shopping Cart
                                 </Typography>
                                 <BookCart cartBooks={cartBooks} handleRemoveFromCart={handleRemoveFromCart}/>
-                                {/*<Button variant={"contained"} color={"primary"}>Checkout</Button>*/}
                                 <BuyButton/>
                             </CardContent>
                         </Card>
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
-                            <AddBookForm/>
+                            <AddBookForm refreshBookList={refreshBookList}/>
                         </Card>
                     </Grid>
                 </Grid>
