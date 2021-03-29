@@ -36,7 +36,7 @@ let AddBookForm = (props) => {
     let [rating, setRating] = useState(null);
     let [isbn, setISBN] = useState(null);
 
-    let handleAddBook = event => {
+    let handleAddBook = () => {
         let book = {
             "title": title,
             "description": description,
