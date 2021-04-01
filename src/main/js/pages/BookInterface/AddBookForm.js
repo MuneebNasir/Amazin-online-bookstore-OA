@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-let LayoutTextFields = () => {
+let AddBookForm = (props) => {
     const classes = useStyles();
     let [title, setTitle] = useState(null);
     let [description, setDescription] = useState(null);
@@ -36,7 +36,7 @@ let LayoutTextFields = () => {
     let [rating, setRating] = useState(null);
     let [isbn, setISBN] = useState(null);
 
-    let handleAddBookClick = event => {
+    let handleAddBook = () => {
         let book = {
             "title": title,
             "description": description,
@@ -58,7 +58,7 @@ let LayoutTextFields = () => {
         }).then(res => {
             if (res.status === 201) {
                 NotificationManager.success('You have added a new Book Entry!', 'Successful!', 500);
-
+                props.refreshBookList();
             }else {
                 NotificationManager.error('Error while Creating new Book Entry!', 'Error!');
             }
@@ -66,7 +66,6 @@ let LayoutTextFields = () => {
     }
 
     return (
-
         <div className={classes.root}>
             <Card variant="outlined">
                 <CardContent>
@@ -144,7 +143,7 @@ let LayoutTextFields = () => {
                     />
                 </CardContent>
                 <CardActions>
-                    <Button size="medium" variant={"outlined"} onClick={handleAddBookClick}>
+                    <Button size="medium" variant={"outlined"} onClick={handleAddBook}>
                         Add Book
                     </Button>
                 </CardActions>
@@ -154,4 +153,4 @@ let LayoutTextFields = () => {
 
 }
 
-export default LayoutTextFields;
+export default AddBookForm;
