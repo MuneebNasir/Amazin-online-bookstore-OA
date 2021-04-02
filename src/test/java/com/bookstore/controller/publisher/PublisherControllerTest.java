@@ -1,6 +1,11 @@
 package com.bookstore.controller.publisher;
+import com.bookstore.jpa.author.Author;
+import com.bookstore.jpa.author.AuthorRepository;
+import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.publisher.Publisher;
+import com.bookstore.jpa.publisher.PublisherRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,6 +32,26 @@ public class PublisherControllerTest {
     @Autowired
     private MockMvc publisherController;
 
+    @Autowired
+    PublisherRepository repo;
+
+    Publisher publisher = new Publisher("Ahmed", "Ottawa");
+    Publisher publisher2 = new Publisher("Jay", "Ottawa");
+    Publisher publisher3 = new Publisher("Trump", "NYC");
+    Publisher publisher4 = new Publisher("Muneeb", "LA");
+
+    @Before
+    public void setup() {
+        publisher = new Publisher("Ahmed", "Ottawa");
+        publisher2 = new Publisher("Jay", "Ottawa");
+        publisher3 = new Publisher("Trump", "NYC");
+        publisher4 = new Publisher("Muneeb", "LA");
+        repo.save(publisher);
+        repo.save(publisher2);
+        repo.save(publisher3);
+        repo.save(publisher4);
+    }
+
     @Test
     public void testGetPublisherByID() throws Exception
     {
@@ -39,7 +64,7 @@ public class PublisherControllerTest {
     @Test
     public void testGetAllPublisherByID() throws Exception
     {
-        Publisher publisher = new Publisher("Jay", "Ottawa");
+
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
@@ -48,7 +73,7 @@ public class PublisherControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        Publisher publisher2 = new Publisher("Trump", "NYC");
+
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
                 .content(asJsonString(publisher2))
@@ -57,7 +82,7 @@ public class PublisherControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        Publisher publisher3 = new Publisher("Muneeb", "LA");
+
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
                 .content(asJsonString(publisher3))
@@ -88,7 +113,6 @@ public class PublisherControllerTest {
 
     @Test
     public void testAddingNewPublisher() throws Exception {
-        Publisher publisher = new Publisher("Jay", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
                 .content(asJsonString(publisher))
@@ -102,17 +126,16 @@ public class PublisherControllerTest {
     @Test
     public void testUpdateModifyPublisherInfo() throws Exception
     {
-        Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
-                .content(asJsonString(publisher))
+                .content(asJsonString(publisher4))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
         // Updating Existing Entry Location
-        publisher.setLocation("NYC");
+        publisher4.setLocation("NYC");
         publisherController.perform(MockMvcRequestBuilders
                 .put("/api/updatePublisher/{id}",1)
                 .content(asJsonString(publisher))
@@ -130,7 +153,7 @@ public class PublisherControllerTest {
                 .andExpect(status().isOk());
 
         // Updating Existing Entry Name
-        publisher.setName("Nasir");
+        publisher4.setName("Nasir");
         publisherController.perform(MockMvcRequestBuilders
                 .put("/api/updatePublisher/{id}",1)
                 .content(asJsonString(publisher))
@@ -152,10 +175,9 @@ public class PublisherControllerTest {
     @Test
     public void testRemovePublisher() throws Exception
     {
-        Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
-                .content(asJsonString(publisher))
+                .content(asJsonString(publisher4))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -185,20 +207,17 @@ public class PublisherControllerTest {
     @Test
     public void testGetAllPublishersDetails() throws Exception
     {
-        //Adding new publishers
-        Publisher publisher = new Publisher("Muneeb", "Ottawa");
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
-                .content(asJsonString(publisher))
+                .content(asJsonString(publisher4))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        Publisher publisher2 = new Publisher("Ahmed", "Toronto");
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
-                .content(asJsonString(publisher2))
+                .content(asJsonString(publisher))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
