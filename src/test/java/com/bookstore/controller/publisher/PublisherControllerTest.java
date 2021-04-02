@@ -42,10 +42,6 @@ public class PublisherControllerTest {
 
     @Before
     public void setup() {
-        publisher = new Publisher("Ahmed", "Ottawa");
-        publisher2 = new Publisher("Jay", "Ottawa");
-        publisher3 = new Publisher("Trump", "NYC");
-        publisher4 = new Publisher("Muneeb", "LA");
         repo.save(publisher);
         repo.save(publisher2);
         repo.save(publisher3);
@@ -126,19 +122,12 @@ public class PublisherControllerTest {
     @Test
     public void testUpdateModifyPublisherInfo() throws Exception
     {
-        publisherController.perform(MockMvcRequestBuilders
-                .post("/api/addNewPublisher")
-                .content(asJsonString(publisher4))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated());
 
         // Updating Existing Entry Location
         publisher4.setLocation("NYC");
         publisherController.perform(MockMvcRequestBuilders
                 .put("/api/updatePublisher/{id}",1)
-                .content(asJsonString(publisher))
+                .content(asJsonString(publisher4))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -156,7 +145,7 @@ public class PublisherControllerTest {
         publisher4.setName("Nasir");
         publisherController.perform(MockMvcRequestBuilders
                 .put("/api/updatePublisher/{id}",1)
-                .content(asJsonString(publisher))
+                .content(asJsonString(publisher4))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -183,7 +172,7 @@ public class PublisherControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        Publisher publisher2 = new Publisher("Ahmed", "Toronto");
+        Publisher publisher2 = new Publisher("Joe", "Toronto");
         publisherController.perform(MockMvcRequestBuilders
                 .post("/api/addNewPublisher")
                 .content(asJsonString(publisher2))
@@ -232,6 +221,19 @@ public class PublisherControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].name").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*].location").exists());
     }
+
+    @Test
+    public void testPublisherByName() throws Exception {
+        publisherController.perform(MockMvcRequestBuilders
+                .get("/api/searchPublisherByName")
+                .param("name", "Ahmed")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Ahmed"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].location").value("Ottawa"));
+    }
+
 
     public static String asJsonString(final Object obj) {
         try {
