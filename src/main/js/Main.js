@@ -34,12 +34,12 @@ import {NotificationContainer} from 'react-notifications';
 import {firebaseAuth} from "./services/provider/AuthProvider";
 import Home from "./pages/Home"
 import About from "./pages/About";
-import PublishersMenu from "./pages/PublisherInterface/PublishersMenu";
 import Books from "./pages/BookInterface/Books";
 import BookInformation from "./pages/BookInterface/BookInformation";
 import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import Publishers from "./pages/PublisherInterface/Publishers";
 
 const drawerWidth = 250;
 
@@ -275,7 +275,7 @@ let Main = () => {
                         <AuthorGrid/>
                     </Route>
                     <Route path="/Publishers">
-                        <PublishersMenu />
+                        <Publishers />
                     </Route>
                     <Route path="/Books">
                         <Books/>
