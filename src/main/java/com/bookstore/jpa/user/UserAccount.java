@@ -1,9 +1,8 @@
 package com.bookstore.jpa.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.bookstore.jpa.role.Role;
+
+import javax.persistence.*;
 
 @Entity
 public class UserAccount {
@@ -14,14 +13,24 @@ public class UserAccount {
 
     private String name;
     private String email;
-    private Boolean isOwner;
+
+    @ManyToOne
+    private Role role;
 
     public UserAccount() { }
 
-    public UserAccount(String name, String email, Boolean isOwner) {
+    public UserAccount(String name, String email, Role role) {
         this.name = name;
         this.email = email;
-        this.isOwner = isOwner;
+        this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,11 +49,11 @@ public class UserAccount {
         this.email = email;
     }
 
-    public Boolean getOwner() {
-        return isOwner;
+    public Role getRole() {
+        return role;
     }
 
-    public void setOwner(Boolean owner) {
-        isOwner = owner;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
