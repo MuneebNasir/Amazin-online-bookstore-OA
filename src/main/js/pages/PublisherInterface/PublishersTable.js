@@ -30,8 +30,7 @@ let PublishersTable = (props) => {
         },
         {
             field: 'location',
-            headerName: 'Publication Year',
-            type: 'number',
+            headerName: 'Publishers Location',
             width: 175
         },
     ];
