@@ -3,6 +3,7 @@ package com.bookstore.jpa.author;
 import com.bookstore.jpa.book.Book;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Author {
@@ -14,8 +15,8 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Book book;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Collection<Book> books;
 
     public Author() {
 
@@ -26,10 +27,10 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public Author(String firstName, String lastName, Book book) {
+    public Author(String firstName, String lastName, Collection<Book> books) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.book = book;
+        this.books = books;
     }
 
 
@@ -57,11 +58,11 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public Book getBook() {
-        return book;
+    public Collection<Book> getBooks() {
+        return books;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBooks(Collection<Book> books) {
+        this.books = books;
     }
 }

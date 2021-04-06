@@ -1,4 +1,6 @@
 package com.bookstore.controller.book;
+import com.bookstore.jpa.author.Author;
+import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Book API Controller
@@ -21,6 +24,8 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @GetMapping(path = "/api/books")
     public String booksView(Model model) {
@@ -55,7 +60,10 @@ public class BookController {
 
     @ResponseBody
     @PostMapping(path = "/api/addNewBook", consumes = "application/json")
-    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book) {
+    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book, @RequestParam(name = "authorId") Long authorId) {
+        Author author;
+        Optional<Author> authorRetrieval = authorRepository.findById(authorId);
+        author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
 
         Book newBook = new Book(
                 book.getTitle(),
@@ -66,14 +74,14 @@ public class BookController {
                // Format.valueOf(book.getFormat()),
                 book.getPrice(),
                 book.getStockCount(),
-                book.getRating()
+                book.getRating(),
+                author,
+                null
         );
         bookRepository.save(newBook);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
 
     @ResponseBody
     @PutMapping(path = "/api/updateBook/{id}", consumes = "application/json")

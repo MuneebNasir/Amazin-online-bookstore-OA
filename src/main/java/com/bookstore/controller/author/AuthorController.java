@@ -105,8 +105,8 @@ public class AuthorController {
         if (!StringUtility.isBlank(author.getLastName())) {
             authorToUpdate.setLastName(author.getLastName());
         }
-        if (author.getBook() != null) {
-            authorToUpdate.setBook(author.getBook());
+        if (author.getBooks() != null) {
+            authorToUpdate.setBooks(author.getBooks());
         }
         authorRepository.save(authorToUpdate);
 
