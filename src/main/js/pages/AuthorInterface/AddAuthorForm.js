@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-let AuthorFields = () => {
+let AddAuthorForm = (props) => {
     const classes = useStyles();
     let [firstName, setFirstName] = useState(null);
     let [lastName, setLastName] = useState(null);
@@ -45,7 +45,7 @@ let AuthorFields = () => {
         }).then(res => {
             if (res.status === 201) {
                 NotificationManager.success('You have created a new author!', 'Successful!', 500);
-
+                props.refreshAuthorList();
             }else {
                 NotificationManager.error('Error while creating new author!', 'Error!');
             }
@@ -87,4 +87,4 @@ let AuthorFields = () => {
 
 }
 
-export default AuthorFields;
+export default AddAuthorForm;

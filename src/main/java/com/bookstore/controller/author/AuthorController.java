@@ -46,7 +46,7 @@ public class AuthorController {
      */
     @GetMapping(path = "/api/authorsByFirstName")
     ResponseEntity<List<Author>> getAuthorsByFirstName(@RequestParam(name = "firstName") String firstName) {
-        List<Author> authors = authorRepository.findAuthorsByFirstName(firstName);
+        List<Author> authors = authorRepository.findAuthorsByFirstNameContaining(firstName);
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 
