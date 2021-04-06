@@ -11,7 +11,11 @@ module.exports = {
         filename: './src/main/resources/static/built/bundle.js'
     },
     plugins: [
-        new Dotenv()
+        new Dotenv({
+            path: './.env',
+            systemvars: true,
+            expand: true
+        })
     ],
     module: {
         rules: [
