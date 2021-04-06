@@ -8,6 +8,7 @@ import AddBookForm from "./AddBookForm";
 import BookCart from "./BookCart";
 import BuyButton from "./BuyButton";
 import SearchBar from "./SearchBar";
+import Button from "@material-ui/core/Button";
 
 let Books = () => {
     let [books, setBooks] = useState([]);
@@ -59,6 +60,16 @@ let Books = () => {
         })
     }
 
+    let handleRecommendBook = (book) => {
+        axios({
+            method: "get",
+            timeout: 8000,
+            url: `/api/recommendBooks?book=${book}`,
+        }).then(res => {
+            console.log(res)
+        })
+    }
+
     let refreshBookList = () => {
         setToggleBooks(!toggleBooks);
     }
@@ -91,6 +102,9 @@ let Books = () => {
                             Search
                         </Typography>
                         <SearchBar handleSearchChange={handleSearchChange}/>
+                        <Button variant="outlined" color="primary" style={{marginTop:15}} onClick={handleRecommendBook}>
+                            Recommend Me A Book
+                        </Button>
                     </CardContent>
                 </Card>
             </Grid>
