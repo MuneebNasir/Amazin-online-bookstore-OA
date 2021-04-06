@@ -36,10 +36,10 @@ import Home from "./pages/Home"
 import About from "./pages/About";
 import Books from "./pages/BookInterface/Books";
 import BookInformation from "./pages/BookInterface/BookInformation";
-import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
+import Authors from "./pages/AuthorInterface/Authors";
 
 const drawerWidth = 250;
 
@@ -272,7 +272,7 @@ let Main = () => {
                         <About />
                     </Route>
                     <Route path="/Authors">
-                        <AuthorGrid/>
+                        <Authors/>
                     </Route>
                     <Route path="/Publishers">
                         <Publishers />

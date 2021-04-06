@@ -6,7 +6,6 @@ src/main/resources/static/built*
 *.iws
 *.jar
 *.sw?
-.env
 *~
 .#*
 .*.md.html
