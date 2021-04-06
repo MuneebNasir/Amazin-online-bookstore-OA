@@ -15,7 +15,6 @@ public class UserAccount {
     private String name;
     private String email;
     private Boolean isOwner;
-    private
 
     public UserAccount() { }
 
