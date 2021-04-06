@@ -3,14 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
 import axios from "axios";
-import 'react-notifications/lib/notifications.css';
 import { NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexWrap: 'wrap',
-        width: '50%',
-        margin: '0 auto'
+        width: `calc(50%px)`,
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -25,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-let PublisherInfoFields = () => {
+let AddPublisherForm = (props) => {
     const classes = useStyles();
     let [name, setName] = useState(null);
     let [location, setLocation] = useState(null);
 
-    let handleAddPublisherClick = event => {
+    let handleAddPublisher = () => {
         let publisher = {
             "name": name,
             "location": location
@@ -44,8 +43,8 @@ let PublisherInfoFields = () => {
             headers: { "Content-Type": "application/json" },
         }).then(res => {
             if (res.status === 201) {
-                NotificationManager.success('You have added a new Publisher!', 'Successful!', 500);
-
+                NotificationManager.success('You have added a new Publisher!', 'Successful!', 200);
+                props.refreshPublisherList();
             }else {
                 NotificationManager.error('Error while Creating new Publisher Entry!', 'Error!');
             }
@@ -53,7 +52,6 @@ let PublisherInfoFields = () => {
     }
 
     return (
-
         <div className={classes.root}>
             <Card variant="outlined">
                 <CardContent>
@@ -66,7 +64,7 @@ let PublisherInfoFields = () => {
                         id="standard-full-width"
                         style={{ margin: 8 }}
                         placeholder="Publisher Name"
-                        helperText="Name"
+                        helperText="Name of Publisher to add"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
@@ -83,7 +81,7 @@ let PublisherInfoFields = () => {
                     />
                 </CardContent>
                 <CardActions>
-                    <Button size="medium" variant={"outlined"} onClick={handleAddPublisherClick}>
+                    <Button size="medium" variant={"outlined"} onClick={handleAddPublisher}>
                         Add Publisher
                     </Button>
                 </CardActions>
@@ -93,4 +91,4 @@ let PublisherInfoFields = () => {
 
 }
 
-export default PublisherInfoFields;
+export default AddPublisherForm;
