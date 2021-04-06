@@ -141,6 +141,7 @@ public class BookController {
     public ResponseEntity<Collection> recommendBooks(@RequestBody Book userBook) {
         Collection<Book> books = bookRepository.findAll();
 
+        // Filter the total list of books, based on whether they are similar enough to the passed in UserBook
         List<Book> filteredBooks = books
                                     .stream()
                                     .filter(book -> calcJaccardDistance(book, userBook) >= JACCARD_VALUE)
@@ -149,6 +150,14 @@ public class BookController {
         return new ResponseEntity<>(filteredBooks, HttpStatus.OK);
     }
 
+    /**
+     * Calculate the Jaccard distance between two books - an algorithmic way to determine the "likeness" between two
+     * sets of data. In this case, the "sets" of data checked for similarity between the two books are Genre, Length,
+     * and AgeGroup.
+     * @param book book from collection of books currently being iterated over
+     * @param userBook master book, from which we are finding books that are "similar enough" to
+     * @return The Jaccard value, as a decimal value between 0 and 1
+     */
     private static double calcJaccardDistance(Book book, Book userBook) {
         int sharedSize = 0;
         int totalSize = 0;
