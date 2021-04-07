@@ -186,9 +186,6 @@ public class BookControllerTest {
                 MockMvcRequestBuilders.delete("/api/removeBook")
                         .param("id", "2"))
                 .andExpect(status().isOk());
-        System.out.println("_--------------------");
-        System.out.println(authorRepo.findById(2).getFirstName());
-        System.out.println("_--------------------");
 
         // GET REQUEST to ensure the specified book is deleted
         bookController.perform( MockMvcRequestBuilders
