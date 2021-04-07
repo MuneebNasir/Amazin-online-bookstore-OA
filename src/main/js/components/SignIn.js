@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
-import {firebaseAuth} from "../services/provider/AuthProvider";
-import {Grid, Paper, FormControl, InputLabel, Input, Button} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {NotificationManager} from "react-notifications";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Grid, Paper, FormControl, InputLabel, Input, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { NotificationManager } from "react-notifications";
+import { auth } from "../services/firebase/firebaseIndex";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,21 +23,35 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
     const classes = useStyles();
-    const {handleSignIn, inputs, setInputs, errors} = useContext(firebaseAuth)
+    const history = useHistory();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        handleSignIn()
-    }
-    const handleChange = e => {
-        const {name, value} = e.target
-        console.log(inputs)
-        setInputs(prev => ({...prev, [name]: value}))
-    }
+    const signInWithEmailAndPasswordHandler = (event,email, password) => {
+        event.preventDefault();
+        auth.signInWithEmailAndPassword(email, password).catch(error => {
+            setError("Error signing in with password and email!");
+            console.error("Error signing in with password and email", error);
+        });
+        history.push('/')
+    };
+
+    const onChangeHandler = (event) => {
+        const {name, value} = event.currentTarget;
+
+        if(name === 'userEmail') {
+            setEmail(value);
+        }
+        else if(name === 'userPassword'){
+            setPassword(value);
+        }
+    };
 
     return (
         <div className={classes.root}>
-            <form onSubmit={handleSubmit} className={classes.centerBlock}>
+            {error !== null && NotificationManager.error(error, 'Error!')}
+            <form className={classes.centerBlock}>
                 <Grid container spacing={3}>
                     <Grid item xs className={classes.paper}>
                         <h1 className={classes.headLine} >
@@ -47,28 +62,32 @@ const SignIn = () => {
                 <Grid container spacing={3}>
                     <Grid item xs>
                         <FormControl fullWidth className={classes.margin}>
-                            <InputLabel htmlFor="user-login">Email</InputLabel>
+                            <InputLabel htmlFor="userEmail">Email</InputLabel>
                             <Input
-                                id="user-login"
-                                value={inputs.email}
-                                onChange={handleChange}
-                                name="email"
+                                id="userEmail"
+                                value={email}
+                                onChange={(event) => onChangeHandler(event)}
+                                name="userEmail"
                             />
                         </FormControl>
                         <FormControl fullWidth className={classes.margin}>
-                            <InputLabel htmlFor="user-pass">Password</InputLabel>
+                            <InputLabel htmlFor="userPassword">Password</InputLabel>
                             <Input
-                                id="user-pass"
-                                value={inputs.password}
-                                onChange={handleChange}
-                                name="password"
+                                id="userPassword"
+                                value={password}
+                                onChange={(event) => onChangeHandler(event)}
+                                name="userPassword"
                                 type="password"
                             />
                         </FormControl>
-                        <Button variant="contained" type="submit" color="primary">Sign In</Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick = {(event) => {
+                                signInWithEmailAndPasswordHandler(event, email, password)
+                            }}>Sign In</Button>
                     </Grid>
                 </Grid>
-                {errors.length > 0 ? errors.map(error => {NotificationManager.error(error, 'Error!');} ) : null}
             </form>
         </div>
     );

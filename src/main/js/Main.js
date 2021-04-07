@@ -31,7 +31,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
 import {NotificationContainer} from 'react-notifications';
-import {firebaseAuth} from "./services/provider/AuthProvider";
 import Home from "./pages/Home"
 import About from "./pages/About";
 import Books from "./pages/BookInterface/Books";
@@ -40,6 +39,8 @@ import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
+import UserProvider, { UserContext } from "./services/provider/UserProvider";
+import { auth } from "./services/firebase/firebaseIndex";
 
 const drawerWidth = 250;
 
@@ -135,9 +136,10 @@ const useStyles = makeStyles((theme) => ({
 
 let Main = () => {
     const classes = useStyles();
+    const user = useContext(UserContext)
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const {handleSignOut,} = useContext(firebaseAuth)
+    // const {handleSignOut,} = useContext(firebaseAuth)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -176,11 +178,16 @@ let Main = () => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <div>
-                        <IconButton variant="contained" onClick={handleSignOut} aria-label="signOut">
-                            <ExitToAppIcon />
-                        </IconButton>
-                    </div>
+                    {user &&
+                        <div>
+                            {user.displayName}
+                            <IconButton variant="contained" onClick={() => {
+                                auth.signOut()
+                            }} aria-label="signOut">
+                                <ExitToAppIcon/>
+                            </IconButton>
+                        </div>
+                    }
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -246,20 +253,22 @@ let Main = () => {
                     </ListItem>
                 </List>
                 <Divider/>
-                <List>
-                    <ListItem button component={Link} to="/signup" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <PersonIcon color="primary"/>
-                        </ListItemIcon>
-                        <ListItemText primary="Sign Up"/>
-                    </ListItem>
-                    <ListItem button component={Link} to="/signin" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <PersonIcon color="primary"/>
-                        </ListItemIcon>
-                        <ListItemText primary="Sign In"/>
-                    </ListItem>
-                </List>
+                { !user &&
+                    <List>
+                        <ListItem button component={Link} to="/signup" onClick={handleDrawerClose}>
+                            <ListItemIcon>
+                                <PersonIcon color="primary"/>
+                            </ListItemIcon>
+                            <ListItemText primary="Sign Up"/>
+                        </ListItem>
+                        <ListItem button component={Link} to="/signin" onClick={handleDrawerClose}>
+                            <ListItemIcon>
+                                <PersonIcon color="primary"/>
+                            </ListItemIcon>
+                            <ListItemText primary="Sign In"/>
+                        </ListItem>
+                    </List>
+                }
             </Drawer>
 
 
