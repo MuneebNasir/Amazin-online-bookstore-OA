@@ -17,9 +17,7 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Collection<Book> books;
 
     public Author() {

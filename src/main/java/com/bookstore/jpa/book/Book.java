@@ -25,9 +25,8 @@ public class Book {
     private Integer stockCount;
     private Double rating;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
