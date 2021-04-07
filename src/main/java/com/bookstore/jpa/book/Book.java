@@ -2,6 +2,8 @@ package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.publisher.Publisher;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -24,6 +26,8 @@ public class Book {
     private Double rating;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
