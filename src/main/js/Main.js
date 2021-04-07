@@ -40,6 +40,7 @@ import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
 import Authors from "./pages/AuthorInterface/Authors";
 import {UserContext} from "./services/provider/UserProvider";
+import {auth} from "./services/firebase/firebaseIndex";
 
 const drawerWidth = 250;
 
