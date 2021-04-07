@@ -39,6 +39,7 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
 import Authors from "./pages/AuthorInterface/Authors";
+import {UserContext} from "./services/provider/UserProvider";
 
 const drawerWidth = 250;
 
