@@ -138,8 +138,10 @@ public class BookController {
 
     @ResponseBody
     @GetMapping(path = "/api/recommendBooks")
-    public ResponseEntity<Collection> recommendBooks(@RequestBody Book userBook) {
+    public ResponseEntity<Collection> recommendBooks(@RequestParam(name="bookId") String userBookId) {
         Collection<Book> books = bookRepository.findAll();
+        long id = Long.parseLong(userBookId);
+        Book userBook = bookRepository.findById(id);
 
         // Filter the total list of books, based on whether they are similar enough to the passed in UserBook
         List<Book> filteredBooks = books
