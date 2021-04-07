@@ -31,12 +31,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
 import {NotificationContainer} from 'react-notifications';
-import {firebaseAuth} from "./services/provider/AuthProvider";
 import Home from "./pages/Home"
 import About from "./pages/About";
 import Books from "./pages/BookInterface/Books";
 import BookInformation from "./pages/BookInterface/BookInformation";
-import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
