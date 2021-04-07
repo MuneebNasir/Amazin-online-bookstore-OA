@@ -1,5 +1,7 @@
 package com.bookstore.controller.book;
 
+import com.bookstore.jpa.author.Author;
+import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.enums.Format;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,8 @@ public class BookControllerTest {
 
     @Autowired
     private MockMvc bookController;
+    @Autowired
+    AuthorRepository authorRepo;
 
     @Test
     public void testGetBookByID() throws Exception
@@ -41,6 +45,7 @@ public class BookControllerTest {
             Book book = new Book();
             bookController.perform(MockMvcRequestBuilders
                     .post("/api/addNewBook")
+                    .param("authorId", "2")
                     .content(asJsonString(book))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
@@ -65,6 +70,7 @@ public class BookControllerTest {
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
                 .post("/api/addNewBook")
+                .param("authorId", "1")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -76,6 +82,8 @@ public class BookControllerTest {
     @Test
     public void testUpdateBookInfo() throws Exception
     {
+        Author bookAuthor2 = new Author("Jane", "Doe", null);
+        authorRepo.save(bookAuthor2);
         Book book = new Book(
                 "Lord of the Rings",
                 "Bretty Gud",
@@ -87,6 +95,7 @@ public class BookControllerTest {
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
                 .post("/api/addNewBook")
+                .param("authorId", "1")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -134,6 +143,9 @@ public class BookControllerTest {
     @Test
     public void testRemoveBook() throws Exception
     {
+        Author bookAuthor2 = new Author("Jane", "Doe", null);
+        authorRepo.save(bookAuthor2);
+
         Book book = new Book(
                 "Lord of the Rings",
                 "Bretty Gud",
@@ -145,6 +157,7 @@ public class BookControllerTest {
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
                 .post("/api/addNewBook")
+                .param("authorId", "2")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -152,7 +165,7 @@ public class BookControllerTest {
                 .andExpect(status().isCreated());
 
         Book book2 = new Book(
-                "My Fair Lady",
+                "Testing New Addition",
                 "Bretty Bad",
                 "/shiggydiggy/",
                 132,
@@ -162,6 +175,7 @@ public class BookControllerTest {
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
                 .post("/api/addNewBook")
+                .param("authorId", "1")
                 .content(asJsonString(book2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -183,6 +197,8 @@ public class BookControllerTest {
     @Test
     public void testGetAllBooks() throws Exception
     {
+        Author bookAuthor = new Author("James", "Bond", null);
+        authorRepo.save(bookAuthor);
         //Adding new books
         Book book = new Book(
                 "Lord of the Rings",
@@ -192,9 +208,12 @@ public class BookControllerTest {
                 "ABC",
                 420.69,
                 12,
-                8008.5);
+                8008.5,
+                bookAuthor,
+                null);
         bookController.perform(MockMvcRequestBuilders
                 .post("/api/addNewBook")
+                .param("authorId", "1")
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -212,6 +231,7 @@ public class BookControllerTest {
                 8008.5);
         bookController.perform(MockMvcRequestBuilders
                 .post("/api/addNewBook")
+                .param("authorId", "1")
                 .content(asJsonString(book2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

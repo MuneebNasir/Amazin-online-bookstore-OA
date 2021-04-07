@@ -31,6 +31,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
 import {NotificationContainer} from 'react-notifications';
+import {firebaseAuth} from "./services/provider/AuthProvider";
 import Home from "./pages/Home"
 import About from "./pages/About";
 import Books from "./pages/BookInterface/Books";
@@ -39,8 +40,7 @@ import AuthorGrid from "./pages/AuthorInterface/AuthorGrid";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
-import UserProvider, { UserContext } from "./services/provider/UserProvider";
-import { auth } from "./services/firebase/firebaseIndex";
+import Authors from "./pages/AuthorInterface/Authors";
 
 const drawerWidth = 250;
 
@@ -139,7 +139,6 @@ let Main = () => {
     const user = useContext(UserContext)
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    // const {handleSignOut,} = useContext(firebaseAuth)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -281,7 +280,7 @@ let Main = () => {
                         <About />
                     </Route>
                     <Route path="/Authors">
-                        <AuthorGrid/>
+                        <Authors/>
                     </Route>
                     <Route path="/Publishers">
                         <Publishers />
