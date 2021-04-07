@@ -2,11 +2,7 @@ package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.publisher.Publisher;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Book {
@@ -29,7 +25,8 @@ public class Book {
     @JoinColumn
     private Author author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn
     private Publisher publisher;
 
     public Book() {
@@ -53,7 +50,6 @@ public class Book {
         this.stockCount = stockCount;
         this.rating = rating;
     }
-
     public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating, Author author, Publisher publisher) {
         this.title = title;
         this.description = description;

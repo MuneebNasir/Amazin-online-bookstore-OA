@@ -3,6 +3,8 @@ import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
 import com.bookstore.jpa.book.BookRepository;
+import com.bookstore.jpa.publisher.Publisher;
+import com.bookstore.jpa.publisher.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,8 @@ public class BookController {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
     @GetMapping(path = "/api/books")
     public String booksView(Model model) {
@@ -60,10 +64,16 @@ public class BookController {
 
     @ResponseBody
     @PostMapping(path = "/api/addNewBook", consumes = "application/json")
-    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book, @RequestParam(name = "authorId") Long authorId) {
+    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book,
+                                                 @RequestParam(name = "authorId") Long authorId,
+                                                 @RequestParam(name = "publisherId") Long publisherId) {
         Author author;
         Optional<Author> authorRetrieval = authorRepository.findById(authorId);
         author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
+
+        Publisher publisher;
+        Optional<Publisher> publisherRetrieval = publisherRepository.findById(publisherId);
+        publisher = publisherRetrieval.isPresent() ? publisherRetrieval.get() :  null;
 
         Book newBook = new Book(
                 book.getTitle(),
@@ -76,7 +86,7 @@ public class BookController {
                 book.getStockCount(),
                 book.getRating(),
                 author,
-                null
+                publisher
         );
         bookRepository.save(newBook);
 
