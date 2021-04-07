@@ -1,12 +1,14 @@
 import AuthorsTable from "./AuthorsTable";
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Card, CardContent, Grid, Typography} from "@material-ui/core";
 import axios from "axios";
 import {NotificationManager} from "react-notifications";
 import AuthorSearchBar from "./AuthorSearchBar";
 import AddAuthorForm from "./AddAuthorForm";
+import {UserContext} from "../../services/provider/UserProvider";
 
 let Authors = () => {
+    const user = useContext(UserContext)
     let [authors, setAuthors] = useState([]);
     let [search, setSearch] = useState('');
     let [toggleAuthors, setToggleAuthors] = useState(false);
@@ -75,13 +77,15 @@ let Authors = () => {
                     <AuthorsTable authors={authors}  handleRemoveAuthor={handleRemoveAuthor}/>
                 </Card>
             </Grid>
-            <Grid item xs={6}>
-                <Grid item xs={12}>
-                    <Card>
-                        <AddAuthorForm refreshAuthorList={refreshAuthorList}/>
-                    </Card>
+            {user && user.isAdmin &&
+                <Grid item xs={6}>
+                    <Grid item xs={12}>
+                        <Card>
+                            <AddAuthorForm refreshAuthorList={refreshAuthorList}/>
+                        </Card>
+                    </Grid>
                 </Grid>
-            </Grid>
+            }
         </Grid>
     )
 }
