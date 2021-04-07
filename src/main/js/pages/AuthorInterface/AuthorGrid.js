@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {Card, Grid} from "@material-ui/core";
 import AddAuthorForm from "./AddAuthorForm";
 import Authors from "./Authors";
 import Typography from "@material-ui/core/Typography";
+import {UserContext} from "../../services/provider/UserProvider";
 
 const drawerWidth = 240;
 
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 let AuthorGrid = (props) => {
     const classes = useStyles();
+    const user = useContext(UserContext)
 
     return (
         <div className={classes.root}>
@@ -50,13 +52,15 @@ let AuthorGrid = (props) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <AddAuthorForm/>
+                {user && user.isAdmin &&
+                    <Grid item xs={3}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <AddAuthorForm/>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
+                }
             </Grid>
         </div>
     );
