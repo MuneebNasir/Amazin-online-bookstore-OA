@@ -1,7 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import {Card, CardActions, CardContent, Typography, Button} from "@material-ui/core";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Typography,
+    Button,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem
+} from "@material-ui/core";
 import axios from "axios";
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -10,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexWrap: 'wrap',
         width: `calc(50%px)`,
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -26,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
 
 let AddBookForm = (props) => {
     const classes = useStyles();
+
+    let [authors, setAuthors] = useState([]); // author list to select from
+
     let [title, setTitle] = useState(null);
     let [description, setDescription] = useState(null);
     let [imageUrl, setImageUrl] = useState(null);
@@ -35,8 +52,24 @@ let AddBookForm = (props) => {
     let [stockCount, setStockCount] = useState(null);
     let [rating, setRating] = useState(null);
     let [isbn, setISBN] = useState(null);
+    let [author, setAuthor] = useState('');
+
+    useEffect( () => {
+        axios({
+            method: "get",
+            timeout: 8000,
+            url: `/api/authors`,
+        }).then(res => {
+            setAuthors(res.data)
+        })
+    })
 
     let handleAddBook = () => {
+        if (author === '') {
+            NotificationManager.error("Can't create a book without an author!", "Error!");
+            return
+        }
+
         let book = {
             "title": title,
             "description": description,
@@ -52,14 +85,14 @@ let AddBookForm = (props) => {
         axios({
             method: "post",
             contentType: "application/json",
-            url: "/api/addNewBook",
+            url: `/api/addNewBook?authorId=${author}`,
             data:  JSON.stringify(book),
             headers: { "Content-Type": "application/json" },
         }).then(res => {
             if (res.status === 201) {
                 NotificationManager.success('You have added a new Book Entry!', 'Successful!', 500);
                 props.refreshBookList();
-            }else {
+            } else {
                 NotificationManager.error('Error while Creating new Book Entry!', 'Error!');
             }
         })
@@ -141,6 +174,22 @@ let AddBookForm = (props) => {
                         helperText="ISBN of book"
                         onChange = {(e) => setISBN(e.target.value)}
                     />
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-helper-label">Author</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={author}
+                            onChange={(event) => setAuthor(event.target.value)}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {authors.map((author) => (
+                                <MenuItem value={author.id}>{author.lastName}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </CardContent>
                 <CardActions>
                     <Button size="medium" variant={"outlined"} onClick={handleAddBook}>
