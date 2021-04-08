@@ -64,7 +64,7 @@ public class BookController {
         Author author;
         Optional<Author> authorRetrieval = authorRepository.findById(authorId);
         author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
-
+        System.out.println("Author: " + author);
         Book newBook = new Book(
                 book.getTitle(),
                 book.getDescription(),

@@ -41,10 +41,17 @@ let DataTable = (props) => {
             width: 250,
         },
         {
+            field: 'author',
+            headerName: 'Author',
+            type: 'string',
+            width: 150
+        },
+        {
             field: 'publicationYear',
             headerName: 'Publication Year',
             type: 'number',
-            width: 175 },
+            width: 175
+        },
         {
             field: 'price',
             headerName: 'Price',
@@ -68,7 +75,7 @@ let DataTable = (props) => {
     ];
 
     return (
-        <div style={{ height: 800, width: '100%' }}>
+        <div style={{height: 800, width: '100%'}}>
             <DataGrid rows={props.books} columns={columns} pageSize={15}/>
         </div>
     );
