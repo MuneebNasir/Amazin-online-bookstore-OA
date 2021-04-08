@@ -22,7 +22,7 @@ let AlertDialogSlide = () => {
 
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button variant="outlined" color="primary" onClick={handleClickOpen} style={{marginTop:15}}>
                 Checkout
             </Button>
             <Dialog
@@ -33,7 +33,7 @@ let AlertDialogSlide = () => {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"BUY MY STUFF"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"You have made a purchase."}</DialogTitle>
                 <DialogContent>
 
                 </DialogContent>
