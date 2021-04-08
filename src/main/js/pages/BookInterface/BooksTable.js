@@ -43,7 +43,7 @@ let DataTable = (props) => {
         {
             field: 'publicationYear',
             headerName: 'Publication Year',
-            type: 'number',
+            type: 'integer',
             width: 175 },
         {
             field: 'price',

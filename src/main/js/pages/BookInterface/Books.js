@@ -8,7 +8,9 @@ import AddBookForm from "./AddBookForm";
 import BookCart from "./BookCart";
 import BuyButton from "./BuyButton";
 import SearchBar from "./SearchBar";
+import Button from "@material-ui/core/Button";
 import {UserContext} from "../../services/provider/UserProvider";
+
 
 let Books = () => {
     const user = useContext(UserContext)
@@ -16,8 +18,12 @@ let Books = () => {
     let [cartBooks, setCartBooks] = useState([]);
     let [search, setSearch] = useState('');
     let [toggleBooks, setToggleBooks] = useState(false);
+    let [recommendBooksToggle, setRecommendBooksToggle] = useState(false);
+    let [mostRecentBook, setMostRecentBook] = useState(null);
+    let [searchMode, setSearchMode] = useState(true);
 
     let handleAddToCart = (book) => {
+        setMostRecentBook(book);
         let currentCartBookIds = [];
         cartBooks.forEach((book) => {
             currentCartBookIds.push(book)
@@ -61,12 +67,31 @@ let Books = () => {
         })
     }
 
+    let handleRecommendBook = () => {
+        if (mostRecentBook == null) {
+            NotificationManager.error('Add at least one book to your shopping cart, so we can make a recommendation!', 'Error!');
+            return
+        }
+        setRecommendBooksToggle(true);
+        refreshBookList();
+    }
+
     let refreshBookList = () => {
         setToggleBooks(!toggleBooks);
     }
 
     useEffect(() => {
-        if (search === '') {
+        if (recommendBooksToggle) {
+            axios({
+                method: "get",
+                timeout: 8000,
+                url: `/api/recommendBooks?bookId=${mostRecentBook}`,
+            }).then(res => {
+                setBooks(res.data);
+            })
+            setSearchMode(false);
+            setRecommendBooksToggle(false);
+        } else if (search === '') {
             axios({
                 method: "get",
                 timeout: 8000,
@@ -74,6 +99,7 @@ let Books = () => {
             }).then(res => {
                 setBooks(res.data)
             })
+            setSearchMode(true);
         } else {
             axios({
                 method: "get",
@@ -81,6 +107,7 @@ let Books = () => {
             }).then(res => {
                 setBooks(res.data)
             })
+            setSearchMode(true);
         }
     }, [search, toggleBooks])
 
@@ -93,15 +120,27 @@ let Books = () => {
                             Search
                         </Typography>
                         <SearchBar handleSearchChange={handleSearchChange}/>
+                        <Button variant="outlined" color="primary" style={{marginTop:15}} onClick={handleRecommendBook}>
+                            Recommend Me Books!
+                        </Button>
+                        <Button variant="outlined" color="secondary" style={{marginTop:15}} onClick={refreshBookList}>
+                            Back to Search
+                        </Button>
                     </CardContent>
                 </Card>
             </Grid>
             <Grid item xs={6}>
                 <Card>
                     <CardContent>
-                        <Typography variant={"h5"}>
-                            Book List
-                        </Typography>
+                        {searchMode ?
+                            <Typography variant={"h5"}>
+                                Book List - Search
+                            </Typography>
+                            :
+                            <Typography variant={"h5"}>
+                                Book List - Recommended Books
+                            </Typography>
+                        }
                     </CardContent>
                     <BooksTable books={books} cartBooks={cartBooks} handleAddToCart={handleAddToCart} handleRemoveBook={handleRemoveBook}/>
                 </Card>
