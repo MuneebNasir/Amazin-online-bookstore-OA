@@ -49,14 +49,9 @@ let DataTable = (props) => {
         {
             field: 'publicationYear',
             headerName: 'Publication Year',
-<<<<<<< HEAD
-            type: 'number',
-            width: 175
-        },
-=======
             type: 'integer',
             width: 175 },
->>>>>>> master
+
         {
             field: 'price',
             headerName: 'Price',
