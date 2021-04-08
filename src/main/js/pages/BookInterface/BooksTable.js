@@ -81,6 +81,9 @@ let DataTable = (props) => {
             headerName: 'Publisher',
             description: 'Book\'s Publisher',
             width: 150,
+            valueGetter: (params) => {
+                return params.row.publisher.name
+            }
         },
     ];
 
