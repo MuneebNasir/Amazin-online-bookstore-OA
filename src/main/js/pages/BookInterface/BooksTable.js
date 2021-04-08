@@ -4,7 +4,6 @@ import {Button, MenuItem} from "@material-ui/core";
 import BookInfoPopup from "./BookInfoPopup";
 
 let DataTable = (props) => {
-    debugger;
     const columns = [
         {
             field: 'id',
