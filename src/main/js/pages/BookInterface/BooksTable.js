@@ -2,6 +2,7 @@ import * as React from 'react';
 import {DataGrid, GridColDef} from '@material-ui/data-grid';
 import {Button, MenuItem} from "@material-ui/core";
 import BookInfoPopup from "./BookInfoPopup";
+import {roRO} from "@material-ui/core/locale";
 
 let DataTable = (props) => {
     const columns = [
@@ -44,7 +45,10 @@ let DataTable = (props) => {
             field: 'author',
             headerName: 'Author',
             type: 'string',
-            width: 150
+            width: 150,
+            valueGetter: (params) => {
+                return params.row.author.firstName + ' ' + params.row.author.lastName
+            }
         },
         {
             field: 'publicationYear',
