@@ -53,12 +53,8 @@ let AddBookForm = (props) => {
     let [stockCount, setStockCount] = useState(null);
     let [rating, setRating] = useState(null);
     let [isbn, setISBN] = useState(null);
-<<<<<<< HEAD
-    let [authorId, setAuthorId] = useState('');
-=======
     let [author, setAuthor] = useState('');
     let [publisher, setPublisher] = useState('');
->>>>>>> master
 
     useEffect( () => {
         axios({
@@ -79,7 +75,7 @@ let AddBookForm = (props) => {
     }, [])
 
     let handleAddBook = () => {
-        if (authorId === '') {
+        if (author === '') {
             NotificationManager.error("Can't create a book without an author!", "Error!");
             return
         }
@@ -100,17 +96,11 @@ let AddBookForm = (props) => {
             "isbn": isbn,
         }
 
-        // console.log('book: ' + book.author)
-        // console.log('author: ' + author)
 
         axios({
             method: "post",
             contentType: "application/json",
-<<<<<<< HEAD
-            url: `/api/addNewBook?authorId=${authorId}`,
-=======
             url: `/api/addNewBook?authorId=${author}&publisherId=${publisher}`,
->>>>>>> master
             data:  JSON.stringify(book),
             headers: { "Content-Type": "application/json" },
         }).then(res => {
@@ -204,8 +194,8 @@ let AddBookForm = (props) => {
                         <Select
                             labelId="demo-simple-select-helper-label"
                             id="demo-simple-select-helper"
-                            value={authorId}
-                            onChange={(event) => setAuthorId(event.target.value)}
+                            value={author}
+                            onChange={(event) => setAuthor(event.target.value)}
                         >
                             <MenuItem value="">
                                 <em>None</em>
