@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.Optional;
 
 @Controller
 public class BookController {
+
+    public double JACCARD_VALUE = 0.5;
 
     @Autowired
     private BookRepository bookRepository;
@@ -75,8 +79,9 @@ public class BookController {
                 book.getPrice(),
                 book.getStockCount(),
                 book.getRating(),
-                author,
-                null
+                book.getGenre(),
+                book.getLength(),
+                book.getAgeGroup()
         );
         bookRepository.save(newBook);
 
@@ -138,4 +143,54 @@ public class BookController {
     ResponseEntity<Collection> searchByIds(@RequestParam(name = "ids") List<Long> ids) {
         return new ResponseEntity<>(bookRepository.findByIdIn(ids), HttpStatus.OK);
     }
+
+    @ResponseBody
+    @GetMapping(path = "/api/recommendBooks")
+    public ResponseEntity<Collection> recommendBooks(@RequestParam(name="bookId") String userBookId) {
+        Collection<Book> books = bookRepository.findAll();
+        long id = Long.parseLong(userBookId);
+        Book userBook = bookRepository.findById(id);
+
+        // Filter the total list of books, based on whether they are similar enough to the passed in UserBook
+        List<Book> filteredBooks = books
+                                    .stream()
+                                    .filter(book -> calcJaccardDistance(book, userBook) >= JACCARD_VALUE)
+                                    .collect(Collectors.toList());
+
+        return new ResponseEntity<>(filteredBooks, HttpStatus.OK);
+    }
+
+    /**
+     * Calculate the Jaccard distance between two books - an algorithmic way to determine the "likeness" between two
+     * sets of data. In this case, the "sets" of data checked for similarity between the two books are Genre, Length,
+     * and AgeGroup.
+     * @param book book from collection of books currently being iterated over
+     * @param userBook master book, from which we are finding books that are "similar enough" to
+     * @return The Jaccard value, as a decimal value between 0 and 1
+     */
+    private static double calcJaccardDistance(Book book, Book userBook) {
+        int sharedSize = 0;
+        int totalSize = 0;
+
+        if (book.getGenre() == userBook.getGenre()) {
+            sharedSize += 1;
+            totalSize += 1;
+        } else {
+            totalSize += 2;
+        }
+        if (book.getLength() == userBook.getLength()) {
+            sharedSize += 1;
+            totalSize += 1;
+        } else {
+            totalSize += 2;
+        }
+        if (book.getAgeGroup() == userBook.getAgeGroup()) {
+            sharedSize += 1;
+            totalSize += 1;
+        } else {
+            totalSize += 2;
+        }
+        return ((double) sharedSize) / ((double) totalSize);
+    }
+
 }

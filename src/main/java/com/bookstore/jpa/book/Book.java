@@ -10,8 +10,6 @@ import java.util.Collection;
 
 @Entity
 public class Book {
-
-
     @Id
     @GeneratedValue(generator = "book", strategy = GenerationType.IDENTITY)
     private long id;
@@ -24,6 +22,9 @@ public class Book {
     private Double price;
     private Integer stockCount;
     private Double rating;
+    private Genre genre;
+    private Length length;
+    private AgeGroup ageGroup;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn
@@ -41,17 +42,29 @@ public class Book {
         this.description = description;
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating) {
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
-        // DON'T MAKE THIS AN ENUM WITHOUT UPDATING THE FRONTEND WITH A DROPDOWN
-        //this.format = format;
         this.price = price;
         this.stockCount = stockCount;
         this.rating = rating;
+    }
+
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating, Genre genre, Length length, AgeGroup ageGroup) {
+        this.title = title;
+        this.description = description;
+        this.imageURL = imageURL;
+        this.publicationYear = publicationYear;
+        this.ISBN = ISBN;
+        this.price = price;
+        this.stockCount = stockCount;
+        this.rating = rating;
+        this.genre = genre;
+        this.length = length;
+        this.ageGroup = ageGroup;
     }
 
     public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating, Author author, Publisher publisher) {
@@ -157,4 +170,27 @@ public class Book {
         this.id = id;
     }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Length getLength() {
+        return length;
+    }
+
+    public void setLength(Length length) {
+        this.length = length;
+    }
+
+    public AgeGroup getAgeGroup() {
+        return ageGroup;
+    }
+
+    public void setAgeGroup(AgeGroup ageGroup) {
+        this.ageGroup = ageGroup;
+    }
 }
