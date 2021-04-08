@@ -142,7 +142,7 @@ let Books = () => {
                             </Typography>
                         }
                     </CardContent>
-                    <BooksTable books={books} cartBooks={cartBooks} handleAddToCart={handleAddToCart} handleRemoveBook={handleRemoveBook}/>
+                    <BooksTable books={books} handleAddToCart={handleAddToCart} handleRemoveBook={handleRemoveBook}/>
                 </Card>
             </Grid>
             <Grid item xs={6}>

@@ -4,6 +4,7 @@ import {Button, MenuItem} from "@material-ui/core";
 import BookInfoPopup from "./BookInfoPopup";
 
 let DataTable = (props) => {
+    debugger;
     const columns = [
         {
             field: 'id',
@@ -70,6 +71,9 @@ let DataTable = (props) => {
             headerName: 'Publisher',
             description: 'Book\'s Publisher',
             width: 150,
+            valueGetter: (params) => {
+                return params.row.publisher.name
+            }
         },
     ];
 
