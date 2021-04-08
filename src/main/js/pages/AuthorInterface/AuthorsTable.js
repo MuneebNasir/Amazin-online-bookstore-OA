@@ -1,77 +1,45 @@
-import React from 'react'
-import {makeStyles} from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import axios from "axios";
-
-class AuthorComponent extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {authors: []};
-    }
-
-    setAuthors() {
-        axios.get(`/api/authors`)
-            .then(res => {
-                const authors = res.data;
-                this.setState({authors});
-            })
-    }
-
-    componentDidMount() {
-        this.setAuthors();
-    }
-
-    componentDidUpdate() {
-        this.setAuthors();
-    }
-
-    render() {
-        return (
-            <div>
-                <AuthorsTable authors={this.state.authors}/>
-            </div>
-        )
-    }
-}
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    }
-});
+import React from 'react';
+import {DataGrid, GridColDef} from '@material-ui/data-grid';
+import {Button} from "@material-ui/core";
 
 let AuthorsTable = (props) => {
-    const classes = useStyles();
+    const columns = [
+        {
+            field: 'id',
+            headerName: 'Option',
+            width: 450,
+            renderCell: (params) => (
+                <strong>
+                    <Button
+                        variant={"contained"}
+                        color={"secondary"}
+                        size={"small"}
+                        onClick={() => {
+                            props.handleRemoveAuthor(params.value);
+                        }}
+                    >
+                        Remove Author
+                    </Button>
+                </strong>
+            )
+        },
+        {
+            field: 'firstName',
+            headerName: 'First Name',
+            width: 250,
+        },
+        {
+            field: 'lastName',
+            headerName: 'Last name',
+            width: 175
+        },
+    ];
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="Authors Table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Id</TableCell>
-                        <TableCell>First Name</TableCell>
-                        <TableCell>Last Name</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {props.authors.map((row) => (
-                        <TableRow key={row.id}>
-                            <TableCell>{row.id}</TableCell>
-                            <TableCell>{row.firstName}</TableCell>
-                            <TableCell>{row.lastName}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div style={{ height: 800, width: '100%' }}>
+            <DataGrid rows={props.authors} columns={columns} pageSize={15}/>
+        </div>
     );
 }
 
-export default AuthorComponent;
+export default AuthorsTable;

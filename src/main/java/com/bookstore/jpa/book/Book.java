@@ -2,6 +2,8 @@ package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.publisher.Publisher;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -24,9 +26,9 @@ public class Book {
     private Length length;
     private AgeGroup ageGroup;
 
-    @JoinColumn()
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<Author> authors;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
@@ -63,6 +65,21 @@ public class Book {
         this.genre = genre;
         this.length = length;
         this.ageGroup = ageGroup;
+    }
+
+    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating, Author author, Publisher publisher) {
+        this.title = title;
+        this.description = description;
+        this.imageURL = imageURL;
+        this.publicationYear = publicationYear;
+        this.ISBN = ISBN;
+        // DON'T MAKE THIS AN ENUM WITHOUT UPDATING THE FRONTEND WITH A DROPDOWN
+        //this.format = format;
+        this.price = price;
+        this.stockCount = stockCount;
+        this.rating = rating;
+        this.author = author;
+        this.publisher = publisher;
     }
 
     public String getTitle() {
@@ -129,12 +146,12 @@ public class Book {
         this.rating = rating;
     }
 
-    public Collection<Author> getAuthors() {
-        return authors;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthors(Collection<Author> authors) {
-        this.authors = authors;
+    public void setAuthors(Author author) {
+        this.author = author;
     }
 
     public Publisher getPublisher() {

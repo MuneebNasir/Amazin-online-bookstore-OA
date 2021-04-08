@@ -21,6 +21,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,17 +41,26 @@ public class AuthorControllerTest {
 
     @Before
     public void setup() {
+        Collection<Book> books1 = new ArrayList<>();
+        Collection<Book> books2 = new ArrayList<>();
+        Collection<Book> books3 = new ArrayList<>();
+        Collection<Book> books4 = new ArrayList<>();
+
         Book b = new Book("Harry Potter", "You are a wizard harry");
-        Author a = new Author("Ahmed", "Romih", b);
+        books1.add(b);
+        Author a = new Author("Ahmed", "Romih", books1);
 
         Book b2 = new Book("Some random book", "You are a wizard ahmed");
-        Author a2 = new Author("Cool", "Bro", b2);
+        books2.add(b2);
+        Author a2 = new Author("Cool", "Bro", books2);
 
         Book b3 = new Book("Naruto Shounen Jump", "Ninja stuff");
-        Author a3 = new Author("Uzumaki", "Naruto", b3);
+        books3.add(b3);
+        Author a3 = new Author("Uzumaki", "Naruto", books3);
 
         Book b4 = new Book("Death Note", "Detective stuff");
-        Author a4 = new Author("Yagami", "Light", b4);
+        books4.add(b4);
+        Author a4 = new Author("Yagami", "Light", books4);
 
         repo.save(a);
         repo.save(a2);
@@ -79,8 +92,10 @@ public class AuthorControllerTest {
 
     @Test
     public void testCreateAuthor() throws Exception {
+        Collection<Book> books = new ArrayList<>();
         Book someBook = new Book("Fairy Tale", "Some random description");
-        Author someAuthor = new Author("Jack", "Black", someBook);
+        books.add(someBook);
+        Author someAuthor = new Author("Jack", "Black", books);
 
         mvc.perform(MockMvcRequestBuilders
                 .post("/api/create-author")

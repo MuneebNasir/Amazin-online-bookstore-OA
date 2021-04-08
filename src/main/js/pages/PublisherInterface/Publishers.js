@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Card, CardContent, Grid, Typography} from "@material-ui/core";
 import axios from "axios";
 import {NotificationManager} from "react-notifications";
 import AddPublishersForm from "./AddPublishersForm";
 import PublisherSearchBar from "./PublisherSearchBar";
 import PublishersTable from "./PublishersTable";
+import {UserContext} from "../../services/provider/UserProvider";
 
 let Publishers = () => {
+    const user = useContext(UserContext)
     let [publishers, setPublishers] = useState([]);
     let [search, setSearch] = useState('');
     let [togglePublishers, setTogglePublishers] = useState(false);
@@ -75,13 +77,15 @@ let Publishers = () => {
                     <PublishersTable publishers={publishers}  handleRemovePublisher={handleRemovePublisher}/>
                 </Card>
             </Grid>
-            <Grid item xs={6}>
+            {user && user.isAdmin &&
+                <Grid item xs={6}>
                     <Grid item xs={12}>
                         <Card>
                             <AddPublishersForm refreshPublisherList={refreshPublisherList}/>
                         </Card>
                     </Grid>
-            </Grid>
+                </Grid>
+            }
         </Grid>
     )
 }

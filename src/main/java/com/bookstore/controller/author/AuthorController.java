@@ -46,7 +46,7 @@ public class AuthorController {
      */
     @GetMapping(path = "/api/authorsByFirstName")
     ResponseEntity<List<Author>> getAuthorsByFirstName(@RequestParam(name = "firstName") String firstName) {
-        List<Author> authors = authorRepository.findAuthorsByFirstName(firstName);
+        List<Author> authors = authorRepository.findAuthorsByFirstNameContaining(firstName);
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 
@@ -105,8 +105,8 @@ public class AuthorController {
         if (!StringUtility.isBlank(author.getLastName())) {
             authorToUpdate.setLastName(author.getLastName());
         }
-        if (author.getBook() != null) {
-            authorToUpdate.setBook(author.getBook());
+        if (author.getBooks() != null) {
+            authorToUpdate.setBooks(author.getBooks());
         }
         authorRepository.save(authorToUpdate);
 

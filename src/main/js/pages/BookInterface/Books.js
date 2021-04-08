@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Card, CardContent, Grid, Typography} from "@material-ui/core";
 import axios from "axios";
 import {NotificationManager} from "react-notifications";
@@ -9,8 +9,11 @@ import BookCart from "./BookCart";
 import BuyButton from "./BuyButton";
 import SearchBar from "./SearchBar";
 import Button from "@material-ui/core/Button";
+import {UserContext} from "../../services/provider/UserProvider";
+
 
 let Books = () => {
+    const user = useContext(UserContext)
     let [books, setBooks] = useState([]);
     let [cartBooks, setCartBooks] = useState([]);
     let [search, setSearch] = useState('');
@@ -155,11 +158,13 @@ let Books = () => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Card>
-                            <AddBookForm refreshBookList={refreshBookList}/>
-                        </Card>
-                    </Grid>
+                    {user && user.isAdmin &&
+                        <Grid item xs={12}>
+                            <Card>
+                                <AddBookForm refreshBookList={refreshBookList}/>
+                            </Card>
+                        </Grid>
+                    }
                 </Grid>
             </Grid>
         </Grid>
