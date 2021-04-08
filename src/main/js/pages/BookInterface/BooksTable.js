@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {DataGrid, GridColDef} from '@material-ui/data-grid';
-import {Button} from "@material-ui/core";
+import {Button, MenuItem} from "@material-ui/core";
 import BookInfoPopup from "./BookInfoPopup";
 
 let DataTable = (props) => {
@@ -49,9 +49,14 @@ let DataTable = (props) => {
         {
             field: 'publicationYear',
             headerName: 'Publication Year',
+<<<<<<< HEAD
             type: 'number',
             width: 175
         },
+=======
+            type: 'integer',
+            width: 175 },
+>>>>>>> master
         {
             field: 'price',
             headerName: 'Price',
@@ -70,6 +75,12 @@ let DataTable = (props) => {
             headerName: 'Rating',
             type: 'number',
             description: 'Book rating',
+            width: 150,
+        },
+        {
+            field: 'publisher',
+            headerName: 'Publisher',
+            description: 'Book\'s Publisher',
             width: 150,
         },
     ];

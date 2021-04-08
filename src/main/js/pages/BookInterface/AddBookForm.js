@@ -42,6 +42,7 @@ let AddBookForm = (props) => {
     const classes = useStyles();
 
     let [authors, setAuthors] = useState([]); // author list to select from
+    let [publishers, setPublishers] = useState([]); // publishers list to select from
 
     let [title, setTitle] = useState(null);
     let [description, setDescription] = useState(null);
@@ -52,7 +53,12 @@ let AddBookForm = (props) => {
     let [stockCount, setStockCount] = useState(null);
     let [rating, setRating] = useState(null);
     let [isbn, setISBN] = useState(null);
+<<<<<<< HEAD
     let [authorId, setAuthorId] = useState('');
+=======
+    let [author, setAuthor] = useState('');
+    let [publisher, setPublisher] = useState('');
+>>>>>>> master
 
     useEffect( () => {
         axios({
@@ -62,11 +68,23 @@ let AddBookForm = (props) => {
         }).then(res => {
             setAuthors(res.data)
         })
-    })
+
+        axios({
+            method: "get",
+            timeout: 8000,
+            url: `/api/publishersViewAll`,
+        }).then(res => {
+            setPublishers(res.data)
+        })
+    }, [])
 
     let handleAddBook = () => {
         if (authorId === '') {
             NotificationManager.error("Can't create a book without an author!", "Error!");
+            return
+        }
+        if (publisher === '') {
+            NotificationManager.error("Can't create a book without a publisher!", "Error!");
             return
         }
 
@@ -88,7 +106,11 @@ let AddBookForm = (props) => {
         axios({
             method: "post",
             contentType: "application/json",
+<<<<<<< HEAD
             url: `/api/addNewBook?authorId=${authorId}`,
+=======
+            url: `/api/addNewBook?authorId=${author}&publisherId=${publisher}`,
+>>>>>>> master
             data:  JSON.stringify(book),
             headers: { "Content-Type": "application/json" },
         }).then(res => {
@@ -190,6 +212,22 @@ let AddBookForm = (props) => {
                             </MenuItem>
                             {authors.map((author) => (
                                 <MenuItem value={author.id}>{author.lastName}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="publisher-simple-select-helper-label">Publisher</InputLabel>
+                        <Select
+                            labelId="publisher-select-helper-label"
+                            id="publisher-simple-select-helper"
+                            value={publisher}
+                            onChange={(event) => setPublisher(event.target.value)}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {publishers.map((publisher) => (
+                                <MenuItem value={publisher.id}>{publisher.name}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

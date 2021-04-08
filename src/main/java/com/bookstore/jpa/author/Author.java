@@ -1,9 +1,6 @@
 package com.bookstore.jpa.author;
 
 import com.bookstore.jpa.book.Book;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.Collection;
 
