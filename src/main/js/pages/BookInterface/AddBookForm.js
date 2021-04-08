@@ -72,7 +72,7 @@ let AddBookForm = (props) => {
         }).then(res => {
             setPublishers(res.data)
         })
-    })
+    }, [])
 
     let handleAddBook = () => {
         if (author === '') {
