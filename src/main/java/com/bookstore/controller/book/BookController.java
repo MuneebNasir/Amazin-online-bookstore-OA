@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import com.bookstore.jpa.publisher.Publisher;
+import com.bookstore.jpa.publisher.PublisherRepository;
 
 /**
  * Book API Controller
@@ -30,6 +32,8 @@ public class BookController {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
     @GetMapping(path = "/api/books")
     public String booksView(Model model) {
@@ -64,10 +68,16 @@ public class BookController {
 
     @ResponseBody
     @PostMapping(path = "/api/addNewBook", consumes = "application/json")
-    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book, @RequestParam(name = "authorId") Long authorId) {
+    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book,
+                                                 @RequestParam(name = "authorId") Long authorId,
+                                                 @RequestParam(name = "publisherId") Long publisherId) {
         Author author;
         Optional<Author> authorRetrieval = authorRepository.findById(authorId);
         author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
+
+        Publisher publisher;
+        Optional<Publisher> publisherRetrieval = publisherRepository.findById(publisherId);
+        publisher = publisherRetrieval.isPresent() ? publisherRetrieval.get() :  null;
 
         Book newBook = new Book(
                 book.getTitle(),
@@ -81,7 +91,9 @@ public class BookController {
                 book.getRating(),
                 book.getGenre(),
                 book.getLength(),
-                book.getAgeGroup()
+                book.getAgeGroup(),
+                author,
+                publisher
         );
         bookRepository.save(newBook);
 

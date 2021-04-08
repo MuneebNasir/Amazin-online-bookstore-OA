@@ -46,8 +46,14 @@ public class PublisherController {
     @PostMapping(path = "/api/addNewPublisher", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<HttpStatus> addNewPublisher(@RequestBody Publisher publisher) {
+        Publisher newPublisher;
+        if (publisher.getBooks() != null){
+            newPublisher = new Publisher(publisher.getName(), publisher.getLocation(), publisher.getBooks());
+        }
+        else{
+            newPublisher = new Publisher(publisher.getName(), publisher.getLocation());
+        }
 
-        Publisher newPublisher = new Publisher(publisher.getName(), publisher.getLocation());
         publisherRepo.save(newPublisher);
 
         return new ResponseEntity<>(HttpStatus.CREATED);

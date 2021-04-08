@@ -15,6 +15,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.ArrayList;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +38,7 @@ public class PublisherControllerTest {
     @Autowired
     PublisherRepository repo;
 
+
     Publisher publisher = new Publisher("Ahmed", "Ottawa");
     Publisher publisher2 = new Publisher("Jay", "Ottawa");
     Publisher publisher3 = new Publisher("Trump", "NYC");
@@ -42,6 +46,8 @@ public class PublisherControllerTest {
 
     @Before
     public void setup() {
+
+
         repo.save(publisher);
         repo.save(publisher2);
         repo.save(publisher3);
