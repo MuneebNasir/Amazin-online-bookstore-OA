@@ -1,8 +1,10 @@
-import React from 'react';
-import {DataGrid, GridColDef} from '@material-ui/data-grid';
+import React, {useContext} from 'react';
+import {DataGrid} from '@material-ui/data-grid';
 import {Button} from "@material-ui/core";
+import {UserContext} from "../../services/provider/UserProvider";
 
 let AuthorsTable = (props) => {
+    const user = useContext(UserContext)
     const columns = [
         {
             field: 'id',
@@ -10,6 +12,7 @@ let AuthorsTable = (props) => {
             width: 450,
             renderCell: (params) => (
                 <strong>
+                    {user && user.isAdmin &&
                     <Button
                         variant={"contained"}
                         color={"secondary"}
@@ -19,7 +22,7 @@ let AuthorsTable = (props) => {
                         }}
                     >
                         Remove Author
-                    </Button>
+                    </Button>}
                 </strong>
             )
         },
@@ -36,7 +39,7 @@ let AuthorsTable = (props) => {
     ];
 
     return (
-        <div style={{ height: 800, width: '100%' }}>
+        <div style={{height: 800, width: '100%'}}>
             <DataGrid rows={props.authors} columns={columns} pageSize={15}/>
         </div>
     );
