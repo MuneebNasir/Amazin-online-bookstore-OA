@@ -54,7 +54,6 @@ let AlertDialogSlide = (props) => {
                     <Typography variant={"body1"}> Author: {props.author}</Typography>
                     <Typography variant={"body1"}>Publisher: {props.publisher}</Typography>
                     <Typography variant={"body1"}> Description: {book.description}</Typography>
-                    <Typography variant={"body1"}> imageURL: {book.imageURL}</Typography>
                     <Typography variant={"body1"}> Publication Year: {book.publicationYear}</Typography>
                     <Typography variant={"body1"}> Price: {book.price}</Typography>
                     <Typography variant={"body1"}> Stock Count: {book.stockCount}</Typography>

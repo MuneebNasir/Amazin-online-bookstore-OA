@@ -1,5 +1,5 @@
 package com.bookstore.controller.book;
-import com.bookstore.jpa.Genre.Genre;
+
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
@@ -8,19 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
 import com.bookstore.jpa.publisher.Publisher;
 import com.bookstore.jpa.publisher.PublisherRepository;
 
 /**
  * Book API Controller
+ *
  * @author Youssef Saghbini
  */
 
@@ -36,19 +37,12 @@ public class BookController {
     @Autowired
     private PublisherRepository publisherRepository;
 
-    @GetMapping(path = "/api/books")
-    public String booksView(Model model) {
-        Collection<Book> books = bookRepository.findAll();
-        model.addAttribute("allBooks", books);
-        model.addAttribute("newBook", new Book());
-        return "AmazinBookStore-books";
-    }
 
     @ResponseBody
     @GetMapping(path = "/api/allBookIDs", produces = "application/json")
     public ResponseEntity<Collection> retrieveAllBookIDs() {
         Collection bookCollection = new ArrayList<>();
-        for (Book book: bookRepository.findAll()){
+        for (Book book : bookRepository.findAll()) {
             bookCollection.add(book.getId());
         }
 
@@ -74,22 +68,17 @@ public class BookController {
                                                  @RequestParam(name = "publisherId") Long publisherId) {
         Author author;
         Optional<Author> authorRetrieval = authorRepository.findById(authorId);
-        author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
-
+        author = authorRetrieval.isPresent() ? authorRetrieval.get() : null;
 
         Publisher publisher;
         Optional<Publisher> publisherRetrieval = publisherRepository.findById(publisherId);
-        publisher = publisherRetrieval.isPresent() ? publisherRetrieval.get() :  null;
-
-//        Genre genre = Enum.valueOf(, book.getGenre());
+        publisher = publisherRetrieval.isPresent() ? publisherRetrieval.get() : null;
 
         Book newBook = new Book(
                 book.getTitle(),
                 book.getDescription(),
-                book.getImageURL(),
                 book.getPublicationYear(),
                 book.getISBN(),
-               // Format.valueOf(book.getFormat()),
                 book.getPrice(),
                 book.getStockCount(),
                 book.getRating(),
@@ -107,30 +96,26 @@ public class BookController {
     @ResponseBody
     @PutMapping(path = "/api/updateBook/{id}", consumes = "application/json")
     public ResponseEntity<Book> updateBook(@RequestBody Book book,
-                                                     @PathVariable("id") long id) {
+                                           @PathVariable("id") long id) {
 
         Book tempBook = bookRepository.findById(id);
-        if (tempBook == null){
+        if (tempBook == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         if (
                 !book.getTitle().isEmpty() ||
-                !book.getDescription().isEmpty() ||
-                !book.getImageURL().isEmpty() ||
-                !book.getPublicationYear().toString().isEmpty() ||
-                !book.getISBN().isEmpty() ||
-                //!book.getFormat().isEmpty() ||
-                !book.getPrice().toString().isEmpty() ||
-                !book.getStockCount().toString().isEmpty() ||
-                !book.getRating().toString().isEmpty()
-        ){
+                        !book.getDescription().isEmpty() ||
+                        !book.getPublicationYear().toString().isEmpty() ||
+                        !book.getISBN().isEmpty() ||
+                        !book.getPrice().toString().isEmpty() ||
+                        !book.getStockCount().toString().isEmpty() ||
+                        !book.getRating().toString().isEmpty()
+        ) {
 
             tempBook.setTitle(book.getTitle());
             tempBook.setDescription(book.getDescription());
-            tempBook.setImageURL(book.getImageURL());
             tempBook.setPublicationYear(book.getPublicationYear());
             tempBook.setISBN(book.getISBN());
-           // tempBook.setFormat(Format.valueOf(book.getFormat()));
             tempBook.setPrice(book.getPrice());
             tempBook.setStockCount(book.getStockCount());
             tempBook.setRating(book.getRating());
@@ -162,16 +147,16 @@ public class BookController {
 
     @ResponseBody
     @GetMapping(path = "/api/recommendBooks")
-    public ResponseEntity<Collection> recommendBooks(@RequestParam(name="bookId") String userBookId) {
+    public ResponseEntity<Collection> recommendBooks(@RequestParam(name = "bookId") String userBookId) {
         Collection<Book> books = bookRepository.findAll();
         long id = Long.parseLong(userBookId);
         Book userBook = bookRepository.findById(id);
 
         // Filter the total list of books, based on whether they are similar enough to the passed in UserBook
         List<Book> filteredBooks = books
-                                    .stream()
-                                    .filter(book -> calcJaccardDistance(book, userBook) >= JACCARD_VALUE)
-                                    .collect(Collectors.toList());
+                .stream()
+                .filter(book -> calcJaccardDistance(book, userBook) >= JACCARD_VALUE)
+                .collect(Collectors.toList());
 
         return new ResponseEntity<>(filteredBooks, HttpStatus.OK);
     }
@@ -180,7 +165,8 @@ public class BookController {
      * Calculate the Jaccard distance between two books - an algorithmic way to determine the "likeness" between two
      * sets of data. In this case, the "sets" of data checked for similarity between the two books are Genre, Length,
      * and AgeGroup.
-     * @param book book from collection of books currently being iterated over
+     *
+     * @param book     book from collection of books currently being iterated over
      * @param userBook master book, from which we are finding books that are "similar enough" to
      * @return The Jaccard value, as a decimal value between 0 and 1
      */

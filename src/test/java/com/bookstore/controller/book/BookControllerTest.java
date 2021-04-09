@@ -3,12 +3,10 @@ package com.bookstore.controller.book;
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
-import com.bookstore.jpa.enums.Format;
 import com.bookstore.jpa.publisher.Publisher;
 import com.bookstore.jpa.publisher.PublisherRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,9 +33,8 @@ public class BookControllerTest {
     PublisherRepository publisherRepo;
 
     @Test
-    public void testGetBookByID() throws Exception
-    {
-        bookController.perform( MockMvcRequestBuilders
+    public void testGetBookByID() throws Exception {
+        bookController.perform(MockMvcRequestBuilders
                 .get("/api/book/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -45,7 +42,7 @@ public class BookControllerTest {
 
     @Test
     public void testEmptyNewBook() throws Exception {
-        try{
+        try {
             Book book = new Book();
             bookController.perform(MockMvcRequestBuilders
                     .post("/api/addNewBook")
@@ -56,8 +53,8 @@ public class BookControllerTest {
                     .accept(MediaType.APPLICATION_JSON))
                     .andDo(print())
                     .andExpect(status().isCreated());
-        }catch (Exception e){
-            Assert.assertTrue("Exception Accepted",e instanceof RuntimeException);
+        } catch (Exception e) {
+            Assert.assertTrue("Exception Accepted", e instanceof RuntimeException);
         }
 
     }
@@ -67,7 +64,6 @@ public class BookControllerTest {
         Book book = new Book(
                 "Lord of the Rings",
                 "Bretty Gud",
-                "/shiggydiggy/",
                 1992,
                 "ABC",
                 420.69,
@@ -86,8 +82,7 @@ public class BookControllerTest {
 
 
     @Test
-    public void testUpdateBookInfo() throws Exception
-    {
+    public void testUpdateBookInfo() throws Exception {
         Author bookAuthor2 = new Author("Jane", "Doe", null);
         authorRepo.save(bookAuthor2);
 
@@ -97,7 +92,6 @@ public class BookControllerTest {
         Book book = new Book(
                 "Lord of the Rings",
                 "Bretty Gud",
-                "/shiggydiggy/",
                 1992,
                 "ABC",
                 420.69,
@@ -116,7 +110,7 @@ public class BookControllerTest {
         // Updating Existing Book Description
         book.setDescription("This is a deadly book");
         bookController.perform(MockMvcRequestBuilders
-                .put("/api/updateBook/{id}",1)
+                .put("/api/updateBook/{id}", 1)
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -124,7 +118,7 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         // Confirming the Description Has Been Updated
-        bookController.perform( MockMvcRequestBuilders
+        bookController.perform(MockMvcRequestBuilders
                 .get("/api/book/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
@@ -134,7 +128,7 @@ public class BookControllerTest {
         // Updating Existing Title
         book.setTitle("Some Body");
         bookController.perform(MockMvcRequestBuilders
-                .put("/api/updateBook/{id}",1)
+                .put("/api/updateBook/{id}", 1)
                 .content(asJsonString(book))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -142,7 +136,7 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         // Confirming the Title Has Been Updated
-        bookController.perform( MockMvcRequestBuilders
+        bookController.perform(MockMvcRequestBuilders
                 .get("/api/book/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
@@ -152,8 +146,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void testRemoveBook() throws Exception
-    {
+    public void testRemoveBook() throws Exception {
         Author bookAuthor2 = new Author("Jane", "Doe", null);
         authorRepo.save(bookAuthor2);
 
@@ -163,7 +156,6 @@ public class BookControllerTest {
         Book book = new Book(
                 "Lord of the Rings",
                 "Bretty Gud",
-                "/shiggydiggy/",
                 1992,
                 "ABC",
                 420.69,
@@ -182,7 +174,6 @@ public class BookControllerTest {
         Book book2 = new Book(
                 "Testing New Addition",
                 "Bretty Bad",
-                "/shiggydiggy/",
                 132,
                 "ABC",
                 420.69,
@@ -204,15 +195,14 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         // GET REQUEST to ensure the specified book is deleted
-        bookController.perform( MockMvcRequestBuilders
+        bookController.perform(MockMvcRequestBuilders
                 .get("/api/book/{id}", 2)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist());
     }
 
     @Test
-    public void testGetAllBooks() throws Exception
-    {
+    public void testGetAllBooks() throws Exception {
         Author bookAuthor = new Author("James", "Bond", null);
         authorRepo.save(bookAuthor);
 
@@ -223,7 +213,6 @@ public class BookControllerTest {
         Book book = new Book(
                 "Lord of the Rings",
                 "Bretty Gud",
-                "/shiggydiggy/",
                 1992,
                 "ABC",
                 420.69,
@@ -242,7 +231,6 @@ public class BookControllerTest {
         Book book2 = new Book(
                 "My Fair Lady",
                 "Bretty Bad",
-                "/shiggydiggy/",
                 132,
                 "ABC",
                 420.69,
@@ -258,13 +246,13 @@ public class BookControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        bookController.perform( MockMvcRequestBuilders
+        bookController.perform(MockMvcRequestBuilders
                 .get("/api/allBookIDs")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[*]").exists());
 
-        bookController.perform( MockMvcRequestBuilders
+        bookController.perform(MockMvcRequestBuilders
                 .get("/api/booksViewAll")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

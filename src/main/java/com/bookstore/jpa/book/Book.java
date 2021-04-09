@@ -12,7 +12,6 @@ public class Book {
 
     private String title;
     private String description;
-    private String imageURL;
     private Integer publicationYear;
     private String ISBN;
     private Double price;
@@ -39,10 +38,9 @@ public class Book {
         this.description = description;
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating) {
+    public Book(String title, String description, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating) {
         this.title = title;
         this.description = description;
-        this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
         this.price = price;
@@ -50,10 +48,9 @@ public class Book {
         this.rating = rating;
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating, Genre genre, Length length, AgeGroup ageGroup) {
+    public Book(String title, String description, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating, Genre genre, Length length, AgeGroup ageGroup) {
         this.title = title;
         this.description = description;
-        this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
         this.price = price;
@@ -64,10 +61,9 @@ public class Book {
         this.ageGroup = ageGroup;
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating, Genre genre, Length length, AgeGroup ageGroup, Author author, Publisher publisher) {
+    public Book(String title, String description, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating, Genre genre, Length length, AgeGroup ageGroup, Author author, Publisher publisher) {
         this.title = title;
         this.description = description;
-        this.imageURL = imageURL;
         this.publicationYear = publicationYear;
         this.ISBN = ISBN;
         this.price = price;
@@ -96,13 +92,6 @@ public class Book {
         this.description = description;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
 
     public Integer getPublicationYear() {
         return publicationYear;
