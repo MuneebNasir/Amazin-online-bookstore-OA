@@ -2,9 +2,11 @@ import * as React from 'react';
 import {DataGrid} from '@material-ui/data-grid';
 import {Button} from "@material-ui/core";
 import BookInfoPopup from "./BookInfoPopup";
-
+import {UserContext} from "../../services/provider/UserProvider";
+import {useContext} from "react";
 
 let DataTable = (props) => {
+    const user = useContext(UserContext)
     const columns = [
         {
             field: 'id',
@@ -22,6 +24,7 @@ let DataTable = (props) => {
                     >
                         Add to Cart
                     </Button>
+                    {user && user.isAdmin &&
                     <Button
                         variant={"contained"}
                         color={"secondary"}
@@ -31,7 +34,7 @@ let DataTable = (props) => {
                         }}
                     >
                         Remove Book
-                    </Button>
+                    </Button>}
                     <BookInfoPopup id={params.value} publisher={params.row.publisher.name} author={params.row.author.firstName + ' ' + params.row.author.lastName}/>
                 </strong>
             )

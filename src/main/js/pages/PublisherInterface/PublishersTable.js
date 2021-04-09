@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {DataGrid, GridColDef} from '@material-ui/data-grid';
 import {Button} from "@material-ui/core";
+import {UserContext} from "../../services/provider/UserProvider";
 
 let PublishersTable = (props) => {
+    const user = useContext(UserContext)
     const columns = [
         {
             field: 'id',
@@ -10,6 +12,7 @@ let PublishersTable = (props) => {
             width: 450,
             renderCell: (params) => (
                 <strong>
+                    {user && user.isAdmin &&
                     <Button
                         variant={"contained"}
                         color={"secondary"}
@@ -19,7 +22,7 @@ let PublishersTable = (props) => {
                         }}
                     >
                         Remove Publisher
-                    </Button>
+                    </Button>}
                 </strong>
             )
         },
