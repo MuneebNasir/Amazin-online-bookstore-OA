@@ -32,7 +32,7 @@ let DataTable = (props) => {
                     >
                         Remove Book
                     </Button>
-                    <BookInfoPopup id={params.value}/>
+                    <BookInfoPopup id={params.value} publisher={params.row.publisher.name} author={params.row.author.firstName + ' ' + params.row.author.lastName}/>
                 </strong>
             )
         },
@@ -48,6 +48,15 @@ let DataTable = (props) => {
             width: 150,
             valueGetter: (params) => {
                 return params.row.author.firstName + ' ' + params.row.author.lastName
+            }
+        },
+        {
+            field: 'publisher',
+            headerName: 'Publisher',
+            description: 'Book\'s Publisher',
+            width: 150,
+            valueGetter: (params) => {
+                return params.row.publisher.name
             }
         },
         {
@@ -75,15 +84,6 @@ let DataTable = (props) => {
             type: 'number',
             description: 'Book rating',
             width: 150,
-        },
-        {
-            field: 'publisher',
-            headerName: 'Publisher',
-            description: 'Book\'s Publisher',
-            width: 150,
-            valueGetter: (params) => {
-                return params.row.publisher.name
-            }
         },
     ];
 
