@@ -1,4 +1,5 @@
 package com.bookstore.controller.book;
+import com.bookstore.jpa.Genre.Genre;
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
 import com.bookstore.jpa.book.Book;
@@ -78,6 +79,8 @@ public class BookController {
         Publisher publisher;
         Optional<Publisher> publisherRetrieval = publisherRepository.findById(publisherId);
         publisher = publisherRetrieval.isPresent() ? publisherRetrieval.get() :  null;
+
+//        Genre genre = Enum.valueOf(, book.getGenre());
 
         Book newBook = new Book(
                 book.getTitle(),

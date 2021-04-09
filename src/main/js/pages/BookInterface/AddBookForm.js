@@ -15,6 +15,7 @@ import {
 import axios from "axios";
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import {SwapHorizTwoTone} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,6 +56,9 @@ let AddBookForm = (props) => {
     let [isbn, setISBN] = useState(null);
     let [author, setAuthor] = useState('');
     let [publisher, setPublisher] = useState('');
+    let [ageGroup, setAgeGroup] = useState('');
+    let [genre, setGenre] = useState('');
+    let [length, setLength] = useState('');
 
     useEffect( () => {
         axios({
@@ -83,6 +87,18 @@ let AddBookForm = (props) => {
             NotificationManager.error("Can't create a book without a publisher!", "Error!");
             return
         }
+        if (ageGroup === '') {
+            NotificationManager.error("Please add an age group to your book!", "Error!");
+            return
+        }
+        if (genre === '') {
+            NotificationManager.error("Please add a genre to your book!", "Error!");
+            return
+        }
+        if (length === '') {
+            NotificationManager.error("Please add a length to your book!", "Error!");
+            return
+        }
 
         let book = {
             "title": title,
@@ -94,6 +110,9 @@ let AddBookForm = (props) => {
             "stockCount": stockCount,
             "rating": rating,
             "isbn": isbn,
+            "genre": genre,
+            "length": length,
+            "ageGroup": ageGroup,
         }
 
         axios({
@@ -188,6 +207,57 @@ let AddBookForm = (props) => {
                         helperText="ISBN of book"
                         onChange = {(e) => setISBN(e.target.value)}
                     />
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-helper-label">Genre</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={genre}
+                            onChange={(e) => setGenre(e.target.value)}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={'FANTASY'}>Fantasy</MenuItem>
+                            <MenuItem value={'SCIENCE_FICTION'}>Science Fiction</MenuItem>
+                            <MenuItem value={'FICTION'}>Fiction</MenuItem>
+                            <MenuItem value={'NON_FICTION'}>Non Fiction</MenuItem>
+                            <MenuItem value={'HISTORY'}>History</MenuItem>
+                            <MenuItem value={'EDUCATION'}>Education</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-helper-label">Age Group</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={ageGroup}
+                            onChange={(e) => setAgeGroup(e.target.value)}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={'YOUNG'}>YOUNG</MenuItem>
+                            <MenuItem value={'ADULT'}>ADULT</MenuItem>
+                            <MenuItem value={'SENIOR'}>SENIOR</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-helper-label">Length</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={length}
+                            onChange={(e) => setLength(e.target.value)}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={'SHORT'}>SHORT</MenuItem>
+                            <MenuItem value={'MEDIUM'}>MEDIUM</MenuItem>
+                            <MenuItem value={'LONG'}>LONG</MenuItem>
+                        </Select>
+                    </FormControl>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-helper-label">Author</InputLabel>
                         <Select
