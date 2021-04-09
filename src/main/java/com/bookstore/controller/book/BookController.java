@@ -76,6 +76,7 @@ public class BookController {
         Optional<Author> authorRetrieval = authorRepository.findById(authorId);
         author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
 
+
         Publisher publisher;
         Optional<Publisher> publisherRetrieval = publisherRepository.findById(publisherId);
         publisher = publisherRetrieval.isPresent() ? publisherRetrieval.get() :  null;
