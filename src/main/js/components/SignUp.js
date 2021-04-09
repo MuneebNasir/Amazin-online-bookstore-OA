@@ -30,16 +30,28 @@ const SignUp = (props) => {
     const [displayName, setDisplayName] = useState("");
     const [error, setError] = useState(null);
 
+    useEffect( () => {
+        console.log(error)
+        if(error !== null) {
+            NotificationManager.error(error, 'Error!')
+        }
+
+        return () => {
+            setError(null)
+        };
+
+    }, [error])
+
     const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
         event.preventDefault();
-        try{
-            const {user} = await auth.createUserWithEmailAndPassword(email, password);
-            await generateUserDocument(user, {displayName});
-            history.push('/')
-        }
-        catch(error){
+        await auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
+            generateUserDocument(userCredential.user, {displayName}).then(() => {
+                history.push('/')
+            });
+        })
+        .catch((error) => {
             setError('Error Signing up with email and password');
-        }
+        });
 
         setEmail("");
         setPassword("");
@@ -60,7 +72,6 @@ const SignUp = (props) => {
 
     return (
         <div className={classes.root}>
-            {error !== null && NotificationManager.error(error, 'Error!')}
             <form className={classes.centerBlock}>
                 <Grid container spacing={3}>
                     <Grid item xs className={classes.paper}>

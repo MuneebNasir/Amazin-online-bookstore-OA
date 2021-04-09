@@ -1,5 +1,6 @@
 package com.bookstore.jpa.book;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -12,4 +13,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findById(long id);
     Collection<Book> findAll();
     Collection<Book> findByIdIn(@Param("ids") List<Long> ids);
+
+    List<Book> findAll(Sort id);
 }

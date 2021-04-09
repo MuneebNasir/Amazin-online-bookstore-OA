@@ -2,11 +2,8 @@ package com.bookstore.jpa.book;
 
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.publisher.Publisher;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Book {
@@ -30,12 +27,11 @@ public class Book {
     @JoinColumn
     private Author author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn
     private Publisher publisher;
 
-    public Book() {
-
-    }
+    public Book() {}
 
     public Book(String title, String description) {
         this.title = title;
@@ -53,18 +49,20 @@ public class Book {
         this.rating = rating;
     }
 
-    public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, Double price, Integer stockCount, Double rating, Genre genre, Length length, AgeGroup ageGroup) {
+    public Book(String title, String description, Integer publicationYear, String imageURL, Double price, Integer stockCount, Double rating, String isbn, Genre genre, AgeGroup ageGroup, Length length, Author author, Publisher publisher) {
         this.title = title;
         this.description = description;
-        this.imageURL = imageURL;
         this.publicationYear = publicationYear;
-        this.ISBN = ISBN;
+        this.imageURL = imageURL;
         this.price = price;
         this.stockCount = stockCount;
         this.rating = rating;
+        this.ISBN = isbn;
         this.genre = genre;
-        this.length = length;
         this.ageGroup = ageGroup;
+        this.length = length;
+        this.author = author;
+        this.publisher = publisher;
     }
 
     public Book(String title, String description, String imageURL, Integer publicationYear, String ISBN, /*Format format,*/ Double price, Integer stockCount, Double rating, Author author, Publisher publisher) {

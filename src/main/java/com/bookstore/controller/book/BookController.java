@@ -1,20 +1,20 @@
 package com.bookstore.controller.book;
 import com.bookstore.jpa.author.Author;
 import com.bookstore.jpa.author.AuthorRepository;
-import com.bookstore.jpa.book.Book;
-import com.bookstore.jpa.book.BookRepository;
+import com.bookstore.jpa.book.*;
+import com.bookstore.jpa.publisher.Publisher;
+import com.bookstore.jpa.publisher.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Book API Controller
@@ -30,14 +30,16 @@ public class BookController {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
-    @GetMapping(path = "/api/books")
-    public String booksView(Model model) {
-        Collection<Book> books = bookRepository.findAll();
-        model.addAttribute("allBooks", books);
-        model.addAttribute("newBook", new Book());
-        return "AmazinBookStore-books";
-    }
+//    @GetMapping(path = "/api/books")
+//    public String booksView(Model model) {
+//        Collection<Book> books = bookRepository.findAll();
+//        model.addAttribute("allBooks", books);
+//        model.addAttribute("newBook", new Book(json.get("title"), json.get("description"), author));
+//        return "AmazinBookStore-books";
+//    }
 
     @ResponseBody
     @GetMapping(path = "/api/allBookIDs", produces = "application/json")
@@ -53,7 +55,7 @@ public class BookController {
     @ResponseBody
     @GetMapping(path = "/api/booksViewAll", produces = "application/json")
     public ResponseEntity<Collection> retrieveAllBookDetails() {
-        return new ResponseEntity<>(bookRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(bookRepository.findAll(Sort.by(Sort.Direction.DESC, "id")), HttpStatus.OK);
     }
 
     @ResponseBody
@@ -64,24 +66,26 @@ public class BookController {
 
     @ResponseBody
     @PostMapping(path = "/api/addNewBook", consumes = "application/json")
-    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book, @RequestParam(name = "authorId") Long authorId) {
-        Author author;
-        Optional<Author> authorRetrieval = authorRepository.findById(authorId);
-        author = authorRetrieval.isPresent() ? authorRetrieval.get() :  null;
+    public ResponseEntity<HttpStatus> addNewBook(@RequestBody Map<String, String> json) {
+        System.out.println(json);
+
+        Author author = authorRepository.findById(Long.parseLong(json.get("authorId")));
+        Publisher publisher = publisherRepository.findById(Long.parseLong(json.get("publisherId")));
 
         Book newBook = new Book(
-                book.getTitle(),
-                book.getDescription(),
-                book.getImageURL(),
-                book.getPublicationYear(),
-                book.getISBN(),
-               // Format.valueOf(book.getFormat()),
-                book.getPrice(),
-                book.getStockCount(),
-                book.getRating(),
-                book.getGenre(),
-                book.getLength(),
-                book.getAgeGroup()
+                json.get("title"),
+                json.get("description"),
+                json.get("publicationYear") != "" ? Integer.parseInt(json.get("publicationYear")) : null,
+                json.get("imageURL"),
+                json.get("price") != "" ? Double.parseDouble(json.get("price")) : null,
+                json.get("stockCount") != "" ? Integer.parseInt(json.get("stockCount")) : null,
+                json.get("rating") != "" ? Double.parseDouble(json.get("rating")) : null,
+                json.get("isbn"),
+                json.get("genre") != "" ? Genre.valueOf(json.get("genre")) : null,
+                json.get("ageGroup") != "" ? AgeGroup.valueOf(json.get("ageGroup")) : null,
+                json.get("length") != "" ? Length.valueOf(json.get("length")) : null,
+                author,
+                publisher
         );
         bookRepository.save(newBook);
 

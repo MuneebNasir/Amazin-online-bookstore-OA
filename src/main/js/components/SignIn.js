@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Paper, FormControl, InputLabel, Input, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,11 +30,11 @@ const SignIn = () => {
 
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
-        auth.signInWithEmailAndPassword(email, password).catch(error => {
-            setError("Error signing in with password and email!");
-            console.error("Error signing in with password and email", error);
+        auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
+            history.push('/')
+        }).catch(error => {
+            setError("User email and password pair not matching any database records.");
         });
-        history.push('/')
     };
 
     const onChangeHandler = (event) => {
@@ -48,9 +48,19 @@ const SignIn = () => {
         }
     };
 
+    useEffect( () => {
+        if(error !== null) {
+            NotificationManager.error(error, 'Error!')
+        }
+
+        return () => {
+            setError(null)
+        };
+
+    }, [error])
+
     return (
         <div className={classes.root}>
-            {error !== null && NotificationManager.error(error, 'Error!')}
             <form className={classes.centerBlock}>
                 <Grid container spacing={3}>
                     <Grid item xs className={classes.paper}>
