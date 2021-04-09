@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {DataGrid, GridColDef} from '@material-ui/data-grid';
-import {Button, MenuItem} from "@material-ui/core";
+import {DataGrid} from '@material-ui/data-grid';
+import {Button} from "@material-ui/core";
 import BookInfoPopup from "./BookInfoPopup";
+
 
 let DataTable = (props) => {
     const columns = [
@@ -41,10 +42,20 @@ let DataTable = (props) => {
             width: 250,
         },
         {
+            field: 'author',
+            headerName: 'Author',
+            type: 'string',
+            width: 150,
+            valueGetter: (params) => {
+                return params.row.author.firstName + ' ' + params.row.author.lastName
+            }
+        },
+        {
             field: 'publicationYear',
             headerName: 'Publication Year',
             type: 'integer',
             width: 175 },
+
         {
             field: 'price',
             headerName: 'Price',
@@ -77,7 +88,7 @@ let DataTable = (props) => {
     ];
 
     return (
-        <div style={{ height: 800, width: '100%' }}>
+        <div style={{height: 800, width: '100%'}}>
             <DataGrid rows={props.books} columns={columns} pageSize={15}/>
         </div>
     );
