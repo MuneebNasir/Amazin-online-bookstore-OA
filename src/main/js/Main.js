@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Link,
-    Redirect} from "react-router-dom";
+    Redirect
+} from "react-router-dom";
 
 import clsx from "clsx";
 
@@ -12,7 +12,6 @@ import {AppBar} from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import {fade, makeStyles, useTheme} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
@@ -34,7 +33,6 @@ import {NotificationContainer} from 'react-notifications';
 import Home from "./pages/Home"
 import About from "./pages/About";
 import Books from "./pages/BookInterface/Books";
-import BookInformation from "./pages/BookInterface/BookInformation";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Publishers from "./pages/PublisherInterface/Publishers";
@@ -159,33 +157,20 @@ let Main = () => {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Amazin Book Store
                     </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
                     {user &&
-                        <div>
-                            {user.displayName}
-                            <IconButton variant="contained" onClick={() => {
-                                auth.signOut()
-                            }} aria-label="signOut">
-                                <ExitToAppIcon/>
-                            </IconButton>
-                        </div>
+                    <div>
+                        {user.displayName}
+                        <IconButton variant="contained" onClick={() => {
+                            auth.signOut()
+                        }} aria-label="signOut">
+                            <ExitToAppIcon/>
+                        </IconButton>
+                    </div>
                     }
                 </Toolbar>
             </AppBar>
@@ -200,96 +185,81 @@ let Main = () => {
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
                     <ListItem button component={Link} to={"/"} onClick={handleDrawerClose}>
                         <ListItemIcon>
-                            <HomeIcon color="primary" />
+                            <HomeIcon color="primary"/>
                         </ListItemIcon>
-                        <ListItemText primary="Home" />
-                    </ListItem>
-                    <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <ShoppingCartIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="My Cart" />
-                    </ListItem>
-                    <ListItem button component={Link} to="/" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <MenuBookIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Recommendations" />
+                        <ListItemText primary="Home"/>
                     </ListItem>
                     <ListItem button component={Link} to="/about" onClick={handleDrawerClose}>
                         <ListItemIcon>
-                            <InfoIcon color="primary" />
+                            <InfoIcon color="primary"/>
                         </ListItemIcon>
-                        <ListItemText primary="About" />
-                    </ListItem>
-                </List>
-                <Divider />
-                <List>
-                    <ListItem button component={Link} to="/Authors" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <PersonIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Authors" />
-                    </ListItem>
-                    <ListItem button component={Link} to="/Publishers" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <ShoppingCartIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Publishers" />
-                    </ListItem>
-                    <ListItem button component={Link} to="/Books" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <MenuBookIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Book" />
+                        <ListItemText primary="About"/>
                     </ListItem>
                 </List>
                 <Divider/>
-                { !user &&
-                    <List>
-                        <ListItem button component={Link} to="/signup" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <PersonIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Sign Up"/>
-                        </ListItem>
-                        <ListItem button component={Link} to="/signin" onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                                <PersonIcon color="primary"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Sign In"/>
-                        </ListItem>
-                    </List>
+                <List>
+                    <ListItem button component={Link} to="/authors" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <PersonIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Authors"/>
+                    </ListItem>
+                    <ListItem button component={Link} to="/publishers" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <ShoppingCartIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Publishers"/>
+                    </ListItem>
+                    <ListItem button component={Link} to="/books" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <MenuBookIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Books"/>
+                    </ListItem>
+                </List>
+                <Divider/>
+                {!user &&
+                <List>
+                    <ListItem button component={Link} to="/signup" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <PersonIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Sign Up"/>
+                    </ListItem>
+                    <ListItem button component={Link} to="/signin" onClick={handleDrawerClose}>
+                        <ListItemIcon>
+                            <PersonIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Sign In"/>
+                    </ListItem>
+                </List>
                 }
             </Drawer>
 
 
-            <div className="container mt-2" style={{ marginTop: 40 }}>
+            <div className="container mt-2" style={{marginTop: 40}}>
                 <Switch>
                     <Route exact path="/">
-                        <Home />
+                        <Home/>
                     </Route>
                     <Route path="/about">
-                        <About />
+                        <About/>
                     </Route>
-                    <Route path="/Authors">
+                    <Route path="/authors">
                         <Authors/>
                     </Route>
-                    <Route path="/Publishers">
-                        <Publishers />
+                    <Route path="/publishers">
+                        <Publishers/>
                     </Route>
-                    <Route path="/Books">
+                    <Route path="/books">
                         <Books/>
-                    </Route>
-                    <Route path="/BookInformation">
-                        <BookInformation/>
                     </Route>
                     <Route path="/signup">
                         <SignUp/>
@@ -297,10 +267,10 @@ let Main = () => {
                     <Route path="/signin">
                         <SignIn/>
                     </Route>
-                    <Redirect to={"/"} />
+                    <Redirect to={"/"}/>
                 </Switch>
             </div>
-            <NotificationContainer />
+            <NotificationContainer/>
         </div>
     );
 }

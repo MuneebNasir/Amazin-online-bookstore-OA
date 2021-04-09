@@ -47,9 +47,7 @@ let AddBookForm = (props) => {
 
     let [title, setTitle] = useState(null);
     let [description, setDescription] = useState(null);
-    let [imageUrl, setImageUrl] = useState(null);
     let [publicationYear, setPublicationYear] = useState(null);
-    let [format, setFormat] = useState(null);
     let [price, setPrice] = useState(null);
     let [stockCount, setStockCount] = useState(null);
     let [rating, setRating] = useState(null);
@@ -103,9 +101,7 @@ let AddBookForm = (props) => {
         let book = {
             "title": title,
             "description": description,
-            "imageURL": imageUrl,
             "publicationYear": publicationYear,
-            "format": format,
             "price": price,
             "stockCount": stockCount,
             "rating": rating,
@@ -162,23 +158,10 @@ let AddBookForm = (props) => {
                     />
                     <TextField
                         id="margin-none"
-                        placeholder="Image URL"
-                        className={classes.textField}
-                        onChange = {(e) => setImageUrl(e.target.value)}
-                    />
-                    <TextField
-                        id="margin-none"
                         placeholder="Publication Year"
                         className={classes.textField}
                         helperText="Year of Publication"
                         onChange = {(e) => setPublicationYear(e.target.value)}
-                    />
-                    <TextField
-                        id="margin-none"
-                        placeholder="Format"
-                        className={classes.textField}
-                        helperText="Book format style"
-                        onChange = {(e) => setFormat(e.target.value)}
                     />
                     <TextField
                         id="margin-none"

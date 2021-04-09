@@ -16,7 +16,6 @@ public class BookTest {
         book = new Book(
                 "The Book of Awesome",
                 "Neil Pasricha",
-                "/bookofawesome/",
                 2011,
                 "0425238903",
                 17.99,
@@ -28,7 +27,6 @@ public class BookTest {
     public void getters() {
         assertEquals("The Book of Awesome", book.getTitle());
         assertEquals("Neil Pasricha", book.getDescription());
-        assertEquals("/bookofawesome/", book.getImageURL());
         assertEquals(2011, book.getPublicationYear());
         assertEquals("0425238903", book.getISBN());
         assertEquals(17.99, book.getPrice());
@@ -37,7 +35,6 @@ public class BookTest {
 
         assertNotEquals("Hachette Livre", book.getTitle());
         assertNotEquals("Hachette Livre", book.getDescription());
-        assertNotEquals("Hachette Livre", book.getImageURL());
         assertNotEquals(1992, book.getPublicationYear());
         assertNotEquals("Hachette Livre", book.getISBN());
         assertNotEquals(420.69, book.getPrice());
@@ -49,7 +46,6 @@ public class BookTest {
     public void setters() {
         book.setTitle("Best Book");
         book.setDescription("A book you can't let go.");
-        book.setImageURL("gibson.com");
         book.setPublicationYear(1997);
         book.setISBN("Something-Awesome");
         book.setPrice(1.99);
@@ -57,7 +53,6 @@ public class BookTest {
         book.setRating(5.0);
         assertEquals("Best Book", book.getTitle());
         assertEquals("A book you can't let go.", book.getDescription());
-        assertEquals("gibson.com", book.getImageURL());
         assertEquals(1997, book.getPublicationYear());
         assertEquals("Something-Awesome", book.getISBN());
         assertEquals(1.99, book.getPrice());
@@ -66,7 +61,6 @@ public class BookTest {
 
         assertNotEquals("The Book of Awesome", book.getTitle());
         assertNotEquals("Neil Pasricha", book.getDescription());
-        assertNotEquals("/bookofawesome/", book.getImageURL());
         assertNotEquals(2011, book.getPublicationYear());
         assertNotEquals("0425238903", book.getISBN());
         assertNotEquals(17.99, book.getPrice());

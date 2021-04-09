@@ -28,7 +28,7 @@ class PageHeader extends Component {
                         <NavLink
                             className="option"
                             activeClassName="is-active"
-                            to="/Publishers"
+                            to="/publishers"
                         >
                             Publishers
                         </NavLink>

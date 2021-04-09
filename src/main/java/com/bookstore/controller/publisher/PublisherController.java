@@ -1,5 +1,5 @@
 package com.bookstore.controller.publisher;
-import com.bookstore.jpa.author.Author;
+
 import com.bookstore.jpa.publisher.Publisher;
 import com.bookstore.jpa.publisher.PublisherRepository;
 import com.bookstore.utils.StringUtility;
@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 
 /**
  * The Publishers Rest API Controller
+ *
  * @author Muneeb Nasir
  * @version 4806.1
  */
@@ -24,21 +25,6 @@ public class PublisherController {
     @Autowired
     private PublisherRepository publisherRepo;
 
-    /**
-     * Getter for all publishers in the Database
-     * @param model, Model Attribute
-     * @return Thymeleaf Page
-     */
-    @GetMapping(path = "/api/publishers")
-    public String publishersView(Model model) {
-
-        Collection<Publisher> publishers = publisherRepo.findAll();
-        model.addAttribute("allPublishers", publishers);
-
-        // Empty Publishers Object - namespace
-        model.addAttribute("newPublisher", new Publisher());
-        return "publishers";
-    }
 
     /**
      * Adding new publisher entity
@@ -47,10 +33,9 @@ public class PublisherController {
     @ResponseBody
     public ResponseEntity<HttpStatus> addNewPublisher(@RequestBody Publisher publisher) {
         Publisher newPublisher;
-        if (publisher.getBooks() != null){
+        if (publisher.getBooks() != null) {
             newPublisher = new Publisher(publisher.getName(), publisher.getLocation(), publisher.getBooks());
-        }
-        else{
+        } else {
             newPublisher = new Publisher(publisher.getName(), publisher.getLocation());
         }
 
@@ -66,7 +51,7 @@ public class PublisherController {
     @ResponseBody
     public ResponseEntity<Collection> retrieveAllPublisherIDs() {
         ArrayList publisherCollection = new ArrayList<>();
-        for (Publisher pub: publisherRepo.findAll()){
+        for (Publisher pub : publisherRepo.findAll()) {
             publisherCollection.add(pub.getId());
         }
 

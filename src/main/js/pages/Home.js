@@ -29,13 +29,6 @@ let Home = () => {
                     </h1>
                 </Grid>
             </Grid>
-            <Grid container spacing={3}>
-                <Grid item xs>
-                    <Paper className={classes.paper}>
-                        <SearchBar />
-                    </Paper>
-                </Grid>
-            </Grid>
         </div>
     );
 }
