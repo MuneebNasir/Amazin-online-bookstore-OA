@@ -51,13 +51,14 @@ let AlertDialogSlide = (props) => {
                 <DialogContent>
                     <Typography variant={"body1"}> Book ID: {book.id}</Typography>
                     <Typography variant={"body1"}> Title: {book.title}</Typography>
+                    <Typography variant={"body1"}> Author: {props.author}</Typography>
+                    <Typography variant={"body1"}>Publisher: {props.publisher}</Typography>
                     <Typography variant={"body1"}> Description: {book.description}</Typography>
                     <Typography variant={"body1"}> imageURL: {book.imageURL}</Typography>
                     <Typography variant={"body1"}> Publication Year: {book.publicationYear}</Typography>
                     <Typography variant={"body1"}> Price: {book.price}</Typography>
                     <Typography variant={"body1"}> Stock Count: {book.stockCount}</Typography>
                     <Typography variant={"body1"}> Rating: {book.rating}</Typography>
-                    {/*<Typography variant={"body1"}> Publisher: {book.publisher}</Typography>*/}
                     <Typography variant={"body1"}> ISBN: {book.isbn}</Typography>
                 </DialogContent>
 
